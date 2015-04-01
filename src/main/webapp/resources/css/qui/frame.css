@@ -1,0 +1,448 @@
+@CHARSET "UTF-8";
+
+.frame_class {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+
+
+.tbody {
+	_position: relative;
+	padding: 2px 7px 6px 4px;
+}
+
+.black {
+	color: #000;
+}
+
+.normal {
+	font-weight: normal;
+}
+
+body {
+	background: #fff;
+}
+
+
+
+td,input,button,select,body {
+	font-family: "Helvetica Neue", "lucida Grande", Verdana;
+	font-size: 12px;
+}
+
+th{
+	font-family: "Helvetica Neue", "lucida Grande", Verdana;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-size: 12px;
+	font-weight: normal;
+	margin: 0;
+}
+
+ul,li {
+	list-style: none;
+}
+
+input,textarea,a {
+	outline: none;
+}
+
+form,body,ul,li {
+	margin: 0;
+	padding: 0;
+}
+
+select,body,textarea {
+	background-color: #fff;
+	font-size: 12px;
+}
+
+select {
+	font-weight: normal;
+	font-size: 12px;
+	font-family: Tahoma;
+	line-height: 20px;
+}
+
+textarea {
+	width: 540px;
+	border: 1px solid #718da6;
+	padding: 3px;
+	font-family: "lucida Grande", Verdana;
+}
+
+img {
+	border: none
+}
+
+a {
+	text-decoration: none;
+	cursor: pointer;
+	outline: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/*-topDataTd-*/
+#topDataTd {
+	height: 66px;
+	overflow: hidden;
+}
+
+.topdata {
+	height: 66px;
+}
+
+.lgoo {
+	position: absolute;
+	left: 5px;
+	z-index: 6;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.imglogo {
+	display: block;
+	float: left;
+}
+
+.switch {
+	display: block;
+	float: left;
+	margin: 12px 0 0 0;
+	line-height: 18px;
+}
+
+.addrtitle {
+	color: #798699;
+}
+
+/*-seplineTd-*/
+#sepLineTd {
+	position: absolute;
+	top: 66px;
+	left: 0;
+	right: 0;
+	height: 11px;
+}
+
+.topline {
+	height: 11px;
+}
+
+.topline {
+	width: auto;
+	border-left: 8px solid #fff;
+	height: 11px;
+	border-right: 0;
+	background:
+		url(nav_bg0f10a7.gif) 0 -112px repeat-x;
+}
+
+.left,.qm_left {
+	float: left;
+}
+
+.toplineimg {
+	width: 184px;
+	height: 22px;
+}
+
+
+.toplineimg {
+	background:
+		url(topline0aa5d8.gif)
+		-179px 0;
+}
+
+/*---------------------------------*/
+.fdbody {
+	background: #89b5e9;
+	border-left: 8px solid #fff;
+	border-right: 1px solid #78a3d2;
+}
+
+.bodybgbt {
+	position: absolute;
+	top: 77px;
+	width: 179px;
+	bottom: 0;
+	_height: expression(document.body.offsetHeight -   77 +   'px');
+}
+
+/*左侧边栏*/
+#leftPanel {
+	position: absolute;
+	top: 77px;
+	width: 179px;
+	left: 8px;
+	bottom: 0;
+	border-left: 0 none;
+	height: auto;
+	_height: expression(document.body.offsetHeight -   77 +   'px');
+}
+
+/*边栏上面框*/
+#navBarDiv {
+	position: absolute:top:0;
+	right: 0;
+	z-index: 3;
+}
+
+.navbar {
+	background:
+		url(nav_bg0f10a7.gif)
+		no-repeat;
+}
+
+.navbar {
+	width: 179px;
+	height: 107px;
+	margin: 0;
+	list-style: none;
+}
+
+.newskinbody ul.navbar li.fs,.newskinbody ul.navbar li.fs a {
+	height: 24px !important;
+}
+
+.newskinbody ul.navbar li.fs a {
+	line-height: 24px;
+	padding-left: 41px;
+}
+
+.newskinbody ul.navbar li.checkpart {
+	margin: 6px 10px 0 11px;
+	*margin: 4px 10px 0 11px;
+}
+
+.navbar a {
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+	font-family: "lucida Grande", Verdana;
+}
+
+.newskinbody ul.navbar li.fs input {
+	float: left;
+	border: 0;
+	padding: 0;
+	width: 20px;
+	height: 20px;
+	margin: -20px 0 0 12px;
+	*margin: -23px 0 0 2px;
+}
+
+.newskinbody ul.navbar li.composepart {
+	margin: 0 10px 0 11px;
+	padding: 2px 0 0 0;
+	height: 26px;
+	*height: 22px;
+}
+
+.composebtn {
+	background: url(mail0f6c3e.png) 0 -1px  no-repeat;
+	*background-position: 0 0;
+}
+
+.checkbtn {
+	background: url(mail0f6c3e.png) 0 -33px no-repeat;
+	*background-position: 0 -32px;
+}
+
+.newskinbody ul.navbar li.addrpart {
+	margin: 6px 10px 0 11px;
+}
+.addrbtn {
+	background: url(mail0f6c3e.png) 0 -63px no-repeat;
+	*background-position: 0 -62px;
+}
+
+
+/*左中 */
+.listbg {
+	background:
+		url(topline0aa5d8.gif)
+		repeat-y;
+}
+
+.listflow {
+	position: absolute;
+	top: 107px;
+	left: 0;
+	right: 0;
+	bottom: 13px;
+	overflow: hidden;
+	height: auto;
+}
+
+.folderDiv {
+	margin: 0 5px 0 6px;
+	position: absolute;
+	_position: none;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 100%;
+	_height: expression(document.body.offsetHeight -   197 +   'px');
+	overflow: auto;
+	overflow-x: hidden;
+	_font-family: \5B8B\4F53;
+}
+
+/* 左下 */
+#navBottomTd {
+	position: absolute;
+	bottom: 0;
+	height: 13px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+.navbottom {
+	background:
+		url(topline0aa5d8.gif)
+		-179px -11px no-repeat;
+}
+
+.navbottom {
+	width: 179px;
+	height: 13px;
+}
+
+.newskinbody li.fs,.newskinbody li.fn {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+li.fs {
+	color: #0055ac;
+}
+
+li.fs,li.fn,li.f_calender {
+	height: 23px;
+	line-height: 22px;
+	padding-left: 13px;
+	padding-right: 2px;
+	margin: 0 5px 3px;
+}
+
+li.fs,li.fn,li.f_calender {
+	height: 22px;
+	line-height: 22px;
+	overflow: hidden;
+	padding: 0 2px 0 13px;
+	line-height: auto;
+	margin-bottom: 1px;
+	margin-top: 0;
+}
+
+.newskinbody li.fs a,.newskinbody li.fn a {
+	display: block;
+	height: 22px;
+	overflow: hidden;
+	padding-left: 13px;
+	text-decoration: none;
+}
+
+a,a:link,a:visited,li.fs a.fdleft:hover,li.fd_mg a.fdleft:hover {
+	color: #1e5494;
+}
+
+.f_size {
+	font-size: 12px;
+}
+
+li.fn {
+	background: #528bcb;
+	background-image: -moz-linear-gradient(top, #6499d6, #528bcb);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6499d6),
+		to(#528bcb) );
+	color: #FFFFFF;
+}
+
+
+.newskinbody li.fs a:hover,.newskinbody li.fs_sep a:hover {
+	background: #e0ecf9;
+	text-decoration: none;
+}
+
+li.fn a:link, li.fn a:visited {
+    color: #FFFFFF;
+}
+
+/*分隔div*/
+.sepline {
+	border-top: 1px solid #d8dee5;
+}
+
+.sepline {
+	font: normal 1px "lucida Grande", Verdana;
+	line-height: 0px;
+	height: 1px;
+	*height: 2px;
+	overflow: hidden;
+	margin: 5px 5px 0;
+}
+
+.sepline {
+	height: 0 !important;
+}
+
+
+/*主要frame*/
+#mainFrameContainer {
+	position: absolute;
+	top: 77px;
+	left: 192px;
+	bottom: 0;
+	right: 0;
+	overflow: hidden;
+	z-index: 4;
+}
+
+#mainFrame {
+	width: 100%;
+	_width: expression(document.body.offsetWidth -   192 +   'px');
+	height: 100%;
+	*height: expression(document.body.offsetHeight -   77 +   'px');
+	z-index: 5;
+}
+
+/* 在ie下有问题，所以加这里 */
+#mainFrame {position: absolute;	_position: relative}
+
+
+/* 内容为空时的提示信息 */
+.graytip {
+	background: none repeat scroll 0 0 #FFFFE9;
+	border-bottom: 1px solid #E3E6EB;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	overflow: hidden;
+	transition: height 0.3s linear;
+	-webkit-transition: height 0.3s linear;
+	-moz-transition: height 0.3s linear;
+	-o-transition: height 0.3s linear;
+}
+
+.nomail {
+	background: #eff5fb;
+	height: 230px;
+	line-height: 230px;
+	text-align: center;
+}
+
