@@ -1,6 +1,9 @@
 package cn.fyg.kq.application.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +20,28 @@ public class KQUserServiceImpl implements KQUserService {
 	
 	@Override
 	@Transactional
-	public void init(String fid) throws Exception {
+	public void init(String fid,String fnumber,String fname) throws Exception {
 		if(this.kqUserRepository.exists(fid)){
 			throw new Exception("用户已经初始化");
 		}
-		KQUser kqUser = KQUserFactory.create(fid);
+		KQUser kqUser = KQUserFactory.create(fid,fnumber,fname);
 		this.kqUserRepository.save(kqUser);
+	}
+
+	@Override
+	public boolean isInit(String fid) {
+		return this.kqUserRepository.exists(fid);
+	}
+
+	@Override
+	public List<KQUser> all() {
+		return this.kqUserRepository.findAll(new Sort(Sort.Direction.DESC,"createtime"));
+	}
+
+	@Override
+	@Transactional
+	public void delete(String fid) {
+		this.kqUserRepository.delete(fid);
 	}
 
 }

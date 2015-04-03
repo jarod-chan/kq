@@ -9,6 +9,8 @@ public class User {
 	private String fname;
 	
 	private String ftype;
+	
+	private boolean init;
 
 	public User(String fid, String fnumber, String fname, String ftype) {
 		super();
@@ -50,6 +52,12 @@ public class User {
 		this.ftype = ftype;
 	}
 	
-	
+	public boolean isInit() {
+		return init;
+	}
+
+	public void setInit(boolean init) {
+		this.init = init;
+	}	
 
 }

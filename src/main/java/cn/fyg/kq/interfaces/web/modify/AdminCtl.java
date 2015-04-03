@@ -1,6 +1,5 @@
 package cn.fyg.kq.interfaces.web.modify;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,28 +23,38 @@ public class AdminCtl {
 		String ADMIN = PATH + "admin";
 	}
 	
+	@Autowired
+	AdminHelp adminHelp;
+	
 	@RequestMapping(value="admin",method=RequestMethod.GET)
 	public String toAdmin(@Param("username")String username,Map<String,Object> map){
 		if(username!=null&&!username.trim().equals("")){
-			List<User> userList=new ArrayList<User>();
-			userList.add(new User("fid1","张三","张三","系统用户"));
-			userList.add(new User("fid2","李四","李四","职员"));
-			userList.add(new User("fid3","王五","李四","职员"));
+			List<User> userList=adminHelp.query(username);
+			checkInit(userList);
 			map.put("userList", userList);
 			map.put("username", username);
+			
 		}
 		return Page.ADMIN;
 	}
 	
+	private void checkInit(List<User> userList) {
+		for (User user : userList) {
+			if(this.kqUserService.isInit(user.getFid())){				
+				user.setInit(true);
+			}
+		}
+	}
+
 	@Autowired
 	KQUserService kqUserService;
 	
 	@RequestMapping(value="admin/init",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> init(@Param("fid")String fid,Map<String,Object> map){
+	public Map<String,Object> init(@Param("fid")String fid,@Param("fnumber")String fnumber,@Param("fname")String fname,Map<String,Object> map){
 		Map<String,Object> ret=new HashMap<String,Object>();
 		try{
-			this.kqUserService.init(fid);
+			this.kqUserService.init(fid,fnumber,fname);
 			ret.put("result", true);
 		}catch(Exception e){
 			ret.put("result", false);

@@ -39,9 +39,9 @@ public class LoginCtl {
 		map.put("result", false);
 		ArrayList<String> detail = new ArrayList<String>();
 		map.put("detail", detail);
-		String encryptKey = this.loginHelp.encrypt(loginBean.getUsername(), loginBean.getPassword());
+		this.loginHelp.encrypt(loginBean.getUsername(), loginBean.getPassword());
 		detail.add("加密完成");
-		String fid=this.loginHelp.loginEAS(encryptKey);
+		String fid=this.loginHelp.loginEAS(loginBean.getUsername(), loginBean.getPassword());
 		if(fid==null){
 			detail.add("eas校验失败");
 			return;
