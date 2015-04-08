@@ -1,4 +1,4 @@
-package cn.fyg.kq.interfaces.web.modify;
+package cn.fyg.kq.interfaces.web.modify.http;
 
 import java.io.IOException;
 
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.fyg.kq.application.KQUserService;
+import cn.fyg.kq.interfaces.web.modify.http.config.Cons;
 
 @Component
 public class LoginHelp {
@@ -25,10 +26,13 @@ public class LoginHelp {
 	
 	public String loginEAS(String username,String password){
 		try {
-			String str = Request.Post("http://127.22.1.30:3000/authuser")
+			username = DesUtil.encryptDES(username);
+			password = DesUtil.encryptDES(password);
+			String str = Request.Post(Cons.EAS_URL)
 			        .bodyForm(Form.form().add("username",username).add("password", password).build(),Consts.UTF_8)
 			        .execute().returnContent().asString();
 			
+			str=DesUtil.decryptDES(str);
 			JSONObject result = JSONObject.fromObject(str);
 			if(result.getBoolean("result")){
 				return result.getString("fid");
@@ -36,6 +40,9 @@ public class LoginHelp {
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

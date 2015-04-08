@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.fyg.kq.application.KQUserService;
+import cn.fyg.kq.interfaces.web.modify.http.AdminHelp;
 
 
 @Controller

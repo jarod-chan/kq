@@ -1,4 +1,4 @@
-package cn.fyg.kq.interfaces.web.modify;
+package cn.fyg.kq.interfaces.web.modify.http;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,20 +14,26 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Component;
 
+import cn.fyg.kq.interfaces.web.modify.User;
+import cn.fyg.kq.interfaces.web.modify.http.config.Cons;
+
 @Component
 public class AdminHelp {
 	
 	public List<User> query(String username){
 		List<User> userList = new ArrayList<User>();
 		try {
-			URI uri = new URIBuilder("http://127.22.1.30:3000/queryuser").addParameter("fname",
+			username=DesUtil.encryptDES(username);
+			URI uri = new URIBuilder(Cons.EAS_URL).addParameter("fname",
 					username).build();
-			String result = Request
+			String str = Request
 					.Get(uri)
 					.execute().returnContent().asString();
-			JSONArray jsonArray = JSONArray.fromObject(result);
-			for (int i = 0; i < jsonArray.size(); i++) {
-				JSONObject userJson = jsonArray.getJSONObject(i);
+			str=DesUtil.decryptDES(str);
+			JSONObject result = JSONObject.fromObject(str);
+			JSONArray datas = result .getJSONArray("datas");
+			for (int i = 0; i < datas.size(); i++) {
+				JSONObject userJson = datas.getJSONObject(i);
 				userList.add(new User(userJson.getString("fid"),
 						userJson.getString("fnumber"),
 						userJson.getString("fname"),
@@ -40,6 +46,9 @@ public class AdminHelp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
