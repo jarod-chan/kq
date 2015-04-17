@@ -4,18 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>登录页面</title>
+	<title></title>
 	<%@ include file="/common/setting.jsp"%>
 	<%@ include file="/common/meta.jsp"%>
 	<script src="${ctx}/resources/js/jquery.js" type="text/javascript"></script>
 
 </head>
 <body>
-<form action="${ctx}/md/login" method="post">
-用户实名:<input type="text" name="username" value="${username}"></br>
-密码:<input type="password" name="password" value="${username}"></br>
-<input type="submit" value="登录">
-</form>
-
+<a href="${ctx}/md/kquser">考勤用户管理</a><br/>
+<a href="${ctx}/md/admin">EAS用户初始化</a><br/>
+<a href="${ctx}/md/login">用户登录</a><br/>
 </body>
 </html>

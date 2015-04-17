@@ -20,6 +20,26 @@ public class KQUser  {
 	@Column(name="createtime")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createtime;//日期
+	
+	private String fnumber;
+	
+	private String fname;
+
+	public String getFnumber() {
+		return fnumber;
+	}
+
+	public void setFnumber(String fnumber) {
+		this.fnumber = fnumber;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
 
 	public String getFid() {
 		return fid;

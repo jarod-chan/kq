@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cn.fyg.kq.interfaces.web.modify.http.LoginHelp;
 import cn.fyg.kq.interfaces.web.module.system.login.LoginBean;
 
 
@@ -39,9 +40,7 @@ public class LoginCtl {
 		map.put("result", false);
 		ArrayList<String> detail = new ArrayList<String>();
 		map.put("detail", detail);
-		String encryptKey = this.loginHelp.encrypt(loginBean.getUsername(), loginBean.getPassword());
-		detail.add("加密完成");
-		String fid=this.loginHelp.loginEAS(encryptKey);
+		String fid=this.loginHelp.loginEAS(loginBean.getUsername(), loginBean.getPassword());
 		if(fid==null){
 			detail.add("eas校验失败");
 			return;

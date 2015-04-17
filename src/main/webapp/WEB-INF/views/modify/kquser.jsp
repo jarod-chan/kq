@@ -11,12 +11,12 @@
 
 	<script type="text/javascript">
 		$(function() {
-			$(".btn_init").click(function(){
-				var param=$(this).data("param");
-				var td=$(this).parent();
-				$.post('${ctx}/md/admin/init',param,function(ret){
+			$(".btn_del").click(function(){
+				var fid=$(this).data("fid");
+				var tr=$(this).parents("tr");
+				$.post('${ctx}/md/kquser/delete',{fid:fid},function(ret){
 					if(ret.result){
-						td.html("初始化成功");
+						tr.remove();
 					}else{
 						alert(ret.msg);
 					}
@@ -26,35 +26,24 @@
 	</script>
 </head>
 <body>
-<form action="" method="get">
-用户实名<input type="text" name="username" value="${username}"><input type="submit" value="查询">
+
 <table border="1">
 <thead>
 	<tr>
-		<th>用户名</th><th>用户实名</th><th>用户类型</th><th>操作</th>
+		<th>fid</th><th>用户名</th><th>用户实名</th><th>操作</th>
 	</tr>
 </thead>
 <tbody>
 </tbody>
 	<c:forEach var="user" items="${userList}">
 	<tr>
+		<td>${user.fid}</td>
 		<td>${user.fnumber}</td>
 		<td>${user.fname}</td>
-		<td>${user.ftype}</td>
-		<td>
-		<c:choose>
-			<c:when test="${user.init}">
-			已经初始化
-			</c:when>
-			<c:otherwise>
-			<input data-param='{"fid":"${user.fid}","fnumber":"${user.fnumber}","fname":"${user.fname}"}' class="btn_init" type="button" value="初始化">
-			</c:otherwise>
-		</c:choose>
-		</td>
+		<td><input data-fid="${user.fid}" class="btn_del" type="button" value="删除"></td>
 	</tr>
 	</c:forEach>
 </table>
-</form>
 
 </body>
 </html>
