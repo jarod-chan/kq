@@ -6,7 +6,7 @@ import cn.fyg.kq.domain.model.md.KQUser;
 
 public interface KQUserService {
 	
-	void init(String fid,String fnumber,String fname) throws Exception;
+	void init(String fid,String fnumber,String fname,int userid) throws Exception;
 	
 	boolean isInit(String fid);
 	

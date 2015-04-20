@@ -20,11 +20,11 @@ public class KQUserServiceImpl implements KQUserService {
 	
 	@Override
 	@Transactional
-	public void init(String fid,String fnumber,String fname) throws Exception {
+	public void init(String fid,String fnumber,String fname,int userid) throws Exception {		
 		if(this.kqUserRepository.exists(fid)){
 			throw new Exception("用户已经初始化");
 		}
-		KQUser kqUser = KQUserFactory.create(fid,fnumber,fname);
+		KQUser kqUser = KQUserFactory.create(fid,fnumber,fname,userid);
 		this.kqUserRepository.save(kqUser);
 	}
 

@@ -24,6 +24,17 @@ public class KQUser  {
 	private String fnumber;
 	
 	private String fname;
+	
+	//考勤机的用户id
+	private int userid;
+	
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 
 	public String getFnumber() {
 		return fnumber;

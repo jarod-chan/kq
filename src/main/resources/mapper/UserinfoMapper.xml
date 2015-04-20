@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.fyg.zktime.domain.UserinfoMapper">
+	
+	<select id="all" resultType="Userinfo" >
+		  select userid,name from userinfo 
+	</select>
+	
+	<select id="findByName" resultType="Userinfo"  >
+		  select top 10 userid,name from userinfo where ltrim(name) like '${qname}%'
+	</select>
+	
+</mapper>
