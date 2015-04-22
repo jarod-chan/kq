@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.fyg.zktime.domain.UserrunMapper">
+	
+	<select id="runidofdate" resultType="int" >
+		  select  num_of_run_id from user_of_run where userid=#{userid} 
+		  <![CDATA[ and startdate<=#{monthdate} and enddate >=#{monthdate} ]]>  
+	</select>
+	
+	<select id="schclassofrun" resultType="Schclass" >
+		select schclassid,schname,starttime,endtime,checkintime1,checkintime2,checkouttime1,checkouttime2 from schclass
+		where schclassid in(select schclassid from num_run_deil where num_runid=#{num_runid} and sdays=#{day} and edays=#{day})
+		order by starttime
+	</select>
+	
+</mapper>

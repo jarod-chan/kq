@@ -1,6 +1,9 @@
 package cn.fyg.zktime.domain;
 
 
+/**
+ *用户信息
+ */
 public class Userinfo {
 	
 	private int userid;
