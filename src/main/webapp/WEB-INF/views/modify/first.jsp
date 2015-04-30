@@ -14,5 +14,6 @@
 <a href="${ctx}/md/kquser">考勤用户管理</a><br/>
 <a href="${ctx}/md/admin">EAS用户初始化</a><br/>
 <a href="${ctx}/md/login">用户登录</a><br/>
+<a href="${ctx}/md/kqquery">考勤记录查询</a><br/>
 </body>
 </html>

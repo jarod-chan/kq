@@ -12,15 +12,8 @@
 	<script type="text/javascript">
 		$(function() {
 			$(".btn_init").click(function(){
-				var param=$(this).data("param");
-				var td=$(this).parent();
-				$.post('${ctx}/md/admin/init',param,function(ret){
-					if(ret.result){
-						td.html("初始化成功");
-					}else{
-						alert(ret.msg);
-					}
-				});
+				var params=$(this).data("param");
+				window.open('${ctx}/md/init?'+$.param(params),'_self')
 			});
 		});
 	</script>

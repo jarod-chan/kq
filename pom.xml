@@ -4,7 +4,7 @@
 	<groupId>cn.fyg</groupId>
 	<artifactId>kq</artifactId>
 	<packaging>war</packaging>
-	<name>pa</name>
+	<name>kq</name>
 	<version>0.1</version>
 
 	<properties>
@@ -16,6 +16,7 @@
 		<junit.version>4.8.2</junit.version>
 		<activi.version>5.10</activi.version>
 		<httpclient.version>4.3.5</httpclient.version>
+		<mybatis.version>3.1.1</mybatis.version>
 	</properties>
 	
 	<!-- database configuration -->
@@ -37,6 +38,24 @@
 	
 
 	<dependencies>
+		
+		<!-- mybatis-spring 整合  -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+			
+		<!-- mybatis  -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 
 
 		<!-- Bean Validation Dependencies -->
@@ -221,6 +240,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
@@ -243,62 +263,74 @@
 		</dependency>
 
 		<!-- spring-data-jpa -->
-	<dependency>
-		<groupId>org.springframework.data</groupId>
-		<artifactId>spring-data-jpa</artifactId>
-		<version>1.1.0.RELEASE</version>
-	</dependency> 
-
-		
-	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-		<version>5.1.18</version>
-		<type>jar</type>
-		<scope>compile</scope>
-	</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.1.0.RELEASE</version>
+		</dependency>
 	
-	<dependency>
-		<groupId>net.sf.oval</groupId>
-		<artifactId>oval</artifactId>
-		<version>1.80</version>
-		<type>jar</type>
-		<scope>compile</scope>
-	</dependency>
-	<dependency>
-		<groupId>jetty</groupId>
-		<artifactId>servlet-api</artifactId>
-		<version>2.5-6.0.2</version>
-		<type>jar</type>
-		<scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>jetty</groupId>
-		<artifactId>jsp-api</artifactId>
-		<version>2.1-6.0.2</version>
-		<type>jar</type>
-		<scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>org.codehaus.jackson</groupId>
-		<artifactId>jackson-mapper-asl</artifactId>
-		<version>1.9.7</version>
-		<scope>compile</scope>
-	</dependency>
+	
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>net.sf.oval</groupId>
+			<artifactId>oval</artifactId>
+			<version>1.80</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>jetty</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5-6.0.2</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jetty</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1-6.0.2</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.7</version>
+			<scope>compile</scope>
+		</dependency>
 
-	<!-- httpclient -->
-	<dependency>
-		<groupId>org.apache.httpcomponents</groupId>
-		<artifactId>fluent-hc</artifactId>
-		<version>${httpclient.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.httpcomponents</groupId>
-		<artifactId>httpmime</artifactId>
-		<version>${httpclient.version}</version>
-	</dependency>
-
+		<!-- httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
 		
+		<!-- sql server 驱动 -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>sqljdbc4</artifactId>
+			<version>4.0</version>
+		</dependency>
+		
+		<!-- joda-time 时间操作 -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.1</version>
+		</dependency>
 	
 	</dependencies>
 	

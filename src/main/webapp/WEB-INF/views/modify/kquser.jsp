@@ -30,7 +30,7 @@
 <table border="1">
 <thead>
 	<tr>
-		<th>fid</th><th>用户名</th><th>用户实名</th><th>操作</th>
+		<th>fid</th><th>用户名</th><th>用户实名</th><th>userid</th><th>操作</th>
 	</tr>
 </thead>
 <tbody>
@@ -40,6 +40,7 @@
 		<td>${user.fid}</td>
 		<td>${user.fnumber}</td>
 		<td>${user.fname}</td>
+		<td>${user.userid}</td>
 		<td><input data-fid="${user.fid}" class="btn_del" type="button" value="删除"></td>
 	</tr>
 	</c:forEach>
