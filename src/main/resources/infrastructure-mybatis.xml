@@ -10,10 +10,10 @@
 		
 	<!-- dataSource 数据源配置定义 -->
 	<bean id="dataSource_sqlserver" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
-		p:driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
-		p:url="jdbc:sqlserver://kq.fyg.cn:1433;Database=zkeco_db" 
-		p:username="sa" 
-		p:password="fangyuan_27_HPW" /> 
+		p:driverClassName="${zktime.driver}" 
+		p:url="${zktime.url}" 
+		p:username="${zktime.username}" 
+		p:password="${zktime.password}" /> 
 	
 	<!-- 不使用事务控制，只是查询 -->
 		
