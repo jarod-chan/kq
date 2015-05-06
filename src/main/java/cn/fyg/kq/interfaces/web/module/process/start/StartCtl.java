@@ -55,10 +55,10 @@ public class StartCtl {
 			runtimeService.startProcessInstanceByKey(key);
 		} catch (ActivitiException e) {
 			logger.error("process start fail by key:[]", key);
-			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().Error().message("流程[%s]启动失败！",key));
+			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.error("流程[%s]启动失败！",key));
 			return "redirect:/process/start";
 		}
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("流程[%s]启动。",key));
+		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("流程[%s]启动。",key));
 		return "redirect:/process/start";
 	}
 	

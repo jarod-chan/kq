@@ -48,7 +48,7 @@ public class ManageCtl {
 	@RequestMapping(value = "{deploymentId}/delete", method = RequestMethod.POST)
 	public String delete(@PathVariable("deploymentId") String deploymentId,RedirectAttributes redirectAttributes){
 		repositoryService.deleteDeployment(deploymentId, true);
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("流程[%s]删除成功。",deploymentId));
+		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("流程[%s]删除成功。",deploymentId));
 		return "redirect:/workflow/manage";
 	}
 	
@@ -69,10 +69,10 @@ public class ManageCtl {
 			runtimeService.startProcessInstanceById(processDefinitionId);
 		} catch (ActivitiException e) {
 			logger.error("process start fail by id:[]", processDefinitionId);
-			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().Error().message("流程[%s]启动失败！",processDefinitionId));
+			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.error("流程[%s]启动失败！",processDefinitionId));
 			return "redirect:/workflow/manage";
 		}
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("流程[%s]启动。",processDefinitionId));
+		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.error("流程[%s]启动。",processDefinitionId));
 		return "redirect:/workflow/manage";
 	}
 

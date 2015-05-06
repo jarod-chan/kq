@@ -50,7 +50,7 @@ public class GeneralCtl {
 		
 		
 		taskService.complete(taskId);
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("任务完成！"));
+		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("任务完成！"));
 		return "redirect:/process/task";
 	}
 

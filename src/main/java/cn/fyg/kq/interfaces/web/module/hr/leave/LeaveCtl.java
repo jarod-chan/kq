@@ -99,7 +99,7 @@ public class LeaveCtl {
 		}
 		
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("请假流程启动！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("请假流程启动！"));
 		return "redirect:/process/start";
 	}
 	
@@ -126,7 +126,7 @@ public class LeaveCtl {
 		runtimeService.setVariableLocal(task.getExecutionId(), LeaveVarName.IS_AGGREE,opinion.getResult().<Boolean>val());
 		taskService.complete(task.getId());
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("任务完成！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("任务完成！"));
 		return "redirect:/process/task";
 	}
 	
@@ -154,7 +154,7 @@ public class LeaveCtl {
 		leave.setActurlDay(dayResult.acturlDay());
 		leaveService.save(leave);
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("保存成功！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("保存成功！"));
 		return "redirect:/process/task";
 	}
 	
@@ -170,7 +170,7 @@ public class LeaveCtl {
 		leaveService.save(leave);
 		taskService.complete(taskId);
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("任务完成！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("任务完成！"));
 		return "redirect:/process/task";
 	}
 

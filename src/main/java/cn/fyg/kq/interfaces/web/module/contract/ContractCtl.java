@@ -77,7 +77,7 @@ public class ContractCtl {
 		redirectAttributes
 			.addAttribute("businessId", contract.getId())
 			.addAttribute("taskId", taskId)
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("合同保存成功！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("合同保存成功！"));
 		
 		return "redirect:/contract/{businessId}?taskId={taskId}";
 	}
@@ -92,7 +92,7 @@ public class ContractCtl {
 		
 		runtimeService.setVariableLocal(task.getExecutionId(), "businessId", contract.getId());
 		taskService.complete(taskId);
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("合同提交成功！"));
+		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("合同提交成功！"));
 		
 		return "redirect:/process/task";
 	}
@@ -116,7 +116,7 @@ public class ContractCtl {
 		Map<String, Object> variableMap = new HashMap<String, Object>();
 		variableMap.put("leaderPass", leaderPass);
 		taskService.complete(taskId, variableMap);
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("合同已处理！"));
+		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("合同已处理！"));
 		return "redirect:/process/task";
 	}
 	
@@ -137,7 +137,7 @@ public class ContractCtl {
 		variableMap.put("applyUser", user.getKey());
 		identityService.setAuthenticatedUserId(user.getKey());
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, variableMap);
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("流程[%s]已启动！",processDefinitionKey));
+		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("流程[%s]已启动！",processDefinitionKey));
 		usertrackService.trackProcessInstance(user.getKey(),processInstance.getProcessInstanceId());
 		return "redirect:/process/start";
 	}

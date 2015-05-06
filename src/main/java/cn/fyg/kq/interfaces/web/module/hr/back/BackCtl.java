@@ -97,7 +97,7 @@ public class BackCtl {
 		}
 		
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("销假流程启动！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("销假流程启动！"));
 		return "redirect:/process/start";
 	}
 	
@@ -125,7 +125,7 @@ public class BackCtl {
 		runtimeService.setVariableLocal(task.getExecutionId(), BackVarName.IS_PASS,opinion.getResult().<Boolean>val());
 		taskService.complete(task.getId());
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("任务完成！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("任务完成！"));
 		return "redirect:/process/task";
 	}
 	
@@ -151,7 +151,7 @@ public class BackCtl {
 		
 		taskService.complete(task.getId());
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("任务完成！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("任务完成！"));
 		return "redirect:/process/task";
 	}
 	
@@ -179,7 +179,7 @@ public class BackCtl {
 		back.setActurlDay(dayResult.acturlDay());
 		backService.save(back);
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("保存成功！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("保存成功！"));
 		return "redirect:/process/task";
 	}
 	
@@ -195,7 +195,7 @@ public class BackCtl {
 		backService.save(back);
 		taskService.complete(taskId);
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.create().info().message("任务完成！"));
+			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("任务完成！"));
 		return "redirect:/process/task";
 	}
 
