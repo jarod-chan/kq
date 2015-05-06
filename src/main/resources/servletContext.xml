@@ -40,7 +40,7 @@
 		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 	</util:list>
 	
-	<context:component-scan base-package="cn.fyg.kq.interfaces.web.modify" />
+	<context:component-scan base-package="cn.fyg.kq.interfaces.web" />
 	
 
 </beans>

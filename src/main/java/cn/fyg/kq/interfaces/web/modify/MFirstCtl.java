@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/md")
-public class FirstCtl {
+public class MFirstCtl {
 	
 	private static final String PATH = "modify/";
 	private interface Page {

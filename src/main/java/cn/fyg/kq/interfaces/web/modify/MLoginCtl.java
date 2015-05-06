@@ -14,7 +14,7 @@ import cn.fyg.kq.interfaces.web.module.system.login.LoginBean;
 
 @Controller
 @RequestMapping("/md")
-public class LoginCtl {
+public class MLoginCtl {
 	
 	private static final String PATH = "modify/";
 	private interface Page {
