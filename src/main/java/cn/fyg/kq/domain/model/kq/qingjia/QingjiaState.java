@@ -2,7 +2,8 @@ package cn.fyg.kq.domain.model.kq.qingjia;
 
 import cn.fyg.kq.domain.shared.CommonEnum;
 
-public enum StateEnum implements CommonEnum {
+public enum QingjiaState implements CommonEnum {
+	create("新建"),
 	save("暂存"),
 	commit("已提交"),
 	process("审批中"), 
@@ -11,7 +12,7 @@ public enum StateEnum implements CommonEnum {
 	
 	private final String name;
 
-	private StateEnum(String name){
+	private QingjiaState(String name){
 		this.name=name;
 	}
 	

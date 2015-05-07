@@ -78,7 +78,7 @@ function logout(){
 					<ul>
 					
 						<li><a href="">&nbsp;&nbsp;考勤单&nbsp;&nbsp;</a></li>
-						<li><a href="">&nbsp;&nbsp;请假单&nbsp;&nbsp;</a></li>
+						<li><a href="/${ctx}/qingjia/list">&nbsp;&nbsp;请假单&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
 			</ul>

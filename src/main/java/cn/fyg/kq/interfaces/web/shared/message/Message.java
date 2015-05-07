@@ -1,32 +1,29 @@
 package cn.fyg.kq.interfaces.web.shared.message;
 
+
 public class Message {
 	
 	private Message(){}
 	
-	public static Message create(){
-		return new Message();
-	}
 	
 	private Level level;
 	private String message;
 	
 	
-	public Message info() {
-		this.level = Level.info;
-		return this;
+	public static Message info(String str,Object...args) {
+		Message message = new Message();
+		message.level = Level.info;
+		message.message = String.format(str, args);
+		return message;
 	}
 	
-	public Message Error() {
-		this.level = Level.error;
-		return this;
+	public static Message error(String str,Object...args) {
+		Message message = new Message();
+		message.level = Level.error;
+		message.message = String.format(str, args);
+		return message;
 	}
-	
-	public Message message(String message,Object...args) {
-		this.message = String.format(message, args);
-		return this;
-	}
-	
+
 	public Level getLevel() {
 		return level;
 	}

@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,7 +54,8 @@ public class Qingjia {
 			@AttributeOverride(name = "ampm", column = @Column(name = "end_ampm")) })
 	private Dayitem endDayitem;// 结束日期
 
-	StateEnum state;// 状态 暂存-已提交-审批中-已完成 作废
+	@Enumerated(EnumType.STRING)
+	private QingjiaState state;// 状态 暂存-已提交-审批中-已完成 作废
 
 	private int item_all; // 总条数
 
@@ -70,6 +74,11 @@ public class Qingjia {
 	@OrderBy("sn ASC")
 	@JoinColumn(name = "qingjia_id")
 	private List<QingjiaItem> qingjiaItems = new ArrayList<QingjiaItem>();
+	
+	@PrePersist
+	private void prePersist(){
+		this.createtime=new Date();
+	}		
 
 	public Long getId() {
 		return id;
@@ -119,11 +128,11 @@ public class Qingjia {
 		this.endDayitem = endDayitem;
 	}
 
-	public StateEnum getState() {
+	public QingjiaState getState() {
 		return state;
 	}
 
-	public void setState(StateEnum state) {
+	public void setState(QingjiaState state) {
 		this.state = state;
 	}
 
