@@ -21,7 +21,6 @@ import cn.fyg.kq.domain.model.kq.kaoqin.Kaoqin;
 import cn.fyg.kq.domain.model.kq.qingjia.Qingjia;
 import cn.fyg.kq.domain.model.kq.qingjia.QingjiaState;
 import cn.fyg.kq.domain.model.kq.user.User;
-import cn.fyg.kq.domain.model.vacation.common.AMPM;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 

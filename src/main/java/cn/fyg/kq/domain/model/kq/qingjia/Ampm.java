@@ -1,8 +1,8 @@
-package cn.fyg.kq.domain.model.kq;
+package cn.fyg.kq.domain.model.kq.qingjia;
 
-import cn.fyg.kq.domain.model.shared.CommonEnum;
+import cn.fyg.kq.domain.shared.CommonEnum;
 
-public enum AMPM implements CommonEnum {
+public enum Ampm implements CommonEnum {
 	
 	am("上午",1),
 	pm("下午",2);
@@ -10,7 +10,7 @@ public enum AMPM implements CommonEnum {
 	private String name;
 	private int value;
 
-	private AMPM(String name,int value) {
+	private Ampm(String name,int value) {
 		this.name = name;
 		this.value=value;
 	}

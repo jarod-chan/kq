@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.fyg.kq.interfaces.web.modify.http.LoginHelp;
-import cn.fyg.kq.interfaces.web.module.system.login.LoginBean;
 
 
 @Controller

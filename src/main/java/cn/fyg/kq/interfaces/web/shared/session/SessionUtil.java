@@ -1,6 +1,6 @@
 package cn.fyg.kq.interfaces.web.shared.session;
 
-import cn.fyg.module.user.User;
+
 
 public interface SessionUtil {
 
@@ -10,5 +10,4 @@ public interface SessionUtil {
 
 	void invalidate();
 
-	User getUser();
 }

@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq;
+package cn.fyg.kq.domain.model.kq.qingjia;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class Dayitem {
 	private Date date;//日期
 	
 	@Enumerated(EnumType.STRING)
-	private AMPM ampm;//上下午
+	private Ampm ampm;//上下午
 
 	
 	public Date getDate() {
@@ -31,11 +31,11 @@ public class Dayitem {
 		this.date = date;
 	}
 
-	public AMPM getAmpm() {
+	public Ampm getAmpm() {
 		return ampm;
 	}
 
-	public void setAmpm(AMPM ampm) {
+	public void setAmpm(Ampm ampm) {
 		this.ampm = ampm;
 	}
 	

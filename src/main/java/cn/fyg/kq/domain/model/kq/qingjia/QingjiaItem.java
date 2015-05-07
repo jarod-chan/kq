@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import cn.fyg.kq.domain.model.vacation.common.Dayitem;
 
 @Entity
 @Table(name="kq_qingjiaitem")

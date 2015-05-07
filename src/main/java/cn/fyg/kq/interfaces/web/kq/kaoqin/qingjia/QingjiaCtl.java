@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.QingjiaService;
+import cn.fyg.kq.domain.model.kq.qingjia.Ampm;
 import cn.fyg.kq.domain.model.kq.qingjia.Qingjia;
 import cn.fyg.kq.domain.model.kq.qingjia.QingjiaState;
 import cn.fyg.kq.domain.model.kq.user.User;
-import cn.fyg.kq.domain.model.vacation.common.AMPM;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 
@@ -50,7 +50,7 @@ public class QingjiaCtl {
 		String comp="jianshe";
 		Qingjia qingjia =qingjiaId.longValue()>0?qingjiaService.find(qingjiaId):qingjiaService.create(user,QingjiaState.create,comp) ;
 		map.put("qingjia", qingjia);
-		map.put("ampms", AMPM.values());
+		map.put("ampms", Ampm.values());
 		return Page.EDIT;
 	}
 	

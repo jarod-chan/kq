@@ -26,7 +26,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import cn.fyg.kq.domain.model.kq.user.User;
-import cn.fyg.kq.domain.model.vacation.common.Dayitem;
 
 @Entity
 @Table(name="kq_qingjia")

@@ -1,6 +1,5 @@
-package cn.fyg.kq.domain.model.kq;
+package cn.fyg.kq.domain.shared;
 
-import cn.fyg.kq.domain.model.shared.CommonEnum;
 
 public enum BusiState implements CommonEnum {
 	new_("新建"),

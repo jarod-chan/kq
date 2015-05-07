@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
-import cn.fyg.module.user.User;
-import cn.fyg.module.user.UserService;
 
 /**
  * session 处理
@@ -17,14 +15,11 @@ public class SessionUtilImpl implements SessionUtil {
 	
 	@Autowired
 	HttpSession httpSession;
-	@Autowired
-	UserService userService;
 	
 	@Override
 	public void setValue(String key,Object value){
 		httpSession.setAttribute(key, value);
 	}
-	
 	
 	@Override
 	public <T> T getValue(String key){
@@ -40,14 +35,5 @@ public class SessionUtilImpl implements SessionUtil {
 		httpSession.invalidate();
 	}
 
-
-	@Override
-	public User getUser() {
-		User user=getValue("user");
-		if(user==null){
-			user=userService.findUser("chenzw");
-		}
-		return user;
-	}
 	
 }
