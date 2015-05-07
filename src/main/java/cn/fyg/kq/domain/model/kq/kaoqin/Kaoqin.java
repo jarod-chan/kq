@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.qingjia;
+package cn.fyg.kq.domain.model.kq.kaoqin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,65 +20,48 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import cn.fyg.kq.domain.model.kq.user.User;
-import cn.fyg.kq.domain.model.vacation.common.Dayitem;
-
 @Entity
-@Table(name="kq_qingjia")
-public class Qingjia {
+@Table(name="kq_kaoqin")
+public class Kaoqin {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id; // 主键
-
+	private Long id; // 主键	
+	
 	@Column(unique = true)
-	private String no;// 编号
-
+	private String no;// 编号	
+	
 	@ManyToOne(targetEntity = User.class)
 	@JoinColumn(name = "fid")
-	private User user;// 请假人员
-
+	private User user;// 考勤人员
+	
 	@Embedded
 	@AttributeOverrides({
-			@AttributeOverride(name = "date", column = @Column(name = "beg_date")),
-			@AttributeOverride(name = "ampm", column = @Column(name = "beg_ampm")) })
-	private Dayitem begDayitem;// 开始日期
-
-	@Embedded
-	@AttributeOverrides({
-			@AttributeOverride(name = "date", column = @Column(name = "end_date")),
-			@AttributeOverride(name = "ampm", column = @Column(name = "end_ampm")) })
-	private Dayitem endDayitem;// 结束日期
-
+			@AttributeOverride(name = "year", column = @Column(name = "kq_year")),
+			@AttributeOverride(name = "month", column = @Column(name = "kq_month")) })
+	MonthItem monthitem;
+	
 	@Enumerated(EnumType.STRING)
-	private QingjiaState state;// 状态 暂存-已提交-审批中-已完成 作废
-
+	KaoqinState state;//	状态			已生成-已提交-审批中-已完成 作废
+	
 	private int item_all; // 总条数
 
-	private int item_real;// 实际条数
-
-	private String reason;// 请假原因
-
-	private String remark;// 备注
-
+	private int item_real;// 通过条数	
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createtime;// 创建时间
 
 	private String comp;// 公司
-
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, targetEntity = QingjiaItem.class, orphanRemoval = true)
-	@OrderBy("sn ASC")
-	@JoinColumn(name = "qingjia_id")
-	private List<QingjiaItem> qingjiaItems = new ArrayList<QingjiaItem>();
 	
-	@PrePersist
-	private void prePersist(){
-		this.createtime=new Date();
-	}		
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, targetEntity = KaoqinItem.class, orphanRemoval = true)
+	@OrderBy("sn ASC")
+	@JoinColumn(name = "kaoqin_id")
+	private List<KaoqinItem> kaoqinItems = new ArrayList<KaoqinItem>();
 
 	public Long getId() {
 		return id;
@@ -104,35 +87,19 @@ public class Qingjia {
 		this.user = user;
 	}
 
-	public Dayitem getBegDayitem() {
-		return begDayitem;
+	public MonthItem getMonthitem() {
+		return monthitem;
 	}
 
-	public void setBegDayitem(Dayitem begDayitem) {
-		this.begDayitem = begDayitem;
+	public void setMonthitem(MonthItem monthitem) {
+		this.monthitem = monthitem;
 	}
 
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public Dayitem getEndDayitem() {
-		return endDayitem;
-	}
-
-	public void setEndDayitem(Dayitem endDayitem) {
-		this.endDayitem = endDayitem;
-	}
-
-	public QingjiaState getState() {
+	public KaoqinState getState() {
 		return state;
 	}
 
-	public void setState(QingjiaState state) {
+	public void setState(KaoqinState state) {
 		this.state = state;
 	}
 
@@ -152,14 +119,6 @@ public class Qingjia {
 		this.item_real = item_real;
 	}
 
-	public String getReason() {
-		return reason;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
 	public Date getCreatetime() {
 		return createtime;
 	}
@@ -176,14 +135,14 @@ public class Qingjia {
 		this.comp = comp;
 	}
 
-	public List<QingjiaItem> getQingjiaItems() {
-		return qingjiaItems;
+	public List<KaoqinItem> getKaoqinItems() {
+		return kaoqinItems;
 	}
 
-	public void setQingjiaItems(List<QingjiaItem> qingjiaItems) {
-		this.qingjiaItems = qingjiaItems;
+	public void setKaoqinItems(List<KaoqinItem> kaoqinItems) {
+		this.kaoqinItems = kaoqinItems;
 	}
 	
 	
-
+	
 }
