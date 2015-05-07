@@ -12,6 +12,8 @@
 <decorator name="none" page=""/> 
 
 <!-- 此处用来定义不需要过滤的页面 -->  
-<excludes></excludes>
+<excludes>
+
+</excludes>
 
 </decorators>

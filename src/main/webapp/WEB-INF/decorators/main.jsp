@@ -72,13 +72,27 @@ function logout(){
 			<a href="/${ctx}/userhome">首页</a><c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if><c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
 		</div>
 		<div class="second_right" >
+			
+		
+			
 			<ul class="nav" style="float:left">
+				<li class="spec"><a href="/${ctx}/suggestion">流程中心</a></li>
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />员工考勤&nbsp;&nbsp;</div>
 					<ul>
 					
-						<li><a href="">&nbsp;&nbsp;考勤单&nbsp;&nbsp;</a></li>
+						<li><a href="/${ctx}/kaoqin/list">&nbsp;&nbsp;考勤单&nbsp;&nbsp;</a></li>
 						<li><a href="/${ctx}/qingjia/list">&nbsp;&nbsp;请假单&nbsp;&nbsp;</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav" style="float:left">
+				<li>
+					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />考勤管理&nbsp;&nbsp;</div>
+					<ul>
+					
+						<li><a href="/${ctx}/kaoqin/list">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+						<li><a href="/${ctx}/qingjia/list">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
 			</ul>
