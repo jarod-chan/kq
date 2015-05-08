@@ -2,11 +2,18 @@ package cn.fyg.kq.domain.model.kq.checkuser;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import cn.fyg.kq.domain.model.kq.user.User;
+
+/**
+ *参与考勤的用户
+ */
 @Entity
 @Table(name="bs_checkuser")
-public class checkuser {
+public class Checkuser {
 	
 	@Id
 	private String fid;//	easid
@@ -18,6 +25,10 @@ public class checkuser {
 	private String name;//	考勤机姓名
 	
 	private String comp;//	公司主键
+	
+	@OneToOne
+	@MapsId
+	User user;
 
 	public String getFid() {
 		return fid;
@@ -57,6 +68,14 @@ public class checkuser {
 
 	public void setComp(String comp) {
 		this.comp = comp;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	

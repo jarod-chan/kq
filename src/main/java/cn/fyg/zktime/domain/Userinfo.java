@@ -8,7 +8,17 @@ public class Userinfo {
 	
 	private int userid;
 	
+	private String badgenumber;
+	
 	private String name;
+	
+	public String getBadgenumber() {
+		return badgenumber;
+	}
+
+	public void setBadgenumber(String badgenumber) {
+		this.badgenumber = badgenumber;
+	}
 
 	public int getUserid() {
 		return userid;

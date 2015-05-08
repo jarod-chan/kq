@@ -91,8 +91,7 @@ function logout(){
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />考勤管理&nbsp;&nbsp;</div>
 					<ul>
 					
-						<li><a href="/${ctx}/kaoqin/list">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
-						<li><a href="/${ctx}/qingjia/list">&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+						<li><a href="/${ctx}/inituser/list">&nbsp;&nbsp;用户初始化&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
 			</ul>

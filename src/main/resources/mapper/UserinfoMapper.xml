@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="findByName" resultType="Userinfo"  >
-		  select top 10 userid,name from userinfo where ltrim(name) like '${qname}%'
+		  select top 10 userid,badgenumber,name from userinfo where ltrim(name) like '${qname}%'
 	</select>
 	
 </mapper>

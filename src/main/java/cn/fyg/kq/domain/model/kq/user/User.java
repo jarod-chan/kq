@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,6 +25,11 @@ public class User {
 	@Column(name="createtime")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createtime;//创建时间
+	
+	@PrePersist
+	private void prePersist(){
+		this.createtime=new Date();
+	}	
 
 	public String getFid() {
 		return fid;
