@@ -85,18 +85,16 @@ function logout(){
 						<li><a href="/${ctx}/qingjia/list">&nbsp;&nbsp;请假单&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
-			</ul>
-			<ul class="nav" style="float:left">
+
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />考勤管理&nbsp;&nbsp;</div>
 					<ul>
 					
 						<li><a href="/${ctx}/inituser/list">&nbsp;&nbsp;用户初始化&nbsp;&nbsp;</a></li>
+						<li><a href="/${ctx}/period/list">&nbsp;&nbsp;考勤期间&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
-			</ul>
-			<!-- 功能菜单  -->
-			<ul class="nav" style="float:left">
+
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />系统配置&nbsp;&nbsp;</div>
 					<ul>
