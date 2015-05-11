@@ -34,6 +34,11 @@
 .headdiv .headnone{
    clear: both;
 }
+
+.wp998 {
+	width: 998px;
+	margin: 0 auto;
+}
 /*-----------------------------------------------------------------------------------------*/
 </style>
 <script type="text/javascript">
@@ -51,10 +56,14 @@ $(function(){
 function logout(){
 	window.open('/${ctx}/first','_self');
 }
+
+
+
+
 </script>
 
 </head>
-<body>
+<body class="wp998">
 
 <div id="mainbar">
 	<div class="top">
