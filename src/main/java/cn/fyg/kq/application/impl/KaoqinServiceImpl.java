@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.domain.model.kq.kaoqin.Kaoqin;
@@ -28,21 +29,20 @@ public class KaoqinServiceImpl implements KaoqinService {
 	}
 
 	@Override
-	public Qingjia save(Kaoqin kaoqin) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public Kaoqin save(Kaoqin kaoqin) {
+		return this.kaoqinRepository.save(kaoqin);
 	}
 
 	@Override
-	public Qingjia find(Long kaoqinId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Kaoqin find(Long kaoqinId) {
+		return this.kaoqinRepository.findOne(kaoqinId);
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long kaoqinId) {
-		// TODO Auto-generated method stub
-
+		this.kaoqinRepository.delete(kaoqinId);
 	}
 
 }

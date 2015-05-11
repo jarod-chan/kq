@@ -10,37 +10,53 @@
 	<%@ include file="/common/plu-datepicker.jsp" %>
 	<script type="text/javascript">
 	$(function(){
-		$("[name='begDayitem.date'],[name='endDayitem.date']").simpleDatepicker({x:0,y:18});
 		
-		$("#btn_save").click(function(){
-			var actionFrom=$("form");
-			var oldAction=actionFrom.attr("action");
-			actionFrom.attr("action",oldAction+"/saveEdit").submit();
-		});
+		
+		$("#btn_back").click(function(){
+			window.open('${ctx}/kaoqin/list','_self');
+			return false;
+		})
 	})
 	</script>
 </head>
 
 <body>
-<form action="${ctx}/qingjia" method="post" >
-<input type="hidden" name="qingjiaId" value="${qingjia.id}"/>
+<form action="${ctx}/kaoqin" method="post" >
+<input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
 
-编号:${qingjia.id}<br/>
-请假原因：<input type="text" value="${qingjia.reason }" name="reason"/><br/>
-请假时间：<input type="text" class="txt_date" name="begDayitem.date" value="${qingjia.begDayitem.date}"/>&nbsp;<select name="begDayitem.ampm">
-							<c:forEach var="ampm" items="${ampms}">
-								<option value="${ampm}"  <c:if test="${ampm==qingjia.begDayitem.ampm}">selected="true"</c:if> >${ampm.name}</option>
-							</c:forEach>
-						</select>
-						&nbsp;-&gt;&nbsp;
-					    		<input type="text" class="txt_date" name="endDayitem.date" value="${qingjia.endDayitem.date}"/>&nbsp;<select name="endDayitem.ampm">
-							<c:forEach var="ampm" items="${ampms}">
-								<option value="${ampm}"  <c:if test="${ampm==qingjia.endDayitem.ampm}">selected="true"</c:if> >${ampm.name}</option>
-							</c:forEach>
-						</select><br/>
-备注：<textarea name="remark" rows="5" style="vertical-align: top">${qingjia.remark }</textarea><br/>
+编号:${kaoqin.id}<br/>
+ 考勤人员:${kaoqin.user.fname}<br/>
+日期： ${kaoqin.monthitem.year}年 ${kaoqin.monthitem.month}月<br/>
+状态： ${kaoqin.state.name}<br/>
+创建时间: ${kaoqin.createtime}<br/>
 
-<input type="button" value="保存" id="btn_save">
+<table border="1">
+<thead>
+	<tr>
+		<th>序号</th><th>日期</th><th>班次</th><th>签到、签退</th><th>时间</th><th>打卡时间</th><th>事由</th>
+	</tr>
+</thead>
+<tbody>
+	<c:forEach var="item" items="${kaoqin.kaoqinItems}">
+		<tr>
+			<td>${item.sn}</td>
+			<td>${item.date}</td>
+			<td>${item.schclass.name}</td>
+			<td>${item.schclass.inout.name}</td>
+			<td>${item.schclass.begendtime}</td>
+			<td>${item.realtime}</td>
+			<td>${item.reason}</td>
+		</tr>
+	</c:forEach>
+</tbody>
+</table>
+
+
+	
+	
+
+
+<input type="button" value="返回" id="btn_back">
 
 </form>
 

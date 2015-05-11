@@ -9,12 +9,9 @@
 	<%@ include file="/common/include.jsp" %>	
 	<script type="text/javascript">
 	$(function(){
-		$(".btn_add").click(function(){
-			window.open('${ctx}/qingjia/-1/edit','_self');
-		});
 		$(".btn_edit").click(function(){
 			var id=$(this).data("id");
-			window.open('${ctx}/qingjia/'+id+'/edit','_self');
+			window.open('${ctx}/kaoqin/'+id+'/edit','_self');
 		})
     	$('.btn_delete').click(function(){
     		var id=$(this).data("id");
@@ -33,15 +30,16 @@
 
 <table border="1">
 <thead>
-	<tr><th>编号</th><th>考勤单</th><th>操作</th></tr>
+	<tr><th>编号</th><th>考勤单</th><th>姓名</th><th>操作</th></tr>
 </thead>
 <tbody>
 	<c:forEach var="kaoqin" items="${kaoqinList}">
 		<tr>
-			<td>${kaqoin.id}</td>
-			<td>${kaqoin.monthitem.year}年${kaqoin.monthitem.month}月</td>
+			<td>${kaoqin.id}</td>
+			<td>${kaoqin.monthitem.year}年${kaoqin.monthitem.month}月</td>
+			<td>${kaoqin.user.fnumber}</td>
 			<td>
-			<%-- <input type="button" value="修改" data-id="${kaqoin.id}" class="btn_edit"/> --%>
+			<input type="button" value="修改" data-id="${kaoqin.id}" class="btn_edit"/> 
 			</td>
 		</tr>
 	</c:forEach>

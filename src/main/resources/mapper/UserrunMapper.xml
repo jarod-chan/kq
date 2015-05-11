@@ -5,8 +5,8 @@
 <mapper namespace="cn.fyg.zktime.domain.UserrunMapper">
 	
 	<select id="runidofdate" resultType="int" >
-		  select  num_of_run_id from user_of_run where userid=#{userid} 
-		  <![CDATA[ and startdate<=#{monthdate} and enddate >=#{monthdate} ]]>  
+		  select  top 1 num_of_run_id from user_of_run where userid=#{userid} 
+		  <![CDATA[ and startdate<=#{monthdate} and enddate >=#{monthdate} ]]> order by create_time desc
 	</select>
 	
 	<select id="schclassofrun" resultType="Schclass" >

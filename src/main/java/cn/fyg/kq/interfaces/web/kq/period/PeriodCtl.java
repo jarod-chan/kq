@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,10 +37,15 @@ public class PeriodCtl {
 		return Page.LIST;
 	}
 	
+	@Autowired
+	CalculateFacade calculateFacade;
+	
 	@RequestMapping(value="calculate",method=RequestMethod.POST)
 	public String calculate(Period period,Map<String,Object> map,RedirectAttributes redirectAttributes){
 		period.setComp("fangchan");
-		this.periodService.save(period);
+		//this.periodService.save(period);
+		calculateFacade.calculate(period);
+		
 		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("保存成功！"));
 		return "redirect:list";
 	}

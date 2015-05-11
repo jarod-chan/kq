@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -62,6 +63,12 @@ public class Kaoqin {
 	@OrderBy("sn ASC")
 	@JoinColumn(name = "kaoqin_id")
 	private List<KaoqinItem> kaoqinItems = new ArrayList<KaoqinItem>();
+	
+	@PrePersist
+	private void prePersist(){
+		this.createtime=new Date();
+	}		
+
 
 	public Long getId() {
 		return id;

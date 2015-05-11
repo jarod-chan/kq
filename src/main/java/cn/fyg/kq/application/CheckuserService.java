@@ -2,9 +2,10 @@ package cn.fyg.kq.application;
 
 import java.util.List;
 
+import cn.fyg.kq.application.common.ServiceQuery;
 import cn.fyg.kq.domain.model.kq.checkuser.Checkuser;
 
-public interface CheckuserService {
+public interface CheckuserService  extends ServiceQuery<Checkuser> {
 	
 	Checkuser save(Checkuser checkuser);
 	

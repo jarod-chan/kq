@@ -11,9 +11,9 @@ public interface KaoqinService {
 	
 	List<Kaoqin> findAll();
 	
-	Qingjia save(Kaoqin kaoqin);
+	Kaoqin save(Kaoqin kaoqin);
 
-	Qingjia find(Long kaoqinId);
+	Kaoqin find(Long kaoqinId);
 
 	void delete(Long kaoqinId);
 
