@@ -37,7 +37,7 @@ public class TrackCtl {
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
 		User user=sessionUtil.getValue("user");
-		Set<String> processInstanceIds = usertrackService.getTrackProcessInstanceIds(user.getFid());
+		Set<String> processInstanceIds = usertrackService.getTrackProcessInstanceIds("chenzw");
 		if(!processInstanceIds.isEmpty()){			
 			List<ProcessInstance> processInstanceList = runtimeService.createProcessInstanceQuery()
 					.processInstanceIds(processInstanceIds)

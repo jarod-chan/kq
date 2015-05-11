@@ -85,7 +85,18 @@ function logout(){
 		
 			
 			<ul class="nav" style="float:left">
-				<li class="spec"><a href="/${ctx}/suggestion">流程中心</a></li>
+				<li>
+					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程中心&nbsp;&nbsp;</div>
+					<ul>
+					
+						<li><a href="/${ctx}/process/task">&nbsp;&nbsp;任务中心&nbsp;&nbsp;</a></li>
+						
+						<li><a href="/${ctx}/process/start">&nbsp;&nbsp;流程启动&nbsp;&nbsp;</a></li>
+						
+						<li><a href="/${ctx}/process/track">&nbsp;&nbsp;流程跟踪&nbsp;&nbsp;</a></li>
+					</ul>
+				</li>
+
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />员工考勤&nbsp;&nbsp;</div>
 					<ul>
@@ -111,6 +122,19 @@ function logout(){
 						<li><a href="/${ctx}/tagtype/list">&nbsp;&nbsp;配置属性&nbsp;&nbsp;</a></li>
 						
 						<li><a href="/${ctx}/admincomp/list">&nbsp;&nbsp;考勤管理员&nbsp;&nbsp;</a></li>
+					</ul>
+				</li>
+				
+				<li>
+					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程管理&nbsp;&nbsp;</div>
+					<ul>
+						<li><a href="/${ctx}/workflow/deploy">&nbsp;&nbsp;流程部署&nbsp;&nbsp;</a></li>
+						
+						<li><a href="/${ctx}/workflow/manage">&nbsp;&nbsp;流程管理&nbsp;&nbsp;</a></li>
+						
+						<li><a href="/${ctx}/workflow/running">&nbsp;&nbsp;流程运行&nbsp;&nbsp;</a></li>
+						
+						<li><a href="/${ctx}/workflow/history">&nbsp;&nbsp;流程历史&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
 			</ul>

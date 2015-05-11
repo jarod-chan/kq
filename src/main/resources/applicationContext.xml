@@ -19,4 +19,5 @@
 	<context:component-scan base-package="cn.fyg.kq.application" />
 	<context:component-scan base-package="cn.fyg.module" />
 
+
 </beans>
