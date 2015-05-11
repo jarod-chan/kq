@@ -3,16 +3,18 @@ package cn.fyg.kq.application.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KaoqinService;
+import cn.fyg.kq.application.common.impl.SericeQueryImpl;
 import cn.fyg.kq.domain.model.kq.kaoqin.Kaoqin;
 import cn.fyg.kq.domain.model.kq.kaoqin.KaoqinRepository;
 import cn.fyg.kq.domain.model.kq.qingjia.Qingjia;
 
 @Service
-public class KaoqinServiceImpl implements KaoqinService {
+public class KaoqinServiceImpl extends SericeQueryImpl<Kaoqin>  implements KaoqinService {
 	
 	@Autowired
 	KaoqinRepository kaoqinRepository;
@@ -43,6 +45,11 @@ public class KaoqinServiceImpl implements KaoqinService {
 	@Transactional
 	public void delete(Long kaoqinId) {
 		this.kaoqinRepository.delete(kaoqinId);
+	}
+
+	@Override
+	public JpaSpecificationExecutor<Kaoqin> getSpecExecutor() {
+		return this.kaoqinRepository;
 	}
 
 }
