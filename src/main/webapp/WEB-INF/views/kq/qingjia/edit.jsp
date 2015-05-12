@@ -17,6 +17,12 @@
 			var oldAction=actionFrom.attr("action");
 			actionFrom.attr("action",oldAction+"/saveEdit").submit();
 		});
+		
+		$("#btn_commit").click(function(){
+			var actionFrom=$("form");
+			var oldAction=actionFrom.attr("action");
+			actionFrom.attr("action",oldAction+"/saveCommit").submit();
+		});
 	})
 	</script>
 </head>
@@ -41,6 +47,7 @@
 备注：<textarea name="remark" rows="5" style="vertical-align: top">${qingjia.remark }</textarea><br/>
 
 <input type="button" value="保存" id="btn_save">
+<input type="button" value="提交" id="btn_commit">
 
 </form>
 
