@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.impl.RepositoryServiceImpl;
@@ -115,7 +116,8 @@ public class WorkflowCtl {
 		List<String> highLightedActivities=new ArrayList<String>();
 		highLightedActivities.add(activityId);
 		
-		resourceAsStream = ProcessDiagramGenerator.generateDiagram(processDefinition, "png", highLightedActivities);
+		BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
+		resourceAsStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", highLightedActivities);
 		
 		byte[] b = new byte[1024];
 		int len = -1;

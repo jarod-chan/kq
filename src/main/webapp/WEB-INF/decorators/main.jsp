@@ -14,7 +14,7 @@
 <head>
 <title><decorator:title/></title>
 <decorator:head />
-<link type="text/css" rel="stylesheet" href="/${ctx}/resources/newcss/mainbar.css" /> 
+<link type="text/css" rel="stylesheet" href="/${ctx}/resources/css/mainbar.css" /> 
 <style type="text/css">
 /* 定义页面内部的头部信息 */
 
