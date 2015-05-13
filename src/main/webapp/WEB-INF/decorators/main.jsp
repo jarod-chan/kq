@@ -2,18 +2,17 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%> 
+
 
 <c:set var="ctx" value="kq" scope="request"/>
 <c:set var="pagewidth" value="1010" scope="request"/>
 
 
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-<title><decorator:title/></title>
-<decorator:head />
+<title> <sitemesh:write property='title' /> </title>
+<sitemesh:write property='head' />
 <link type="text/css" rel="stylesheet" href="/${ctx}/resources/css/mainbar.css" /> 
 <style type="text/css">
 /* 定义页面内部的头部信息 */
@@ -148,6 +147,6 @@ function logout(){
 
 
 
-<decorator:body />  
+<sitemesh:write property='body' />
 </body>
 </html>

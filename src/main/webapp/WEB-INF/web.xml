@@ -48,7 +48,7 @@
 		<!-- 使用sitemesh 来装饰-->
 	<filter>
 		<filter-name>sitemesh</filter-name>
-		<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+		 <filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>
 	</filter>
 	
 	<filter-mapping>  
