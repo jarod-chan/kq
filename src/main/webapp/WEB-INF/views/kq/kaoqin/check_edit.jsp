@@ -14,19 +14,13 @@
 		$("#btn_commit").click(function(){
 			var actionFrom=$("form");
 			var oldAction=actionFrom.attr("action");
-			actionFrom.attr("action",oldAction+"/saveCommit").submit();
+			actionFrom.attr("action",oldAction+"/commit").submit();
 			return false;
 		})
 		
-		$("#btn_save").click(function(){
-			var actionFrom=$("form");
-			var oldAction=actionFrom.attr("action");
-			actionFrom.attr("action",oldAction+"/saveEdit").submit();
-			return false;
-		})
-		
+
 		$("#btn_back").click(function(){
-			window.open('${ctx}/kaoqin/list','_self');
+			window.open('${ctx}/process/task','_self');
 			return false;
 		})
 	})
@@ -34,8 +28,9 @@
 </head>
 
 <body>
-<form action="${ctx}/kaoqin" method="post" >
+<form action="${ctx}/kaoqin/checkedit" method="post" >
 <input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
+<input type="hidden" name="taskId" value="${task.id}"/>
 
 编号:${kaoqin.id}<br/>
  考勤人员:${kaoqin.user.fname}<br/>
@@ -66,11 +61,6 @@
 </table>
 
 
-
-
-	
-	
-<input type="button" value="保存" id="btn_save">
 
 <input type="button" value="提交" id="btn_commit">
 

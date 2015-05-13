@@ -20,7 +20,7 @@
 	    $(function() {
 	    	$('.btn_execute').click(function(){
 	    		var param=jQuery.parseJSON($(this).attr("param"));
-	    		$('<form/>',{action:'${ctx}/'+param.formKey+'/'+param.businessId,method:'get'})
+	    		$('<form/>',{action:'${ctx}/'+param.formKey,method:'get'})
 	    			.append($('<input/>',{type:'hidden',name:'taskId',value:param.taskId}))
 					.appendTo($("body"))
 				.submit();
@@ -29,7 +29,7 @@
 	    	//可以通过$(event.target)获取对象
 	    	$('table.O2 tbody tr').click(function(event){
 	    		var param=jQuery.parseJSON($(this).find(".param").val());
-	    		$('<form/>',{action:'${ctx}/'+param.formKey+'/'+param.businessId,method:'get'})
+	    		$('<form/>',{action:'${ctx}/'+param.formKey,method:'get'})
 	    			.append($('<input/>',{type:'hidden',name:'taskId',value:param.taskId}))
 					.appendTo($("body"))
 				.submit();

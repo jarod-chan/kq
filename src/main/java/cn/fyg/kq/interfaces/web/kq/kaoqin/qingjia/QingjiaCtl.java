@@ -129,6 +129,17 @@ public class QingjiaCtl {
 	@Autowired
 	OpinionService opinionService;
 	
+	@RequestMapping(value="check/{businessId}",method=RequestMethod.GET)
+	public String toCheck(@PathVariable(value="businessId")Long businessId,Map<String,Object> map,@RequestParam(value="taskId",required=false)String taskId){
+		Qingjia qingjia = qingjiaService.find(businessId);
+		map.put("qingjia", qingjia);
+		map.put("resultList", Result.agreeItems());
+		map.put("ampms", Ampm.values());
+		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+		map.put("task", task);
+		return Page.CHECK;
+	}
+
 	@RequestMapping(value="check/commit",method=RequestMethod.POST)
 	public String checkCommit(Opinion opinion,Map<String,Object> map,RedirectAttributes redirectAttributes,@RequestParam(value="taskId",required=false)String taskId){
 		
@@ -148,17 +159,6 @@ public class QingjiaCtl {
 	
 	@Autowired
 	TaskService taskService;
-	
-	@RequestMapping(value="check/{businessId}",method=RequestMethod.GET)
-	public String toCheck(@PathVariable(value="businessId")Long businessId,Map<String,Object> map,@RequestParam(value="taskId",required=false)String taskId){
-		Qingjia qingjia = qingjiaService.find(businessId);
-		map.put("qingjia", qingjia);
-		map.put("resultList", Result.agreeItems());
-		map.put("ampms", Ampm.values());
-		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-		map.put("task", task);
-		return Page.CHECK;
-	}
 	
 	@RequestMapping(value="delete",method=RequestMethod.POST)
 	public String delete(@RequestParam("qingjiaId") Long qingjiaId){
