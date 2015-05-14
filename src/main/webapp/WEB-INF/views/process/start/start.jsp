@@ -30,22 +30,10 @@
 </head>
 
 <body class="tbody">
-	<%@ include file="/common/message.jsp" %>
+	<h2>发起流程</h2>
+	<%@ include file="/common/message.jsp" %>	
 
-	<div>
-		<div class="txt_title">
-			发起流程<span class="f_size normal black" id="_ut"> (共<span id="_ut_c">${fn:length(processDefinitionBeans)}</span>个)</span>
-		</div>
-	
-		<div style="" class="toolbg toolbgline toolheight nowrap">
-			<div class="nowrap left">
-			</div>
-			<div class="right">
-				<!--页码 -->&nbsp;
-			</div>
-		</div>
-
-		<table class="O2" cellspacing="0" cellpadding="0" >
+	<table id="tabmain" class="hctable deftable">
 			<thead>
 				<tr>
 					<th class="noborder">流程名称</th>
@@ -63,25 +51,14 @@
 						<td>${bean.processDefinition.key }</td>
 						<%-- <td>${bean.formKey}</td> --%>
 						<%-- <td>${bean.isStartform}</td> --%>
-						<td><a target="_blank" href='${ctx }/workflow/manage/${bean.processDefinition.deploymentId}/resource?resourceName=${bean.processDefinition.diagramResourceName }'>${bean.processDefinition.diagramResourceName }</a></td>
+						<td><a target="_blank" href="${ctx }/workflow/manage/${bean.processDefinition.deploymentId}/resource?resourceName=${bean.processDefinition.diagramResourceName }">${bean.processDefinition.diagramResourceName }</a></td>
 						<td>
-							<button class="btn_start" param='{"key":"${bean.processDefinition.key}","formKey":"${bean.formKey}","isStartform":${bean.isStartform}}' >启动</button>
+							<button class="btn_start" param='{"key":"${bean.processDefinition.key}","formKey":"${bean.formKey}","isStartform":${bean.isStartform}}'>启动</button>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
-		<c:if test="${empty processDefinitionBeans}">		
-		<%@ include file="/common/emp-context.jsp" %>
-		</c:if>
-
-		<div style="" class="toolbg toolbgline toolheight nowrap">
-			<div class="right">
-				<!--页码 -->&nbsp;
-			</div>
-		</div>
-	</div>
 
 
 

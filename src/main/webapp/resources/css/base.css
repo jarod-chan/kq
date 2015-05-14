@@ -1,75 +1,28 @@
-html,body,p,ul,li,h1,input,form {
-	margin: 0;
-	padding: 0;
-}
-
-body,input {
-	font-family: "Helvetica Neue","lucida Grande",Verdana;
-}
-
+@CHARSET "UTF-8";
+/* body默认边距为左20px */
 body {
-	background: white;
+    font-family:'Verdana','宋体';
+    font-size:14px;
+    margin:0 0 0 20px;
 }
 
-ul,li {
-	list-style: none;
+/*ie6 默认form 有距离*/
+form {
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
 
-img {
-	border: none;
+h2,h3,h4,h5{
+	margin:0 auto;
 }
 
-a {
-	color: #03309D;
-	text-decoration: none;
+h3{
+	margin-top:10px;
 }
 
-a:hover {
-	text-decoration: underline;
-}
-
-.gray {
-	color: #868686;
-}
-
-.red {
-	color: red;
-}
-
-.f_size {
-	font-size: 12px;
-}
-
-.b_size {
-	font-size: 14px;
-}
-
-/* 定义一般按钮样式 */
-.btn_normal {
-	border: 1px solid;
-	border-radius: 2px;
-	cursor: pointer;
-	font-size: 12px;
-	padding: 0px 12px;
-  	height: 25px; 
-  	line-height: 24px\9;   
-}
-
-.btn_normal {
-	margin-left: 10px;
-	border-color: #c3c3c3;
-	background: #ececec;
-	color: #333;
-	background: -webkit-gradient(linear, center bottom, center top, from(#ececec),
-		to(#f4f4f4) );
-	background: -moz-linear-gradient(90deg, #ececec, #f4f4f4);
-}
-
-.btn_normal:HOVER {
-	background: #4787ed;
-	background: -webkit-gradient(linear, center bottom, center top, from(#4787ed),
-		to(#4d90fe) );
-	background: -moz-linear-gradient(90deg, #4787ed, #4d90fe);
-	border-color: #3079ed;
-	color: #fff;
-}
+/* 连接按钮样式 */
+.link_btn{text-decoration: none;background-color:#C0C0C0; padding: 2px; border: 1px #000000 dotted;}
+.link_btn:link {color:#0080FF; }    /* 未被访问的链接 */
+.link_btn:visited {color:#0080FF;} /* 已被访问的链接 */
+.link_btn:hover {color:#FF0000;}   /* 鼠标指针移动到链接上 */
+.link_btn:active {color:#FF0000;}  /* 正在被点击的链接 */

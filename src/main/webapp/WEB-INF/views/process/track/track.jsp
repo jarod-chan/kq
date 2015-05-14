@@ -42,23 +42,9 @@
 
 </head>
 <body class="tbody">
+	<h2>流程跟踪</h2>
 	<%@ include file="/common/message.jsp" %>
-
-	<div>
-		<div class="txt_title">
-			流程跟踪	
-			<span class="f_size normal black" id="_ut"> (共<span id="_ut_c">${fn:length(processInstanceList)}</span>个)</span>
-		</div>
-	
-		<div style="" class="toolbg toolbgline toolheight nowrap">
-			<div class="nowrap left">
-			</div>
-			<div class="right">
-				<!--页码 -->&nbsp;
-			</div>
-		</div>
-	
-		<table  class="O2" cellspacing="0" cellpadding="0">
+	<table id="tabmain" class="hctable deftable">
 			<thead>
 				<tr>
 					<th class="noborder">流程Id</th>
@@ -81,7 +67,24 @@
 					</tr>
 				</c:forEach>
 			</tbody>
-		</table>
+		</table>	
+
+
+	<div>
+		<div class="txt_title">
+				
+			<span class="f_size normal black" id="_ut"> (共<span id="_ut_c">${fn:length(processInstanceList)}</span>个)</span>
+		</div>
+	
+		<div style="" class="toolbg toolbgline toolheight nowrap">
+			<div class="nowrap left">
+			</div>
+			<div class="right">
+				<!--页码 -->&nbsp;
+			</div>
+		</div>
+	
+		
 		
 		<c:if test="${empty processInstanceList}">		
 		<%@ include file="/common/emp-context.jsp" %>

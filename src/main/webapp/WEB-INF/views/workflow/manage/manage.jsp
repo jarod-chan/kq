@@ -27,23 +27,11 @@
     </script>
 </head>
 <body class="tbody">
-	<c:if test="${not empty message}">
-		<div id="message" class="${message.level}">${message.message}</div>
-	</c:if>
-	<div>
-		<div class="txt_title">
-			流程管理
-		</div>
+	<h2>流程管理</h2>
+	<%@ include file="/common/message.jsp" %>	
 	
-		<div style="" class="toolbg toolbgline toolheight nowrap">
-			<div class="nowrap left">
-			</div>
-			<div class="right">
-				<!--页码 -->&nbsp;
-			</div>
-		</div>
-	
-		<table  class="O2" cellspacing="0" cellpadding="0">
+		
+		<table id="tblmain" class="hctable deftable">
 			<thead>
 				<tr>
 					<th class="noborder">id</th>
@@ -74,14 +62,5 @@
 				</c:forEach>
 			</tbody>
 		</table>
-	
-		<div style="" class="toolbg toolbgline toolheight nowrap">
-			<div class="nowrap left">
-			</div>
-			<div class="right">
-				<!--页码 -->&nbsp;
-			</div>
-		</div>
-	</div>
 </body>
 </html>
