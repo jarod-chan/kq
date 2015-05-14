@@ -2,6 +2,7 @@ package cn.fyg.kq.domain.model.kq.checkuser;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -27,7 +28,8 @@ public class Checkuser {
 	private String comp;//	公司主键
 	
 	@OneToOne
-	@MapsId
+	//@MapsId
+	@JoinColumn(name="fid")
 	User user;
 
 	public String getFid() {

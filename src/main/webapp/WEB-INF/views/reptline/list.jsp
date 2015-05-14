@@ -10,12 +10,12 @@
 	<script type="text/javascript">
 	$(function(){
 		$(".btn_add").click(function(){
-			window.open('${ctx}/inituser/add','_self');
+			window.open('${ctx}/reptline/add','_self');
 		});
 		$('.btn_delete').click(function(){
-    		var fid=$(this).data("fid");
-        	$('<form/>',{action:'${ctx}/inituser/delete',method:'post'})
-	    		.append($('<input/>',{type:'hidden',name:'checkuserFid',value:fid}))
+    		var id=$(this).data("id");
+        	$('<form/>',{action:'${ctx}/reptline/delete',method:'post'})
+	    		.append($('<input/>',{type:'hidden',name:'reptlineId',value:id}))
 				.appendTo($("body"))
 			.submit();
     	});
@@ -25,27 +25,25 @@
 </head>
 
 <body>
-<h2>用户初始化</h2>
+<h2>汇报关系</h2>
 <%@ include file="/common/message.jsp" %>	
 
 <input class="btn_add"  type="button"  value="新增" >
 <table id="tblmain" class="hctable deftable">
 <thead>
 	<tr>
-		<th>fid</th><th>用户名</th><th>用户实名</th><th>考勤id</th><th>考勤工号</th><th>考勤姓名</th><th>操作</th>
+		<th>编码</th><th>用户名</th><th>用户实名</th><th>公司</th><th>操作</th>
 	</tr>
 </thead>
 <tbody>
 
-	<c:forEach var="checkuser" items="${checkuserList}">
+	<c:forEach var="reptline" items="${reptlineList}">
 	<tr>
-		<td>${checkuser.fid}</td>
-		<td>${checkuser.user.fnumber}</td>
-		<td>${checkuser.user.fname}</td>
-		<td>${checkuser.userid}</td>
-		<td>${checkuser.badgenumber}</td>
-		<td>${checkuser.name}</td>
-		<td><input data-fid="${checkuser.fid}" class="btn_delete" type="button" value="删除"></td>
+		<td>${reptline.code}</td>
+		<td>${reptline.user.fnumber}</td>
+		<td>${reptline.user.fname}</td>
+		<td>${reptline.comp}</td>
+		<td><input data-id="${reptline.id}" class="btn_delete" type="button" value="删除"></td>
 	</tr>
 	</c:forEach>
 </tbody>

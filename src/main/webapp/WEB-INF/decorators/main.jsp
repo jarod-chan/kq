@@ -111,6 +111,7 @@ function logout(){
 					
 						<li><a href="/${ctx}/inituser/list">&nbsp;&nbsp;用户初始化&nbsp;&nbsp;</a></li>
 						<li><a href="/${ctx}/period/list">&nbsp;&nbsp;考勤期间&nbsp;&nbsp;</a></li>
+						<li><a href="/${ctx}/reptline/list">&nbsp;&nbsp;汇报关系&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
 
