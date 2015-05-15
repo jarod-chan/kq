@@ -99,7 +99,7 @@ public class KaoqinCtl {
 		try{
 			Map<String, Object> variableMap = new HashMap<String, Object>();
 			variableMap.put(FlowConstant.BUSINESS_ID, kaoqin.getId());
-			variableMap.put(FlowConstant.APPLY_USER, user.getFid());
+			variableMap.put(FlowConstant.APPLY_USER, kaoqin.getUser().getFid());
 			variableMap.put("item_all", kaoqin.getItem_all());
 			identityService.setAuthenticatedUserId(user.getFid());
 			runtimeService.startProcessInstanceByKey("fyg-kq-kaoqin", variableMap);			

@@ -13,5 +13,9 @@ public interface ReptlineService {
 	void delete(Long id);
 	
 	Reptline find(Long id);
+	
+	Reptline findByUser_fidAndLevel(String fid,int level);
+	
+	Reptline findByCode(String code);
 
 }

@@ -14,5 +14,9 @@ public interface ReptlineRepository extends Repository<Reptline, Long>, JpaSpeci
 	void delete(Long id);
 	
 	Reptline findOne(Long id);
+	
+	Reptline findByUser_fidAndLevel(String fid,int level);
+	
+	Reptline findByCode(String code);
 
 }

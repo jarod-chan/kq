@@ -38,6 +38,16 @@ public class ReptlineServiceImpl implements ReptlineService {
 		return reptlineRepository.findOne(id);
 	}
 
+	@Override
+	public Reptline findByUser_fidAndLevel(String fid, int level) {
+		return this.reptlineRepository.findByUser_fidAndLevel(fid, level);
+	}
+
+	@Override
+	public Reptline findByCode(String code) {
+		return this.reptlineRepository.findByCode(code);
+	}
+
 
 	
 

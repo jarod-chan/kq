@@ -1,4 +1,4 @@
-package cn.fyg.kq.interfaces.web.reptline;
+package cn.fyg.kq.interfaces.web.module.adminkq.reptline;
 
 import static cn.fyg.kq.interfaces.web.shared.message.Message.info;
 
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -64,6 +65,10 @@ public class ReptlineCtl {
 	@RequestMapping(value="save",method=RequestMethod.POST)
 	public String save(Reptline reptline,RedirectAttributes redirectAttributes){
 		reptline.setComp("fangchan");
+		String code = reptline.getCode();
+		int level=StringUtils.split(code,".").length;
+		reptline.setLevel(level);
+		
 		this.reptlineService.save(reptline);
 		
 		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("保存成功！"));
