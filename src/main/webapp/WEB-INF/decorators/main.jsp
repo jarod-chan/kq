@@ -77,7 +77,9 @@ function logout(){
 	
 	<div class="second">
 		<div class="second_left" >
-			<a href="/${ctx}/userhome">首页</a><c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if><c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
+			<a href="/${ctx}/userhome">首页</a>
+			<c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if>
+			<c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
 		</div>
 		<div class="second_right" >
 			
@@ -118,6 +120,8 @@ function logout(){
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />系统配置&nbsp;&nbsp;</div>
 					<ul>
+					
+						<li><a href="/${ctx}/importuser/list">&nbsp;&nbsp;导入用户&nbsp;&nbsp;</a></li>
 					
 						<li><a href="/${ctx}/tagtype/list">&nbsp;&nbsp;配置属性&nbsp;&nbsp;</a></li>
 						

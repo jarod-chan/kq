@@ -11,8 +11,8 @@ public interface CheckuserService  extends ServiceQuery<Checkuser> {
 	
 	List<Checkuser> findAll();
 	
-	void delete(String fid);
+	void delete(Long id);
 	
-	Checkuser find(String fid);
+	Checkuser find(Long id);
 
 }

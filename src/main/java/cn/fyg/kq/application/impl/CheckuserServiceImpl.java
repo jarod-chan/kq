@@ -31,13 +31,13 @@ public class CheckuserServiceImpl extends SericeQueryImpl<Checkuser> implements 
 
 	@Override
 	@Transactional
-	public void delete(String fid) {
-		this.checkuserRepository.delete(fid);
+	public void delete(Long id) {
+		this.checkuserRepository.delete(id);
 	}
 
 	@Override
-	public Checkuser find(String fid) {
-		return this.checkuserRepository.findOne(fid);
+	public Checkuser find(Long id) {
+		return this.checkuserRepository.findOne(id);
 	}
 
 	@Override

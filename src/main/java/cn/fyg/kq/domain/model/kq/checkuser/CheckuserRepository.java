@@ -6,14 +6,14 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.Repository;
 
 
-public interface CheckuserRepository extends Repository<Checkuser, String>, JpaSpecificationExecutor<Checkuser> {
+public interface CheckuserRepository extends Repository<Checkuser, Long>, JpaSpecificationExecutor<Checkuser> {
 	
 	Checkuser save(Checkuser checkuser);
 	
 	List<Checkuser> findAll();
 	
-	void delete(String fid);
+	void delete(Long id);
 	
-	Checkuser findOne(String fid);
+	Checkuser findOne(Long id);
 
 }

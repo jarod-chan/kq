@@ -1,9 +1,11 @@
 package cn.fyg.kq.domain.model.kq.checkuser;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,7 +19,13 @@ import cn.fyg.kq.domain.model.kq.user.User;
 public class Checkuser {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id; // 主键	
+	
+	@Column(insertable=false, updatable=false)
 	private String fid;//	easid
+	
+	private String comp;//	公司主键
 	
 	private int userid;//	考勤机用户id
 	
@@ -25,12 +33,17 @@ public class Checkuser {
 	
 	private String name;//	考勤机姓名
 	
-	private String comp;//	公司主键
-	
 	@OneToOne
-	//@MapsId
 	@JoinColumn(name="fid")
 	User user;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getFid() {
 		return fid;
@@ -38,6 +51,14 @@ public class Checkuser {
 
 	public void setFid(String fid) {
 		this.fid = fid;
+	}
+
+	public String getComp() {
+		return comp;
+	}
+
+	public void setComp(String comp) {
+		this.comp = comp;
 	}
 
 	public int getUserid() {
@@ -64,14 +85,6 @@ public class Checkuser {
 		this.name = name;
 	}
 
-	public String getComp() {
-		return comp;
-	}
-
-	public void setComp(String comp) {
-		this.comp = comp;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -79,8 +92,7 @@ public class Checkuser {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 	
 	
-
-
 }

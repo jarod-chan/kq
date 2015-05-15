@@ -102,7 +102,7 @@ public class InitUserCtl {
 	}
 	
 	@RequestMapping(value="delete",method=RequestMethod.POST)
-	public String delete(@RequestParam("checkuserFid") String checkuserFid){
+	public String delete(@RequestParam("checkuserFid") Long checkuserFid){
 		this.checkuserService.delete(checkuserFid);
 		return "redirect:list";
 	}
