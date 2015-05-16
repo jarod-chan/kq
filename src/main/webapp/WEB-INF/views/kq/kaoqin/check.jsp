@@ -80,7 +80,7 @@
 							</select>
 						</td>
 						<td style="width: 300px;">
-							 审批人： ${user.realname}
+							 审批人： ${user.fname}
 						</td>
 					</tr>
 					<tr>
