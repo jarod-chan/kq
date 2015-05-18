@@ -1,7 +1,9 @@
-package cn.fyg.kq.domain.model.kq.checkuser;
+package cn.fyg.kq.domain.model.checkuser;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +29,10 @@ public class Checkuser {
 	
 	private String comp;//	公司主键
 	
-	private int userid;//	考勤机用户id
+	@Enumerated(EnumType.STRING)
+	private Kqstat kqstat;//是否考勤
+	
+	private Integer userid;//	考勤机用户id
 	
 	private String badgenumber;//	考勤机工号
 	
@@ -61,11 +66,19 @@ public class Checkuser {
 		this.comp = comp;
 	}
 
-	public int getUserid() {
+	public Kqstat getKqstat() {
+		return kqstat;
+	}
+
+	public void setKqstat(Kqstat kqstat) {
+		this.kqstat = kqstat;
+	}
+
+	public Integer getUserid() {
 		return userid;
 	}
 
-	public void setUserid(int userid) {
+	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
 
@@ -92,7 +105,6 @@ public class Checkuser {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 	
 	
 }

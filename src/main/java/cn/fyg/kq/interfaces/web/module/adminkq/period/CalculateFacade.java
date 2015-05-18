@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.application.KaoqinService;
-import cn.fyg.kq.domain.model.kq.checkuser.Checkuser;
-import cn.fyg.kq.domain.model.kq.checkuser.CheckuserSpecs;
+import cn.fyg.kq.domain.model.checkuser.Checkuser;
+import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
 import cn.fyg.kq.domain.model.kq.kaoqin.Kaoqin;
 import cn.fyg.kq.domain.model.kq.kaoqin.KaoqinItem;
 import cn.fyg.kq.domain.model.kq.kaoqin.KaoqinState;

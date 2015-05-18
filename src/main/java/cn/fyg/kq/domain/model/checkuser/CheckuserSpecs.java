@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.checkuser;
+package cn.fyg.kq.domain.model.checkuser;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

@@ -63,7 +63,7 @@
 	<input type="button" value="新建"  id="btn_add">
 	</div>
 
-	<table id="tblmain" class="hctable deftable">
+	<table id="tblmain" class="hctable deftable col-9">
 		<thead>
 		<tr>
 			<th>fid</th>

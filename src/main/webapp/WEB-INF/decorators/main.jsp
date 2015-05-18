@@ -11,15 +11,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title> <sitemesh:write property='title' /> </title>
+<title><sitemesh:write property='title' /></title>
 <sitemesh:write property='head' />
 <link type="text/css" rel="stylesheet" href="/${ctx}/resources/css/mainbar.css" /> 
 <style type="text/css">
 /* 定义页面内部的头部信息 */
-
-.headdiv{
-	width:${pagesize}px;/* pagesize 从页面传入可否修改 */
-}
 
 .headdiv .headleft{
 	width:50%;
@@ -34,10 +30,29 @@
    clear: both;
 }
 
-.wp998 {
-	width: 998px;
+/*-----------------------------------------------------------------------------------------*/
+body {
+	width: 996px;
 	margin: 0 auto;
 }
+
+.none{
+	display: none;
+}
+
+.col-1 {width:83px;}
+.col-2 {width:166px;}
+.col-3 {width:249px;}
+.col-4 {width:332px;}
+.col-5 {width:415px;}
+.col-6 {width:498px;}
+.col-7 {width:581px;}
+.col-8 {width:664px;}
+.col-9 {width:747px;}
+.col-10 {width:830px;}
+.col-11 {width:913px;}
+.col-12 {width:996px;}
+
 /*-----------------------------------------------------------------------------------------*/
 </style>
 <script type="text/javascript">
@@ -62,7 +77,7 @@ function logout(){
 </script>
 
 </head>
-<body class="wp998">
+<body>
 
 <div id="mainbar">
 	<div class="top">
@@ -77,9 +92,7 @@ function logout(){
 	
 	<div class="second">
 		<div class="second_left" >
-			<a href="/${ctx}/userhome">首页</a>
-			<c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if>
-			<c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
+			<a href="/${ctx}/userhome">首页</a><c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if><c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
 		</div>
 		<div class="second_right" >
 			

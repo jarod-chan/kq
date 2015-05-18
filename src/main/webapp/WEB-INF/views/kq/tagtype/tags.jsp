@@ -21,6 +21,10 @@
 	</script>
 </head>
 
+<c:set target="${pagefunc}" property="name" value="配置页面" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/tagtype/list" />  
+
+
 <body>
 <h1>配置页面</h1>
 

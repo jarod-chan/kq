@@ -10,11 +10,6 @@
 <script src="${ctx}/js/myfloat.js" type="text/javascript"></script>
 <script src="${ctx}/js/jquery.metadata.js" type="text/javascript"></script>
 
-<link href="${ctx}/plu/uploadify/uploadify.css" type="text/css"  rel="stylesheet">
-<script src="${ctx}/plu/uploadify/jquery.uploadify.js" type="text/javascript"></script>
-
-<script src="${ctx}/plu/layout/jquery.layout-latest.js" type="text/javascript"></script>
-
 <script src="${ctx}/plu/template/jquery.tmpl.js" type="text/javascript"></script>
 
 <!-- 校验处理 -->
@@ -28,7 +23,7 @@
 <script type="text/javascript">
 	$(function() {
 		$.validator.setDefaults({
-			ignore: "",//处理必填字段
+			ignore: ".ignore",//处理必填字段
 			errorClass : "vlderror"
 		});
 		//ajax参数全局设置

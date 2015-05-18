@@ -1,6 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +20,13 @@
 	</script>
 </head>
 
-<body>
-<h1>配置属性</h1>
+<c:set target="${pagefunc}" property="name" value="配置属性" />
+<c:set target="${pagefunc}" property="url" value="" />  
 
-<table border="1">
+
+<body>
+
+<table  class="hctable deftable col-6" >
 <thead>
 	<tr><th>key</th><th>配置属性</th><th>操作</th></tr>
 </thead>

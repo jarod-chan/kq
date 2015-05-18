@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.application.common.impl.SericeQueryImpl;
-import cn.fyg.kq.domain.model.kq.checkuser.Checkuser;
-import cn.fyg.kq.domain.model.kq.checkuser.CheckuserRepository;
+import cn.fyg.kq.domain.model.checkuser.Checkuser;
+import cn.fyg.kq.domain.model.checkuser.CheckuserRepository;
+import cn.fyg.kq.domain.model.checkuser.Kqstat;
 
 @Service
 public class CheckuserServiceImpl extends SericeQueryImpl<Checkuser> implements CheckuserService {
@@ -21,6 +22,11 @@ public class CheckuserServiceImpl extends SericeQueryImpl<Checkuser> implements 
 	@Override
 	@Transactional
 	public Checkuser save(Checkuser checkuser) {
+		if(checkuser.getKqstat()!=Kqstat.yes){
+			checkuser.setUserid(null);
+			checkuser.setBadgenumber(null);
+			checkuser.setName(null);
+		}
 		return this.checkuserRepository.save(checkuser);
 	}
 

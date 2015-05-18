@@ -18,8 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.application.PeriodService;
-import cn.fyg.kq.domain.model.kq.checkuser.Checkuser;
-import cn.fyg.kq.domain.model.kq.checkuser.CheckuserSpecs;
+import cn.fyg.kq.domain.model.checkuser.Checkuser;
+import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
 import cn.fyg.kq.domain.model.kq.kaoqin.Kaoqin;
 import cn.fyg.kq.domain.model.kq.kaoqin.KaoqinSpecs;
 import cn.fyg.kq.domain.model.kq.period.Period;
