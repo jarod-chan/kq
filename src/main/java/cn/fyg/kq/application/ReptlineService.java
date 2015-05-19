@@ -2,9 +2,10 @@ package cn.fyg.kq.application;
 
 import java.util.List;
 
+import cn.fyg.kq.application.common.ServiceQuery;
 import cn.fyg.kq.domain.model.reptline.Reptline;
 
-public interface ReptlineService {
+public interface ReptlineService extends ServiceQuery<Reptline> {
 	
 	Reptline save(Reptline reptline);
 	
@@ -17,5 +18,6 @@ public interface ReptlineService {
 	Reptline findByUser_fidAndLevel(String fid,int level);
 	
 	Reptline findByCode(String code);
+	
 
 }

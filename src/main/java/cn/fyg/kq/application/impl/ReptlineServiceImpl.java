@@ -3,15 +3,17 @@ package cn.fyg.kq.application.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.ReptlineService;
+import cn.fyg.kq.application.common.impl.SericeQueryImpl;
 import cn.fyg.kq.domain.model.reptline.Reptline;
 import cn.fyg.kq.domain.model.reptline.ReptlineRepository;
 
 @Service
-public class ReptlineServiceImpl implements ReptlineService {
+public class ReptlineServiceImpl extends SericeQueryImpl<Reptline> implements ReptlineService {
 	
 	@Autowired
 	ReptlineRepository reptlineRepository;
@@ -46,6 +48,11 @@ public class ReptlineServiceImpl implements ReptlineService {
 	@Override
 	public Reptline findByCode(String code) {
 		return this.reptlineRepository.findByCode(code);
+	}
+
+	@Override
+	public JpaSpecificationExecutor<Reptline> getSpecExecutor() {
+		return this.reptlineRepository;
 	}
 
 

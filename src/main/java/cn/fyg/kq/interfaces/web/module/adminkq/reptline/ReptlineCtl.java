@@ -8,6 +8,9 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +41,8 @@ public class ReptlineCtl {
 	
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
-		List<Reptline> reptlineList = this.reptlineService.findAll();
+		Sort sort = new Sort(new Order(Direction.ASC,"code"));
+		List<Reptline> reptlineList = this.reptlineService.findAll(null,sort);
 		map.put("reptlineList", reptlineList);
 		return Page.LIST;
 	}

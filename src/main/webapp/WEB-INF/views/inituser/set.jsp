@@ -60,7 +60,7 @@
 	<table id="tabmain">	
 		
 		<tr><td>
-		用户名：</td><td>
+		用户：</td><td>
 		${checkuser.user.fnumber}
 		</td></tr>
 		

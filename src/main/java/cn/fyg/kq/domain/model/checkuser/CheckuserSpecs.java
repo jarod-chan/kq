@@ -10,6 +10,15 @@ import org.springframework.data.jpa.domain.Specification;
 import cn.fyg.kq.domain.model.kq.user.User;
 
 public class CheckuserSpecs {
+	
+	public static Specification<Checkuser> nameLike(final String name) {
+		return new Specification<Checkuser>() {
+			@Override
+			public Predicate toPredicate(Root<Checkuser> root,CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.like(root.get("user").<String>get("fnumber"),name+"%");
+			}
+		};
+	}
 
 	public static Specification<Checkuser> inComp(final String comp) {
 		return new Specification<Checkuser>() {

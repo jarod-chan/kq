@@ -38,7 +38,7 @@
 <table id="tblmain" class="hctable deftable col-6">
 <thead>
 	<tr>
-		<th>编码</th><th>用户名</th><th>用户实名</th><th>公司</th><th>操作</th>
+		<th>编码</th><th>用户</th><th>操作</th>
 	</tr>
 </thead>
 <tbody>
@@ -47,8 +47,6 @@
 	<tr>
 		<td>${reptline.code}</td>
 		<td>${reptline.user.fnumber}</td>
-		<td>${reptline.user.fname}</td>
-		<td>${reptline.comp}</td>
 		<td><input data-id="${reptline.id}" class="btn_delete" type="button" value="删除"></td>
 	</tr>
 	</c:forEach>

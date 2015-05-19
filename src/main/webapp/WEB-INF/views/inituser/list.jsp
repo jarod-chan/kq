@@ -37,7 +37,7 @@
 <table id="tblmain" class="hctable deftable col-6">
 <thead>
 	<tr>
-		<th>用户名</th><th>考勤状态</th><th>考勤工号</th><th>考勤姓名</th><th>操作</th>
+		<th>用户</th><th>考勤状态</th><th>考勤工号</th><th>考勤姓名</th><th>操作</th>
 	</tr>
 </thead>
 <tbody>

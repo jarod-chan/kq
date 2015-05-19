@@ -7,6 +7,8 @@
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include.jsp" %>	
+	<%@ include file="/common/jqui.jsp" %>	
+	<%@ include file="/common/jqui2.jsp" %>	
 	<script type="text/javascript">
 		$(function(){
 			$('#tabmain tr').find('td:eq(0)').css("text-align","right");
@@ -58,47 +60,37 @@
 	</script>
 </head>
 
+<c:set target="${pagefunc}" property="name" value="汇报关系" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/reptline/list" />
+
+
+
 <body>
-	<h2>汇报关系</h2>
 	<%@ include file="/common/message.jsp" %>	
 	
-	<form action="${ctx}/reptline" method="post">
+	<form action="${ctx}/reptline" method="post">	
+
 	
-	<input type="hidden" name="id" value="">
-	<input type="hidden" name="user.fid" id="fid" value="">
-	
-	<table id="tabmain">	
-		
+	<table id="tabmain">		
 		<tr><td>
 		编码：</td><td>
 		<input type="text" name="code" value=""/>
 		</td></tr>
 		
 		<tr><td>
-		eas用户：</td><td>
-		<span id="name"></span>
+		用户：</td><td>
+		<span id="spanName"></span>
+		<input type="hidden" name="user.fid" id="ipUserFid" />
+		<input type="button" value="选择" id="btn_selCheckuser">
 		</td></tr>
-		
-		<tr><td colspan="2">
-		用户实名<input type="text" id="username" ><input type="button" id="btn_query" value="查询">
-		<table border="1" id="maintab">
-		<thead>
-			<tr>
-				<th>#</th><th>用户名</th><th>用户实名</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-		</table>
-		</td></tr>
-		
-	
-		</table>
+
+	</table>
 
 		<input type="button" value="保存"  id="btn_save">
 		<input type="button" value="返回"  id="btn_back">
 		
 	</form>
 
+<%@ include file="part/selCheckuser.jsp" %>	
 </body>
 </html>
