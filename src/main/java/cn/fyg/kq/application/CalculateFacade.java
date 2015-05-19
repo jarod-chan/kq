@@ -1,4 +1,4 @@
-package cn.fyg.kq.interfaces.web.module.adminkq.period;
+package cn.fyg.kq.application;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,9 +13,6 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import cn.fyg.kq.application.CheckuserService;
-import cn.fyg.kq.application.KaoqinService;
-import cn.fyg.kq.application.PeriodService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
 import cn.fyg.kq.domain.model.checkuser.Kqstat;
