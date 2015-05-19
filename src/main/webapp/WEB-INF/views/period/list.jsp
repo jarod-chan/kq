@@ -24,6 +24,20 @@
 			.submit();
     	});
 		
+		$(".btn_calresult").click(function(){
+			var id=$(this).data("id");
+			window.open('${ctx}/period/'+id+'/calresult','_self');
+			return false;
+		});
+		
+		$('.btn_produce').click(function(){
+			var id=$(this).data("id");
+        	$('<form/>',{action:'${ctx}/period/produce',method:'post'})
+	    		.append($('<input/>',{type:'hidden',name:'periodId',value:id}))
+				.appendTo($("body"))
+			.submit();
+    	});
+		
 		$('.btn_delete').click(function(){
     		var id=$(this).data("id");
         	$('<form/>',{action:'${ctx}/period/delete',method:'post'})
@@ -31,6 +45,8 @@
 				.appendTo($("body"))
 			.submit();
     	});
+		
+
 	})
 	</script>
 
@@ -78,12 +94,22 @@
 			<c:choose>
 			<c:when test="${period.state=='create'}">
 				<input data-id="${period.id}" class="btn_docal" type="button" value="执行计算">
+				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
 			</c:when>
 			<c:when test="${period.state=='docal'}">
-				
+				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
+			</c:when>
+			<c:when test="${period.state=='finishcal'}">
+				<input data-id="${period.id}" class="btn_calresult" type="button" value="查看计算结果">
+				<input data-id="${period.id}" class="btn_produce" type="button" value="生成考勤单">
+				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
+			</c:when>
+			<c:when test="${period.state=='produce'}">
+				<input data-id="${period.id}" class="btn_calresult" type="button" value="查看计算结果">
+				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
 			</c:when>
 			</c:choose>
-			<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
+			
 		</td>
 	</tr>
 	</c:forEach>

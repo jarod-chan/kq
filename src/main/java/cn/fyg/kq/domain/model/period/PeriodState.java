@@ -6,7 +6,7 @@ public enum PeriodState implements CommonEnum {
 	create("新建"),
 	docal("计算中"),
 	finishcal("计算完成"),
-	produce("已生产");
+	produce("已生成");
 	
 	private final String name;
 	
