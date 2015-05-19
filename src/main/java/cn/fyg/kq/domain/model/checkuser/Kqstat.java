@@ -1,16 +1,13 @@
-package cn.fyg.kq.domain.model.kq.kaoqin;
+package cn.fyg.kq.domain.model.checkuser;
 
 import cn.fyg.kq.domain.shared.CommonEnum;
 
-
-public enum PassState implements CommonEnum {
-
-	pass("通过"),
-	no("未通过"); 
+public enum Kqstat implements CommonEnum {
+	todo("待定"),yes("是"),no("否");
 	
 	private final String name;
 
-	private PassState(String name){
+	private Kqstat(String name) {
 		this.name=name;
 	}
 	
@@ -18,4 +15,5 @@ public enum PassState implements CommonEnum {
 	public String getName() {
 		return this.name;
 	}
+
 }

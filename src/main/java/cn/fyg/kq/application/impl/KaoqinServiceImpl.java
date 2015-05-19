@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.application.common.impl.SericeQueryImpl;
-import cn.fyg.kq.domain.model.kq.kaoqin.Kaoqin;
-import cn.fyg.kq.domain.model.kq.kaoqin.KaoqinRepository;
+import cn.fyg.kq.domain.model.kaoqin.Kaoqin;
+import cn.fyg.kq.domain.model.kaoqin.KaoqinRepository;
 import cn.fyg.kq.domain.model.kq.qingjia.Qingjia;
 
 @Service

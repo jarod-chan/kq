@@ -29,6 +29,15 @@ public class CheckuserSpecs {
 		};
 	}
 	
+	public static Specification<Checkuser> isKqstat(final Kqstat kqstat) {
+		return new Specification<Checkuser>() {
+			@Override
+			public Predicate toPredicate(Root<Checkuser> root,CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.equal(root.<String> get("kqstat"),kqstat);
+			}
+		};
+	}
+	
 
 
 }

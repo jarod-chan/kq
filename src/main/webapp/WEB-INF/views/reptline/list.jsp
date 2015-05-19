@@ -19,17 +19,23 @@
 				.appendTo($("body"))
 			.submit();
     	});
+		
+		$("#headdiv").css("width",$("#tblmain").css("width"));
 	})
 	</script>
 
 </head>
 
+<c:set target="${pagefunc}" property="name" value="汇报关系" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/reptline/list" />
+
 <body>
-<h2>汇报关系</h2>
 <%@ include file="/common/message.jsp" %>	
 
-<input class="btn_add"  type="button"  value="新增" >
-<table id="tblmain" class="hctable deftable">
+<div id="headdiv" style="text-align: right;">
+	<input type="button" value="新建"  class="btn_add">
+</div>
+<table id="tblmain" class="hctable deftable col-6">
 <thead>
 	<tr>
 		<th>编码</th><th>用户名</th><th>用户实名</th><th>公司</th><th>操作</th>

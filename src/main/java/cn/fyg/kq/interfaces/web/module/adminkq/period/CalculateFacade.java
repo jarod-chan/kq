@@ -10,24 +10,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.application.KaoqinService;
+import cn.fyg.kq.application.PeriodService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
-import cn.fyg.kq.domain.model.kq.kaoqin.Kaoqin;
-import cn.fyg.kq.domain.model.kq.kaoqin.KaoqinItem;
-import cn.fyg.kq.domain.model.kq.kaoqin.KaoqinState;
-import cn.fyg.kq.domain.model.kq.kaoqin.MonthItem;
-import cn.fyg.kq.domain.model.kq.kaoqin.SchclassInout;
-import cn.fyg.kq.domain.model.kq.period.Period;
+import cn.fyg.kq.domain.model.checkuser.Kqstat;
+import cn.fyg.kq.domain.model.kaoqin.Kaoqin;
+import cn.fyg.kq.domain.model.kaoqin.KaoqinItem;
+import cn.fyg.kq.domain.model.kaoqin.MonthItem;
+import cn.fyg.kq.domain.model.kaoqin.SchclassInout;
+import cn.fyg.kq.domain.model.period.Period;
+import cn.fyg.kq.domain.model.period.PeriodState;
 import cn.fyg.zktime.domain.Checkinout;
 import cn.fyg.zktime.domain.DateCheck;
 import cn.fyg.zktime.domain.MonthCheck;
 import cn.fyg.zktime.domain.Schclass;
 import cn.fyg.zktime.service.MonthCheckService;
-
 @Service
 public class CalculateFacade {
 	
@@ -38,11 +40,15 @@ public class CalculateFacade {
 	@Autowired
 	KaoqinService kaoqinService;
 	
+	@Autowired
+	PeriodService periodService;
 	
-	
+	@Async
 	public void calculate(Period period){
+		
 		Specification<Checkuser> inComp = CheckuserSpecs.inComp(period.getComp());
-		Specifications<Checkuser> specs=Specifications.where(inComp);
+		Specification<Checkuser> kqstat = CheckuserSpecs.isKqstat(Kqstat.yes);
+		Specifications<Checkuser> specs=Specifications.where(inComp).and(kqstat);
 		Sort sort=null;
 		
 		List<Checkuser> checkuserList = this.checkuserService.findAll(specs, sort);
@@ -56,6 +62,8 @@ public class CalculateFacade {
 			produceKaoqin(monthCheck,checkuser,period.getMonthitem());
 		}
 		
+		period.setState(PeriodState.finishcal);
+		this.periodService.save(period);
 	}
 	
 	
@@ -69,7 +77,7 @@ public class CalculateFacade {
 					KaoqinItem kaoqinItem = new KaoqinItem();
 					kaoqinItem.setSn(Long.valueOf(sn));
 					kaoqinItem.setDate(dateCheck.getDate());
-					cn.fyg.kq.domain.model.kq.kaoqin.Schclass kqsch = new cn.fyg.kq.domain.model.kq.kaoqin.Schclass();
+					cn.fyg.kq.domain.model.kaoqin.Schclass kqsch = new cn.fyg.kq.domain.model.kaoqin.Schclass();
 					Date checkintime1 = schclass.getCheckintime1();
 					Date checkintime2 = schclass.getCheckintime2();
 					DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -91,7 +99,7 @@ public class CalculateFacade {
 					KaoqinItem kaoqinItem = new KaoqinItem();
 					kaoqinItem.setSn(Long.valueOf(sn));
 					kaoqinItem.setDate(dateCheck.getDate());
-					cn.fyg.kq.domain.model.kq.kaoqin.Schclass kqsch = new cn.fyg.kq.domain.model.kq.kaoqin.Schclass();
+					cn.fyg.kq.domain.model.kaoqin.Schclass kqsch = new cn.fyg.kq.domain.model.kaoqin.Schclass();
 					Date checkouttime1 = schclass.getCheckouttime1();
 					Date checkouttime2 = schclass.getCheckouttime2();
 					DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -116,7 +124,7 @@ public class CalculateFacade {
 			kaoqin.setNo(null);
 			kaoqin.setUser(checkuser.getUser());
 			kaoqin.setMonthitem(monthItem);
-			kaoqin.setState(KaoqinState.produced);
+			kaoqin.setState(null);
 			kaoqin.setItem_all(kaoqinItems.size());
 			kaoqin.setItem_real(0);
 			kaoqin.setComp("fangchan");

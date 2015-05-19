@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.kaoqin;
+package cn.fyg.kq.domain.model.kaoqin;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -7,7 +7,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import cn.fyg.kq.domain.model.kq.period.Period;
+import cn.fyg.kq.domain.model.period.Period;
 
 public class KaoqinSpecs {
 

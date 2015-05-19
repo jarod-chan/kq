@@ -9,26 +9,38 @@
 	<%@ include file="/common/include.jsp" %>	
 	<script type="text/javascript">
 	$(function(){
+
+		$('.btn_create').click(function(){
+			var actionFrom=$("form");
+			var oldAction=actionFrom.attr("action");
+			actionFrom.attr("action",oldAction+"/create").submit();
+    	});
+		
+		$('.btn_docal').click(function(){
+			var id=$(this).data("id");
+        	$('<form/>',{action:'${ctx}/period/docal',method:'post'})
+	    		.append($('<input/>',{type:'hidden',name:'periodId',value:id}))
+				.appendTo($("body"))
+			.submit();
+    	});
 		
 		$('.btn_delete').click(function(){
     		var id=$(this).data("id");
         	$('<form/>',{action:'${ctx}/period/delete',method:'post'})
-	    		.append($('<input/>',{type:'hidden',name:'period',value:id}))
+	    		.append($('<input/>',{type:'hidden',name:'periodId',value:id}))
 				.appendTo($("body"))
 			.submit();
-    	});
-
-		$('.btn_add').click(function(){
-			var actionFrom=$("form");
-			var oldAction=actionFrom.attr("action");
-			actionFrom.attr("action",oldAction+"/calculate").submit();
     	});
 	})
 	</script>
 
 </head>
 
+<c:set target="${pagefunc}" property="name" value="考勤期间" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/period/list" />
+
 <body>
+<%@ include file="/common/message.jsp" %>	
 <form action="${ctx}/period" method="post">
 年：<select name="monthitem.year">
 	<option value="2015">2015</option>
@@ -48,22 +60,34 @@
 	<option value="12">12</option>
 </select>
 
-<input class="btn_add"  type="button"  value="生成考勤结果" >
+<input class="btn_create"  type="button"  value="生成考勤期间" >
 </form>
-<table border="1">
+
+<table id="tblmain" class="hctable deftable col-6">
 <thead>
 	<tr>
-		<th>考勤期间</th><th>操作</th>
+		<th>考勤期间</th><th>状态</th><th>操作</th>
 	</tr>
 </thead>
 <tbody>
-</tbody>
 	<c:forEach var="period" items="${periodList}">
 	<tr>
 		<td>${period.monthitem.year}年${period.monthitem.month}月</td>
-		<td><input data-id="${period.id}" class="btn_delete" type="button" value="删除"></td>
+		<td>${period.state.name}</td>
+		<td>
+			<c:choose>
+			<c:when test="${period.state=='create'}">
+				<input data-id="${period.id}" class="btn_docal" type="button" value="执行计算">
+			</c:when>
+			<c:when test="${period.state=='docal'}">
+				
+			</c:when>
+			</c:choose>
+			<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
+		</td>
 	</tr>
 	</c:forEach>
+</tbody>
 </table>
 
 </body>

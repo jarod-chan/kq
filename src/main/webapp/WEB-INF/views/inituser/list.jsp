@@ -29,7 +29,7 @@
 </head>
 
 <c:set target="${pagefunc}" property="name" value="用户初始化" />
-<c:set target="${pagefunc}" property="url" value="${ctx}/list" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/inituser/list" />
 
 <body>
 <%@ include file="/common/message.jsp" %>	

@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.ReptlineService;
 import cn.fyg.kq.application.UserService;
-import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.kq.user.User;
 import cn.fyg.kq.domain.model.reptline.Reptline;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;

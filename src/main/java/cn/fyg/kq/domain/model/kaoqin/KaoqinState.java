@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.kaoqin;
+package cn.fyg.kq.domain.model.kaoqin;
 
 import cn.fyg.kq.domain.shared.CommonEnum;
 
@@ -6,9 +6,8 @@ import cn.fyg.kq.domain.shared.CommonEnum;
 
 public enum KaoqinState implements CommonEnum {
 	
-	produced("已生产"),
+	produce("已生产"),
 	save("暂存"),
-	commit("已提交"),
 	process("审批中"), 
 	finish("完成"),
 	voided("作废"); 

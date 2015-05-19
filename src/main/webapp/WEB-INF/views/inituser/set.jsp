@@ -14,10 +14,10 @@
 		$(function(){
 			$("#selKqstat").change(function(){
 				if($(this).val()=="yes"){
-					$("#ipUserid").addClass("ignore");
+					$("#ipUserid").removeClass("ignore");
 					$(".kqstatShow").show();
 				}else{
-					$("#ipUserid").removeClass("ignore");
+					$("#ipUserid").addClass("ignore");
 					$(".kqstatShow").hide();
 				}
 			});

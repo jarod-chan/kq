@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.kaoqin;
+package cn.fyg.kq.domain.model.kaoqin;
 
 import javax.persistence.Embeddable;
 
