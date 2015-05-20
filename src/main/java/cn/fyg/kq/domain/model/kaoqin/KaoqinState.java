@@ -6,7 +6,7 @@ import cn.fyg.kq.domain.shared.CommonEnum;
 
 public enum KaoqinState implements CommonEnum {
 	
-	produce("已生产"),
+	produce("已生成"),
 	save("暂存"),
 	process("审批中"), 
 	finish("完成"),

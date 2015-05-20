@@ -22,5 +22,23 @@ public class KaoqinSpecs {
 			}
 		};
 	}
+	
+	public static Specification<Kaoqin> inState(final KaoqinState... states) {
+		return new Specification<Kaoqin>() {
+			@Override
+			public Predicate toPredicate(Root<Kaoqin> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return root.get("state").in((Object[])states);
+			}
+		};
+	}
+	
+	public static Specification<Kaoqin> notFinish() {
+		return inState(KaoqinState.produce,KaoqinState.save,KaoqinState.process);
+	}
+	
+	public static Specification<Kaoqin> isFinish() {
+		return inState(KaoqinState.finish,KaoqinState.voided);
+	}
 
 }

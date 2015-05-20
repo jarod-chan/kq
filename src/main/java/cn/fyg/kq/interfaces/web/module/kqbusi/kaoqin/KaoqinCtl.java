@@ -1,6 +1,6 @@
 package cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin;
 
-import static cn.fyg.kq.interfaces.web.shared.message.Message.info;
+import static cn.fyg.kq.interfaces.web.shared.message.Message.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +13,10 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +40,13 @@ import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 import cn.fyg.kq.interfaces.web.shared.tool.Constant;
 import cn.fyg.kq.interfaces.web.shared.tool.FlowConstant;
 
+import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.*;
+
 @Controller
 @RequestMapping("kaoqin")
 public class KaoqinCtl {
 	
-	private static final String PATH = "kq/kaoqin/";
+	private static final String PATH = "kaoqin/";
 	private interface Page {
 		String LIST = PATH + "list";
 		String EDIT = PATH + "edit";
@@ -53,8 +59,15 @@ public class KaoqinCtl {
 	
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
-		List<Kaoqin> kaoqinList = this.kaoqinService.findAll();
-		map.put("kaoqinList", kaoqinList);
+		Specifications<Kaoqin> specs = Specifications.where(notFinish());
+		Sort sort=new Sort(Direction.DESC,"id");
+		List<Kaoqin> notFinishList = this.kaoqinService.findAll(specs,sort);
+		map.put("notFinishList", notFinishList);
+		
+		specs = Specifications.where(isFinish());
+		List<Kaoqin> isFinishList = this.kaoqinService.findAll(specs,sort);
+		map.put("isFinishList", isFinishList);
+	
 		return Page.LIST;
 	}
 	
@@ -69,7 +82,6 @@ public class KaoqinCtl {
 	public String saveEdit(@RequestParam("kaoqinId")Long kaoqinId,HttpServletRequest request,RedirectAttributes redirectAttributes){
 		User user=new User();
 		user.setFid("u2");
-		String comp="jianshe";
 		
 		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId);
 		

@@ -12,5 +12,7 @@ public interface ServiceQuery<T> {
 	Page<T> findAll(Specification<T> spec, Pageable pageable);
 
 	List<T> findAll(Specification<T> spec, Sort sort);
+	
+	List<T> findAll(Specification<T> spec);
 
 }

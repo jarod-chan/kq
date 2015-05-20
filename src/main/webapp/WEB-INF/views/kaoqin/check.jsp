@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -27,16 +29,31 @@
 </head>
 
 <body>
+<%@ include file="/script/fmttable.jsp" %>
+<h2>考勤单</h2>
+<table id="tabmain" class="fmttable">
 
+	<tr>
+		<td>编号：</td><td>${kaoqin.id}</td>
+		<td>考勤人员：</td><td>${kaoqin.user.fname}</td>
+	</tr>
+	
+	<tr>
+		<td>年月：</td>
+		<td>${kaoqin.monthitem.year}年${kaoqin.monthitem.month}月</td>
+		<td>状态：</td>
+		<td>${kaoqin.state.name}</td>
+	</tr>
+	
+	<tr>
+		<td>次数：</td><td>${kaoqin.item_all}</td>
+		<td>创建时间：</td><td><fmt:formatDate value="${kaoqin.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+	</tr>
+			
+</table>
 
-编号:${kaoqin.id}<br/>
- 考勤人员:${kaoqin.user.fname}<br/>
-日期： ${kaoqin.monthitem.year}年 ${kaoqin.monthitem.month}月<br/>
-状态： ${kaoqin.state.name}<br/>
-次数： ${kaoqin.item_all}<br/>
-创建时间: ${kaoqin.createtime}<br/>
-
-<table border="1">
+<h3>异常记录</h3>
+<table id="tabitem" class="deftable col-12">
 <thead>
 	<tr>
 		<th>序号</th><th>日期</th><th>班次</th><th>签到、签退</th><th>时间</th><th>打卡时间</th><th>事由</th><th>通过</th>
@@ -63,36 +80,32 @@
 </tbody>
 </table>
 
-		<form action="${ctx}/kaoqin/check" method="post" >
-			<input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
-			<input type="hidden" name="businessId" value="${qingjia.id}"/>
-			<input type="hidden" name="taskId" value="${task.id}"/>
-			
-			
-			<table style="border:  1px dashed #718DA6;margin-top: 10px;margin-bottom: 10px;">
-				<tbody>
-					<tr>
-						<td style="width: 300px;">
-							${task.name}：<select name="result">
-								<c:forEach var="result" items="${resultList}">
-									<option value="${result}" >${result.name}</option>
-								</c:forEach>
-							</select>
-						</td>
-						<td style="width: 300px;">
-							 审批人： ${user.fname}
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							审批意见：<br>
-							<textarea name="description" style="height: 180px;margin-top: 5px;"></textarea>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-						
-			</form>
+<h3>审批信息</h3>
+
+<form action="${ctx}/kaoqin/check" method="post" >
+	<input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
+	<input type="hidden" name="businessId" value="${qingjia.id}"/>
+	<input type="hidden" name="taskId" value="${task.id}"/>
+	
+	
+	<table class="fmttable">
+		<tbody>
+			<tr>
+				<td>${task.name}：</td><td><select name="result">
+						<c:forEach var="result" items="${resultList}">
+							<option value="${result}" >${result.name}</option>
+						</c:forEach>
+					</select>
+				</td>
+				<td>审批人:</td><td>${user.fname}</td>
+			</tr>
+			<tr>
+				<td style="vertical-align: top">原因：</td><td colspan="3"><textarea name="description" class="edittextarea"></textarea></td>
+			</tr>
+		</tbody>
+	</table>
+				
+</form>
 
 	
 	

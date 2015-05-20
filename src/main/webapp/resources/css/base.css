@@ -2,22 +2,12 @@
 body {
     font-family:'Verdana','宋体';
     font-size:14px;
-    margin:0px;
 }
 
-/*ie6 默认form 有距离*/
-form {
-	margin-top: 0px;
-	margin-bottom: 0px;
+body,form,h1,h2,h3,h4,h5,h6{
+	margin:0px;
 }
 
-h2,h3,h4,h5{
-	margin:0 auto;
-}
-
-h3{
-	margin-top:10px;
-}
 
 /* 连接按钮样式 */
 .link_btn{text-decoration: none;background-color:#C0C0C0; padding: 2px; border: 1px #000000 dotted;}

@@ -25,4 +25,11 @@ public abstract class SericeQueryImpl<T> implements ServiceQuery<T> {
 		JpaSpecificationExecutor<T> specExecutor = getSpecExecutor();
 		return specExecutor.findAll(spec, sort);
 	}
+	
+	@Override
+	public List<T> findAll(Specification<T> spec) {
+		JpaSpecificationExecutor<T> specExecutor = getSpecExecutor();
+		Sort sort=null;
+		return specExecutor.findAll(spec, sort);
+	}
 }

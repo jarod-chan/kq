@@ -102,6 +102,7 @@ Period period = this.periodService.find(periodId);
 		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
 		for (Kaoqin kaoqin : kaoqinList) {
 			kaoqin.setState(KaoqinState.produce);
+			this.kaoqinService.save(kaoqin);
 		}
 		period.setState(PeriodState.produce);
 		this.periodService.save(period);
