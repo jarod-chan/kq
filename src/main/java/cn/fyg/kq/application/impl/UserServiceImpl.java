@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.UserService;
-import cn.fyg.kq.domain.model.kq.user.User;
-import cn.fyg.kq.domain.model.kq.user.UserRepository;
+import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.domain.model.user.UserFactory;
+import cn.fyg.kq.domain.model.user.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,6 +37,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User find(String fid) {
 		return this.userRepository.findOne(fid);
+	}
+
+	@Override
+	public User create() {
+		return UserFactory.create();
 	}
 	
 

@@ -12,7 +12,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import cn.fyg.kq.domain.model.kq.tag.Tag;
-import cn.fyg.kq.domain.model.kq.user.User;
+import cn.fyg.kq.domain.model.user.User;
 
 @Entity
 @Table(name="bs_admincomp")

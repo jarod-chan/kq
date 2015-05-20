@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.user;
+package cn.fyg.kq.domain.model.user;
 
 import java.util.List;
 

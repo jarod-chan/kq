@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import cn.fyg.kq.domain.model.kq.user.User;
+import cn.fyg.kq.domain.model.user.User;
 
 /**
  *定义流程的汇报关系

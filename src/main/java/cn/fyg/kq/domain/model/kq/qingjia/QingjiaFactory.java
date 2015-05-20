@@ -1,6 +1,6 @@
 package cn.fyg.kq.domain.model.kq.qingjia;
 
-import cn.fyg.kq.domain.model.kq.user.User;
+import cn.fyg.kq.domain.model.user.User;
 
 public class QingjiaFactory {
 	

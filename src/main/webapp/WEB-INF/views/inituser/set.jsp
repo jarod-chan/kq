@@ -57,37 +57,37 @@
 <input type="hidden" name="id"  value="${checkuser.id}" />
 
 
-	<table id="tabmain">	
-		
-		<tr><td>
-		用户：</td><td>
-		${checkuser.user.fnumber}
-		</td></tr>
-		
-		<tr><td>
-		考勤状态：</td><td>
-		<select name="kqstat" id="selKqstat">
-			<c:forEach var="kqstat" items="${kqstatVs}">
-				<option <c:if test="${checkuser.kqstat==kqstat}">selected="selected"</c:if> value="${kqstat}">${kqstat.name}</option>
-			</c:forEach>
-		</select>
-		</td></tr>
-		
-		<tr class="kqstatShow <c:if test="${checkuser.kqstat!='yes'}">none</c:if>"><td> 
-		考勤工号：</td><td>
-		<span id="spanBadgenumber">${checkuser.badgenumber}</span>
-		<input type="hidden" name="userid" id="ipUserid" <c:if test="${checkuser.kqstat!='yes'}">class="ignore"</c:if> value="${checkuser.userid}" />
-		<input type="hidden" name="badgenumber" id="ipBadgenumber"  value="${checkuser.badgenumber}" />
-		<input type="hidden" name="name"  id="ipName" value="${checkuser.name}" />
-		<input type="button" value="选择" id="btn_selKquser">
-		</td></tr>
-		
-		<tr class="kqstatShow <c:if test="${checkuser.kqstat!='yes'}">none</c:if>"><td>
-		考勤姓名：</td><td>
-		<span id="spanName">${checkuser.name}</span>
-		</td></tr>
-		
-		</table>
+<table id="tabmain">	
+	
+	<tr><td>
+	用户：</td><td>
+	${checkuser.user.fnumber}
+	</td></tr>
+	
+	<tr><td>
+	考勤状态：</td><td>
+	<select name="kqstat" id="selKqstat">
+		<c:forEach var="kqstat" items="${kqstatVs}">
+			<option <c:if test="${checkuser.kqstat==kqstat}">selected="selected"</c:if> value="${kqstat}">${kqstat.name}</option>
+		</c:forEach>
+	</select>
+	</td></tr>
+	
+	<tr class="kqstatShow <c:if test="${checkuser.kqstat!='yes'}">none</c:if>"><td> 
+	考勤工号：</td><td>
+	<span id="spanBadgenumber">${checkuser.badgenumber}</span>
+	<input type="hidden" name="userid" id="ipUserid" <c:if test="${checkuser.kqstat!='yes'}">class="ignore"</c:if> value="${checkuser.userid}" />
+	<input type="hidden" name="badgenumber" id="ipBadgenumber"  value="${checkuser.badgenumber}" />
+	<input type="hidden" name="name"  id="ipName" value="${checkuser.name}" />
+	<input type="button" value="选择" id="btn_selKquser">
+	</td></tr>
+	
+	<tr class="kqstatShow <c:if test="${checkuser.kqstat!='yes'}">none</c:if>"><td>
+	考勤姓名：</td><td>
+	<span id="spanName">${checkuser.name}</span>
+	</td></tr>
+	
+</table>
 
 		<input type="button" value="保存"  id="btn_save">
 		<input type="button" value="返回"  id="btn_back">

@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import cn.fyg.kq.domain.model.kq.user.User;
+import cn.fyg.kq.domain.model.user.User;
 
 /**
  *参与考勤的用户

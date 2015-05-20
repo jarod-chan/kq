@@ -55,8 +55,10 @@
 
 </head>
 
+<c:set target="${pagefunc}" property="name" value="导入用户" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/importuser/list" />
+
 <body>
-	<h2>导入用户</h2>
 	<%@ include file="/common/message.jsp" %>	
 	
 	<div id="headdiv" style="text-align: right;">
