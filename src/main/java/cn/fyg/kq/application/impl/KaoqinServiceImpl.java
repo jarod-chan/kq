@@ -3,21 +3,39 @@ package cn.fyg.kq.application.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.application.common.impl.SericeQueryImpl;
-import cn.fyg.kq.domain.model.kaoqin.Kaoqin;
+import cn.fyg.kq.domain.model.kaoqin.KaoqinNo;
 import cn.fyg.kq.domain.model.kaoqin.KaoqinRepository;
-import cn.fyg.kq.domain.model.kq.qingjia.Qingjia;
+import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
+import cn.fyg.kq.domain.model.nogenerator.generator.Pattern;
+import cn.fyg.kq.domain.model.nogenerator.generator.PatternFactory;
+import cn.fyg.kq.domain.model.nogenerator.look.Lock;
+import cn.fyg.kq.domain.model.nogenerator.look.LockService;
+import cn.fyg.kq.domain.model.nogenerator.service.GeneService;
+
+
 
 @Service
 public class KaoqinServiceImpl extends SericeQueryImpl<Kaoqin>  implements KaoqinService {
 	
 	@Autowired
 	KaoqinRepository kaoqinRepository;
+	@Autowired
+	LockService lockService;
+	@Autowired
+	@Qualifier("kaoqinNo")
+	PatternFactory<Kaoqin> noFactory;
+	@Autowired
+	KaoqinServiceImplExd kaoqinServiceImplExd;
+	@Autowired
+	GeneService geneService;
+
 
 	@Override
 	public Kaoqin create() {
@@ -31,10 +49,27 @@ public class KaoqinServiceImpl extends SericeQueryImpl<Kaoqin>  implements Kaoqi
 	}
 
 	@Override
-	@Transactional
 	public Kaoqin save(Kaoqin kaoqin) {
+		noFactory=new KaoqinNo();
+		Pattern<Kaoqin> pattern = noFactory.create(kaoqin).setEmpty(kaoqin.getId()!=null);
+	
+		
+		Lock lock = this.lockService.getLock(pattern);
+		lock.lock();
+		try{
+			return this.kaoqinServiceImplExd.save(kaoqin, pattern);
+		}finally{
+			lock.unlock();
+		}	
+	}
+	
+	@Transactional
+	public Kaoqin save(Kaoqin kaoqin,Pattern<Kaoqin> pattern) {
+		this.geneService.generateNextNo(pattern);
 		return this.kaoqinRepository.save(kaoqin);
 	}
+	
+
 
 	@Override
 	public Kaoqin find(Long kaoqinId) {

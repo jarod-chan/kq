@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kaoqin;
+package cn.fyg.kq.domain.model.kaoqin.busi;
 
 import java.util.ArrayList;
 import java.util.Date;

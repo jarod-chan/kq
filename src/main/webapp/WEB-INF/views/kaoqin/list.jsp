@@ -37,7 +37,7 @@
 <tbody>
 	<c:forEach var="kaoqin" items="${notFinishList}">
 		<tr>
-			<td>${kaoqin.id}</td>
+			<td>${kaoqin.no}</td>
 			<td>${kaoqin.monthitem.year}年${kaoqin.monthitem.month}月${kaoqin.user.fnumber}考勤单</td>
 			<td>${kaoqin.state.name}</td>
 			<td>
@@ -55,7 +55,7 @@
 <tbody>
 	<c:forEach var="kaoqin" items="${isFinishList}">
 		<tr>
-			<td>${kaoqin.id}</td>
+			<td>${kaoqin.no}</td>
 			<td>${kaoqin.monthitem.year}年${kaoqin.monthitem.month}月${kaoqin.user.fnumber}考勤单</td>
 			<td>${kaoqin.state.name}</td>
 			<td>

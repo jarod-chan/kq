@@ -47,7 +47,7 @@
 <table id="tabmain" class="fmttable">
 
 	<tr>
-		<td>编号：</td><td>${kaoqin.id}</td>
+		<td>编号：</td><td>${kaoqin.no}</td>
 		<td>考勤人员：</td><td>${kaoqin.user.fname}</td>
 	</tr>
 	

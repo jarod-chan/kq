@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kaoqin;
+package cn.fyg.kq.domain.model.kaoqin.busi;
 
 import cn.fyg.kq.domain.shared.CommonEnum;
 

@@ -7,6 +7,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
+import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.period.Period;
 
 public class KaoqinSpecs {

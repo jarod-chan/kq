@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kaoqin;
+package cn.fyg.kq.domain.model.kaoqin.busi;
 
 import java.util.Date;
 
@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 @Entity
 @Table(name="kq_kaoqinitem")
 public class KaoqinItem {
