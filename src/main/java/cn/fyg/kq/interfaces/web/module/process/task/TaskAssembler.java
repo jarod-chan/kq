@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 
 @Component
-public class TaskFacade {
+public class TaskAssembler {
 	
 	@Autowired
 	RuntimeService runtimeService;
@@ -25,32 +26,50 @@ public class TaskFacade {
 	FormService formService;
 	@Autowired
 	RepositoryService repositoryService;
+	@Autowired
+	HistoryService historyService;
 	
-	public List<ProcessTaskBean> getProcessTasks(String userKey){
-		List<ProcessTaskBean> result=new ArrayList<ProcessTaskBean>();
-		//List<Task> tasks = taskService.createTaskQuery().taskAssignee(userKey).list();
-		//TODO 查询所有任务
-		List<Task> tasks = taskService.createTaskQuery().list();
+	
+	public List<ProcessTask> getProcessTasks(String userKey){
+		List<ProcessTask> result=new ArrayList<ProcessTask>();
+		//TODO 暂时查询所有数据
+		//List<Task> tasks = taskService.createTaskQuery().taskAssignee(userKey).orderByTaskCreateTime().desc().list();
+		List<Task> tasks = taskService.createTaskQuery().orderByTaskCreateTime().desc().list();
 		for (Task task : tasks) {
-			ProcessTaskBean processTaskBean=new ProcessTaskBean();
+			ProcessTask processTaskBean=new ProcessTask();
+			
+			String executionId = task.getProcessInstanceId();
+			processTaskBean.setExecutionId(executionId);
 			
 			ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(task.getProcessDefinitionId()).singleResult();
 			processTaskBean.setProcessName(processDefinition.getName());
 			
-			processTaskBean.setTaskName(task.getName());
 			processTaskBean.setTaskId(task.getId());
+			processTaskBean.setTaskName(task.getName());
 
 			String formKey= formService.getTaskFormData(task.getId()).getFormKey();
 			processTaskBean.setFormKey(formKey);
 			
-			String executionId = task.getExecutionId();
-			Object obj=runtimeService.getVariableLocal(executionId, FlowConstant.BUSINESS_ID);
-			String businessId=obj==null?"":obj.toString();
+			String businessId = getProcessVariable(executionId, FlowConstant.BUSINESS_ID);
 			processTaskBean.setBusinessId(businessId);
-
+			
+			String businessNo = getProcessVariable(executionId, FlowConstant.BUSINESS_NO);
+			processTaskBean.setBusinessNo(businessNo);
+			
+			String businessTitle = getProcessVariable(executionId, FlowConstant.BUSINESS_TITLE);
+			processTaskBean.setBusinessTitle(businessTitle);
+			
 			result.add(processTaskBean);
 		}
 		return result;
+	}
+
+	/**
+	 * 流程变量设置
+	 */
+	private String getProcessVariable(String executionId,String varName) {
+		Object obj=runtimeService.getVariable(executionId,varName);
+		return obj==null?"":obj.toString();
 	}
 
 }

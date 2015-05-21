@@ -1,13 +1,10 @@
 package cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin.flow;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
-
-import cn.fyg.kq.interfaces.web.shared.tool.FlowConstant;
 
 public class BeginSet implements JavaDelegate {
 

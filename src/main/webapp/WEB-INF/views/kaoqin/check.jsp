@@ -9,7 +9,6 @@
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include.jsp" %>	
-	<%@ include file="/common/plu-datepicker.jsp" %>
 	<script type="text/javascript">
 	$(function(){
 		

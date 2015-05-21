@@ -16,7 +16,11 @@ public interface FlowConstant {
 	 * 单据编号
 	 */
 	String BUSINESS_NO = "businessNo";
-
+	
+	/**
+	 * 单据主题
+	 */
+	String BUSINESS_TITLE="businessTitle";
 
 	/**
 	 * 申请人，流程发起人
@@ -33,14 +37,5 @@ public interface FlowConstant {
 	 */
 	String OPINION = "opinion";
 	
-	/**
-	 * 项目id
-	 */
-	String PROJECT_ID="projectId";
-	
-	/**
-	 * 项目编号
-	 */
-	String PROJECT_NAME="projectName";
 	
 }

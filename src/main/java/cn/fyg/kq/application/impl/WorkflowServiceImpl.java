@@ -11,19 +11,18 @@ import java.util.Map;
 import java.util.zip.ZipInputStream;
 
 import org.activiti.engine.RepositoryService;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.base.Joiner;
-
 import cn.fyg.kq.application.ReptlineService;
 import cn.fyg.kq.application.WorkflowService;
 import cn.fyg.kq.domain.model.process.ProcessFile;
 import cn.fyg.kq.domain.model.reptline.Reptline;
-import cn.fyg.kq.interfaces.web.shared.tool.FlowConstant;
+import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
+
+import com.google.common.base.Joiner;
 
 @Service("workflowService")
 public class WorkflowServiceImpl implements WorkflowService {

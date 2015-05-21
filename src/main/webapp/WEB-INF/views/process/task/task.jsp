@@ -1,70 +1,70 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>任务中心</title>
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
-	<%@ include file="/common/include.jsp" %>
+	<%@ include file="/common/include.jsp" %>	
 	
-	<style type="text/css">
-		#tabmain tbody tr:hover {
-			cursor: pointer;
-		}
-		.none{
-			display: none;
-		}
-	</style>
 
  	<script type="text/javascript">
 	    $(function() {
 	    	$('.btn_execute').click(function(){
-	    		var param=jQuery.parseJSON($(this).attr("param"));
+	    		var param=$(this).metadata();
 	    		$('<form/>',{action:'${ctx}/'+param.formKey,method:'get'})
 	    			.append($('<input/>',{type:'hidden',name:'taskId',value:param.taskId}))
 					.appendTo($("body"))
 				.submit();
-	    	});
+ 	    	});
+ 	    	
+	 	   	$(".btn_trace").click(function(){
+	 	   		var param=$(this).metadata();
+				window.open('${ctx}/trace/'+param.executionId,'_blank');
+				return false;
+			})
 	    	
-	    	//可以通过$(event.target)获取对象
-	    	$('#tabmain tbody tr').click(function(event){
-	    		var param=jQuery.parseJSON($(this).find(".param").val());
-	    		$('<form/>',{action:'${ctx}/'+param.formKey,method:'get'})
-	    			.append($('<input/>',{type:'hidden',name:'taskId',value:param.taskId}))
-					.appendTo($("body"))
-				.submit();
-	    	});
 	    });
     </script>
 
 
 </head>
-<body class="tbody">
-	<h2>任务中心</h2>
-	<%@ include file="/common/message.jsp" %>	
 
-	<table id="tabmain"  class="hctable deftable">
-			<thead>
+<c:set target="${pagefunc}" property="name" value="任务中心" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/process/task" />
+
+<body>
+
+	<%@ include file="/common/message.jsp" %>	
+	<%@ include file="/common/message.jsp" %>	
+	
+	<table border="1" class="hctable deftable col-12"  style="padding-left: 20px;">
+		<thead>
+			<tr>
+				<th>业务流程</th>
+				<th>序号</th>
+				<th>待办任务</th>
+				<th>任务详情</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="processTask" items="${processTaskList}">
 				<tr>
-					<th class="noborder">业务流程</th>
-					<th class="title">待办任务</th>
-					<th class="none">param</th>
+					<td>${processTask.processName}</td>
+					<td>${processTask.businessNo}</td>
+					<td>${processTask.taskName}</td>
+					<td>${processTask.businessTitle}</td>
+					<td>
+						<button class="btn_execute {taskId:'${processTask.taskId }',formKey:'${processTask.formKey}',businessId:'${processTask.businessId}'}" >处理</button>
+						<button class="btn_trace {executionId:'${processTask.executionId}'}" >流程跟踪</button>
+					</td>
 				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="processTask" items="${processTasks}">
-					<tr>
-						<td>${processTask.processName}</td>
-						<td>${processTask.taskName}</td>
-						<td class="none">
-							<input type="hidden" class="param" value='{"taskId":"${processTask.taskId }","formKey":"${processTask.formKey}","businessId":"${processTask.businessId}"}'>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
+			</c:forEach>
+		</tbody>
 		</table>
 
 

@@ -1,6 +1,8 @@
 package cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin;
 
-import static cn.fyg.kq.interfaces.web.shared.message.Message.*;
+import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.isFinish;
+import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.notFinish;
+import static cn.fyg.kq.interfaces.web.shared.message.Message.info;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +17,6 @@ import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,15 +33,14 @@ import cn.fyg.kq.domain.model.kaoqin.busi.PassState;
 import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.opinion.Result;
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin.flow.KaoqinVarname;
 import cn.fyg.kq.interfaces.web.module.kqbusi.qingjia.LeaveVarName;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
+import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 import cn.fyg.kq.interfaces.web.shared.tool.Constant;
-import cn.fyg.kq.interfaces.web.shared.tool.FlowConstant;
-
-import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.*;
 
 @Controller
 @RequestMapping("kaoqin")
@@ -112,10 +112,12 @@ public class KaoqinCtl {
 		try{
 			Map<String, Object> variableMap = new HashMap<String, Object>();
 			variableMap.put(FlowConstant.BUSINESS_ID, kaoqin.getId());
+			variableMap.put(FlowConstant.BUSINESS_NO, kaoqin.getNo());
 			variableMap.put(FlowConstant.APPLY_USER, kaoqin.getUser().getFid());
+			variableMap.put(FlowConstant.BUSINESS_TITLE, kaoqin.getMonthitem().getYear()+"年"+kaoqin.getMonthitem().getMonth()+"月"+kaoqin.getUser().getFnumber()+"考勤单");
 			variableMap.put("item_all", kaoqin.getItem_all());
 			identityService.setAuthenticatedUserId(user.getFid());
-			runtimeService.startProcessInstanceByKey("fyg-kq-kaoqin", variableMap);			
+			runtimeService.startProcessInstanceByKey(KaoqinVarname.PROCESS_DEFINITION_KEY, variableMap);			
 		} finally {
 			identityService.setAuthenticatedUserId(null);
 		}

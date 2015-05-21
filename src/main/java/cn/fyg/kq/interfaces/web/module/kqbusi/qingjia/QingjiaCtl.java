@@ -29,11 +29,11 @@ import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.opinion.Result;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
+import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 import cn.fyg.kq.interfaces.web.shared.tool.Constant;
-import cn.fyg.kq.interfaces.web.shared.tool.FlowConstant;
 
 @Controller
 @RequestMapping("qingjia")

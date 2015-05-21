@@ -21,7 +21,7 @@ public class TaskCtl {
 	}
 	
 	@Autowired
-	TaskFacade taskFacade;
+	TaskAssembler taskAssembler;
 	@Autowired
 	SessionUtil sessionUtil;
 	
@@ -29,8 +29,9 @@ public class TaskCtl {
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
 		User user=sessionUtil.getValue("user");
-		List<ProcessTaskBean> processTasks = taskFacade.getProcessTasks("chenzw");
-		map.put("processTasks", processTasks);
+		//TODO 修改成对应人员
+		List<ProcessTask> processTaskList = taskAssembler.getProcessTasks("chenzw");
+		map.put("processTaskList", processTaskList);
 		return Page.TASK;
 	}
 
