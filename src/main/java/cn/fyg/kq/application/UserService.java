@@ -15,5 +15,7 @@ public interface UserService {
 	void delete(String fid);
 	
 	User find(String fid);
+	
+	User findByFnumber(String fnumber);
 
 }

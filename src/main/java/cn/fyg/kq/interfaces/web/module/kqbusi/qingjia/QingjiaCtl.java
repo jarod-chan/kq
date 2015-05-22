@@ -22,12 +22,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.OpinionService;
 import cn.fyg.kq.application.QingjiaService;
-import cn.fyg.kq.domain.model.kq.qingjia.Ampm;
 import cn.fyg.kq.domain.model.kq.qingjia.Qingjia;
 import cn.fyg.kq.domain.model.kq.qingjia.QingjiaState;
 import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.opinion.Result;
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.domain.shared.kq.Ampm;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;

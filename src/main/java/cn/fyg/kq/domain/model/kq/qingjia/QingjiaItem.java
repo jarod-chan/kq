@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import cn.fyg.kq.domain.shared.kq.Dayitem;
+
 
 @Entity
 @Table(name="kq_qingjiaitem")

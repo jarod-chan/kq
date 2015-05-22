@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.qingjia;
+package cn.fyg.kq.domain.shared.kq;
 
 import cn.fyg.kq.domain.shared.CommonEnum;
 

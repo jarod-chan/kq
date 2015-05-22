@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService {
 	public User create() {
 		return UserFactory.create();
 	}
+
+	@Override
+	public User findByFnumber(String fnumber) {
+		return this.userRepository.findByFnumber(fnumber);
+	}
 	
 
 

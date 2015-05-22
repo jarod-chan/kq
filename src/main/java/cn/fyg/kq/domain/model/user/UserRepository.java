@@ -16,4 +16,6 @@ public interface UserRepository extends Repository<User, String>, JpaSpecificati
 	
 	User findOne(String fid);
 
+	User findByFnumber(String fnumber);
+
 }
