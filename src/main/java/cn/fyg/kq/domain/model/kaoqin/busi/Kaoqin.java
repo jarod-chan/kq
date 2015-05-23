@@ -26,9 +26,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.domain.shared.ProcessDoc;
 @Entity
 @Table(name="kq_kaoqin")
-public class Kaoqin {
+public class Kaoqin implements ProcessDoc{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -148,6 +149,15 @@ public class Kaoqin {
 
 	public void setKaoqinItems(List<KaoqinItem> kaoqinItems) {
 		this.kaoqinItems = kaoqinItems;
+	}
+
+
+	@Override
+	public String getTitle() {
+		return String.format("%d年%d月%s考勤单", 
+				this.getMonthitem().getYear(), 
+				this.getMonthitem().getMonth(), 
+				this.getUser().getFnumber()); 
 	}
 	
 	

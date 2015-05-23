@@ -3,6 +3,7 @@ package cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin;
 import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.isFinish;
 import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.notFinish;
 import static cn.fyg.kq.interfaces.web.shared.message.Message.info;
+import static cn.fyg.kq.interfaces.web.shared.message.Message.error;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +29,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.application.OpinionService;
 import cn.fyg.kq.application.UserService;
+import cn.fyg.kq.application.facade.KaoqinFacade;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.PassState;
 import cn.fyg.kq.domain.model.opinion.Opinion;
-import cn.fyg.kq.domain.model.opinion.Result;
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.domain.shared.verify.Result;
 import cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin.flow.KaoqinVarname;
 import cn.fyg.kq.interfaces.web.module.kqbusi.qingjia.LeaveVarName;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
@@ -41,6 +43,7 @@ import cn.fyg.kq.interfaces.web.shared.message.Message;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 import cn.fyg.kq.interfaces.web.shared.tool.Constant;
+import cn.fyg.kq.domain.model.opinion.ResultOp;
 
 @Controller
 @RequestMapping("kaoqin")
@@ -78,18 +81,39 @@ public class KaoqinCtl {
 		return Page.EDIT;
 	}
 	
+	@Autowired
+	KaoqinFacade kaoqinFacade;
+	
 	@RequestMapping(value="saveEdit",method=RequestMethod.POST)
-	public String saveEdit(@RequestParam("kaoqinId")Long kaoqinId,HttpServletRequest request,RedirectAttributes redirectAttributes){
+	public String saveEdit(@RequestParam("kaoqinId")Long kaoqinId,@RequestParam("afteraction")String afteraction,HttpServletRequest request,RedirectAttributes redirectAttributes){
 		User user=new User();
-		user.setFid("u2");
+
 		
-		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId);
+		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId); 
+		
+		//TODO 使用当前用户
+		user=kaoqin.getUser();
 		
 		BindTool.bindRequest(kaoqin, request);
 		kaoqin=kaoqinService.save(kaoqin);
 		
-		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("保存成功！"));
-		return "redirect:list";
+		if(afteraction.equals("save")){
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("保存成功！"));
+			return "redirect:list";
+		}
+		
+		if(afteraction.equals("commit")){
+			Result result=this.kaoqinFacade.commit(kaoqin, user);
+			if(result.notPass()){
+				redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("提交失败！%s",result.message()));
+				return String.format("redirect:%s/edit",kaoqin.getId());
+			}else{				
+				redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("提交成功！"));
+				return "redirect:list";
+			}
+		}
+		
+		return "";
 	
 	}
 	
@@ -148,7 +172,7 @@ public class KaoqinCtl {
 
 		Kaoqin kaoqin = this.kaoqinService.find(businessId);
 		map.put("kaoqin", kaoqin);
-		map.put("resultList", Result.agreeItems());
+		map.put("resultList", ResultOp.agreeItems());
 		map.put("PassStates", PassState.values());
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		String assignee = task.getAssignee();

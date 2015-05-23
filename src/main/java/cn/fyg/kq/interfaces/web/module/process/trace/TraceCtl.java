@@ -2,6 +2,7 @@ package cn.fyg.kq.interfaces.web.module.process.trace;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 
@@ -32,6 +34,7 @@ public class TraceCtl {
 	ProcessEngineFactoryBean processEngine;
 	
 	@RequestMapping(value = "{executionId}")
+	@ResponseBody
 	public void readResource(@PathVariable("executionId") String executionId, HttpServletResponse response)throws Exception {
 		 //TODO 并行节点出现问题
 		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
@@ -46,6 +49,7 @@ public class TraceCtl {
 	}
 	
 	@RequestMapping(value = "{processDefKey}/{businessId}")
+	@ResponseBody
 	public void trace(@PathVariable("processDefKey") String processDefKey,@PathVariable("businessId") Long businessId,HttpServletResponse response)throws Exception {
 		 //TODO 并行节点出现问题
 		List<ProcessInstance> processInstanceList = runtimeService.createProcessInstanceQuery()
@@ -77,11 +81,16 @@ public class TraceCtl {
 	// 输出资源内容到相应对象
 	public void writeStreamToResponse(HttpServletResponse response,
 			InputStream imageStream) throws IOException {
+		 response.setContentType("image/png");
+		 OutputStream stream = response.getOutputStream();
 		byte[] b = new byte[1024];
 		int len;
 		while ((len = imageStream.read(b, 0, 1024)) != -1) {
-			response.getOutputStream().write(b, 0, len);
+			stream.write(b, 0, len);
 		}
+        stream.flush();
+        stream.close();
+        imageStream.close();
 	}
 
 }

@@ -53,6 +53,26 @@ body {
 .col-11 {width:913px;}
 .col-12 {width:996px;}
 
+.coth-1 {width:82px;}
+.coth-2 {width:165px;}
+.coth-3 {width:248px;}
+.coth-4 {width:331px;}
+.coth-5 {width:414px;}
+.coth-6 {width:497px;}
+.coth-7 {width:580px;}
+.coth-8 {width:664px;}
+.coth-9 {width:746px;}
+.coth-10 {width:829px;}
+.coth-11 {width:912px;}
+.coth-12 {width:995px;}
+
+.nodate{
+	border: 1px solid #AAAAAA;
+	border-top-width: 0px;
+	text-align: center;
+	padding: 2px;
+}
+
 /*-----------------------------------------------------------------------------------------*/
 </style>
 <script type="text/javascript">

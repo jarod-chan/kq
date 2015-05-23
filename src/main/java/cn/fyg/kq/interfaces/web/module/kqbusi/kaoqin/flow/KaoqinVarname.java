@@ -7,9 +7,10 @@ public interface KaoqinVarname {
 	 */
 	String PROCESS_DEFINITION_KEY="fyg-kq-kaoqin";
 		
+
 	/**
-	 * 专业分类
+	 *异常记录总条数
 	 */
-	String SPECIALTY="specialty";
+	String ITEM_ALL = "item_all";
 	
 }

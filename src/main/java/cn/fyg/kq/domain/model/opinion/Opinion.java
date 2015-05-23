@@ -36,7 +36,7 @@ public class Opinion {
 	private String userName;//审批人姓名
 	
 	@Enumerated(EnumType.STRING)
-	private Result result;//是否同意
+	private ResultOp result;//是否同意
 	
 	@Column(length=512)
 	private String description;//审批意见
@@ -92,11 +92,11 @@ public class Opinion {
 		this.userName = userName;
 	}
 
-	public Result getResult() {
+	public ResultOp getResult() {
 		return result;
 	}
 
-	public void setResult(Result result) {
+	public void setResult(ResultOp result) {
 		this.result = result;
 	}
 

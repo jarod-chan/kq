@@ -32,7 +32,7 @@
 <h2>未完成考勤单</h2>
 <table id="tblmain" class="hctable deftable col-12">
 <thead>
-	<tr><th>编号</th><th>考勤单</th><th>状态</th><th>操作</th></tr>
+	<tr><th class="coth-2">编号</th><th class="coth-6">考勤单</th><th class="coth-2">状态</th><th class="coth-2">操作</th></tr>
 </thead>
 <tbody>
 	<c:forEach var="kaoqin" items="${notFinishList}">
@@ -50,7 +50,7 @@
 <h2>历史考勤单</h2>
 <table id="tblmain" class="hctable deftable col-12">
 <thead>
-	<tr><th>编号</th><th>考勤单</th><th>状态</th><th>操作</th></tr>
+	<tr><th class="coth-2">编号</th><th class="coth-6">考勤单</th><th class="coth-2">状态</th><th class="coth-2">操作</th></tr>
 </thead>
 <tbody>
 	<c:forEach var="kaoqin" items="${isFinishList}">
@@ -65,16 +65,9 @@
 	</c:forEach>
 </tbody>
 </table>
-
-
-<div class="nodate">没有数据</div>
-
-<style type="text/css">
-.nodate{
-	border: 1px solid #AAAAAA;
-	border-top-width: 0px;
-}
-</style>
+<c:if test="${empty isFinishList}">		
+<%@ include file="/common/emp-context.jsp" %>
+</c:if>
 
 </body>
 </html>

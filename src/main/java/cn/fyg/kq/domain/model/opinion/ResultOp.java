@@ -5,7 +5,7 @@ import java.util.List;
 
 import cn.fyg.kq.domain.shared.CommonEnum;
 
-public enum Result implements CommonEnum {
+public enum ResultOp implements CommonEnum {
 	agree("同意",Boolean.TRUE),
 	disagree("不同意",Boolean.FALSE),
 	
@@ -18,7 +18,7 @@ public enum Result implements CommonEnum {
 	
 	private Object val;//流程值，用来控制流程分支
 	
-	private<T> Result(String name,T val){
+	private<T> ResultOp(String name,T val){
 		this.name=name;
 		this.val=val;
 	}
@@ -34,17 +34,17 @@ public enum Result implements CommonEnum {
 		return (T) val;
 	}
 	
-	public static List<Result> agreeItems(){
-		List<Result> items=new ArrayList<Result>();
-		items.add(Result.agree);
-		items.add(Result.disagree);
+	public static List<ResultOp> agreeItems(){
+		List<ResultOp> items=new ArrayList<ResultOp>();
+		items.add(ResultOp.agree);
+		items.add(ResultOp.disagree);
 		return items;
 	}
 	
-	public static List<Result> passItems(){
-		List<Result> items=new ArrayList<Result>();
-		items.add(Result.pass);
-		items.add(Result.nopass);
+	public static List<ResultOp> passItems(){
+		List<ResultOp> items=new ArrayList<ResultOp>();
+		items.add(ResultOp.pass);
+		items.add(ResultOp.nopass);
 		return items;
 	}
 	

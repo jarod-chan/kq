@@ -12,16 +12,18 @@
 	<script type="text/javascript">
 	$(function(){
 		
-		$("#btn_commit").click(function(){
-			var actionFrom=$("form");
-			var oldAction=actionFrom.attr("action");
-			actionFrom.attr("action",oldAction+"/saveCommit").submit();
-			return false;
-		})
-		
 		$("#btn_save").click(function(){
 			var actionFrom=$("form");
 			var oldAction=actionFrom.attr("action");
+			$("input[name=afteraction]").val("save");
+			actionFrom.attr("action",oldAction+"/saveEdit").submit();
+			return false;
+		})
+		
+		$("#btn_commit").click(function(){
+			var actionFrom=$("form");
+			var oldAction=actionFrom.attr("action");
+			$("input[name=afteraction]").val("commit");
 			actionFrom.attr("action",oldAction+"/saveEdit").submit();
 			return false;
 		})
@@ -39,11 +41,13 @@
 
 <body>
 <%@ include file="/script/fmttable.jsp" %>
-
 <form action="${ctx}/kaoqin" method="post" >
-<input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
+<input type="hidden" name="afteraction"  >
 
-<h2>考勤单</h2>
+<input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
+<%@ include file="/common/message.jsp" %>
+
+<h3>考勤单</h3>
 <table id="tabmain" class="fmttable">
 
 	<tr>

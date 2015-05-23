@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.application.common.impl.SericeQueryImpl;
+import cn.fyg.kq.domain.model.kaoqin.KaoqinCommitVld;
 import cn.fyg.kq.domain.model.kaoqin.KaoqinNo;
 import cn.fyg.kq.domain.model.kaoqin.KaoqinRepository;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
@@ -18,6 +19,7 @@ import cn.fyg.kq.domain.model.nogenerator.generator.PatternFactory;
 import cn.fyg.kq.domain.model.nogenerator.look.Lock;
 import cn.fyg.kq.domain.model.nogenerator.look.LockService;
 import cn.fyg.kq.domain.model.nogenerator.service.GeneService;
+import cn.fyg.kq.domain.shared.verify.Result;
 
 
 
@@ -85,6 +87,13 @@ public class KaoqinServiceImpl extends SericeQueryImpl<Kaoqin>  implements Kaoqi
 	@Override
 	public JpaSpecificationExecutor<Kaoqin> getSpecExecutor() {
 		return this.kaoqinRepository;
+	}
+
+	@Override
+	public Result verifyForCommit(Kaoqin kaoqin) {
+		KaoqinCommitVld vld = new KaoqinCommitVld();
+		vld.setValObject(kaoqin);
+		return vld.verify();
 	}
 
 }
