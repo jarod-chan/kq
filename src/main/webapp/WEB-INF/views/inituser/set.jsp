@@ -87,6 +87,14 @@
 	<span id="spanName">${checkuser.name}</span>
 	</td></tr>
 	
+	<tr><td>
+	角色：</td><td>
+		<select name="role">
+		<c:forEach var="tag" items="${tagList}">
+			<option <c:if test="${tag.key==checkuser.role}">selected="selected"</c:if> value="${tag.key}">${tag.name}</option>
+		</c:forEach>
+	</select>
+	</td></tr>
 </table>
 
 		<input type="button" value="保存"  id="btn_save">

@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.application.UserService;
+import cn.fyg.kq.domain.model.checkuser.Checkuser;
+import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
@@ -44,6 +47,8 @@ public class LoginCtl {
 	UserService userService;
 	@Autowired
 	SessionUtil sessionUtil;
+	@Autowired
+	CheckuserService checkuserService;
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String toLogin(Map<String,Object> map) {
@@ -53,9 +58,14 @@ public class LoginCtl {
 	@RequestMapping(value = "login",method=RequestMethod.POST)
 	public String dologin(LoginBean loginBean,RedirectAttributes redirectAttributes) {
 		User user = this.userService.findByFnumber(loginBean.getUsername());//TODO 待修改
+		
+		
 		boolean loginSucess=dologin(user,loginBean);
 		if(loginSucess){
 			this.sessionUtil.setValue("user", user); 
+			Specifications<Checkuser> specs = Specifications.where(CheckuserSpecs.ofUser(user));
+			List<Checkuser> checkUserList = this.checkuserService.findAll(specs);
+			this.sessionUtil.setValue("checkuser", checkUserList.get(0)); 
 			return "redirect:/process/task";
 		}else{
 			loginBean.setPassword("");

@@ -5,7 +5,6 @@
 
 
 <c:set var="ctx" value="kq" scope="request"/>
-<c:set var="pagewidth" value="1010" scope="request"/>
 
 
 <!DOCTYPE html>
@@ -88,7 +87,7 @@ $(function(){
 });
 
 function logout(){
-	window.open('/${ctx}/first','_self');
+	window.open('/${ctx}/login','_self');
 }
 
 
@@ -106,7 +105,7 @@ function logout(){
 		</div>
 		<div class="top_right">
 			<div class="main_blank"><input type="button" value="退出" onclick="logout()"/>&nbsp;&nbsp;</div>
-			<div class="main_info">${loginInfo}&nbsp;&nbsp;</div>
+			<div class="main_info">${user.fnumber}${checkuser.comp}&nbsp;&nbsp;${checkuser.role}</div>
 		</div>
 	</div>
 	
@@ -114,11 +113,14 @@ function logout(){
 		<div class="second_left" >
 			<a href="/${ctx}/userhome">首页</a><c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if><c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
 		</div>
+
 		<div class="second_right" >
 			
 		
 			
 			<ul class="nav" style="float:left">
+				
+				<c:if test="${checkuser.role=='tijiaoren'||checkuser.role=='guanliyuan'||checkuser.role=='shenpiren'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程中心&nbsp;&nbsp;</div>
 					<ul>
@@ -130,7 +132,9 @@ function logout(){
 						<li><a href="/${ctx}/process/track">&nbsp;&nbsp;流程跟踪&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
-
+				</c:if>
+				
+				<c:if test="${checkuser.role=='tijiaoren'||checkuser.role=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />员工考勤&nbsp;&nbsp;</div>
 					<ul>
@@ -139,7 +143,9 @@ function logout(){
 						<li><a href="/${ctx}/qingjia/list">&nbsp;&nbsp;请假单&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
+				</c:if>
 
+				<c:if test="${checkuser.role=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />考勤管理&nbsp;&nbsp;</div>
 					<ul>
@@ -149,7 +155,9 @@ function logout(){
 						<li><a href="/${ctx}/reptline/list">&nbsp;&nbsp;汇报关系&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
-
+				</c:if>
+				
+				<c:if test="${checkuser.role=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />系统配置&nbsp;&nbsp;</div>
 					<ul>
@@ -161,7 +169,9 @@ function logout(){
 						<li><a href="/${ctx}/admincomp/list">&nbsp;&nbsp;考勤管理员&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
+				</c:if>
 				
+				<c:if test="${checkuser.role=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程管理&nbsp;&nbsp;</div>
 					<ul>
@@ -174,6 +184,8 @@ function logout(){
 						<li><a href="/${ctx}/workflow/history">&nbsp;&nbsp;流程历史&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
+				</c:if>
+				
 			</ul>
 		</div>
 		<div class="clear_div"></div>

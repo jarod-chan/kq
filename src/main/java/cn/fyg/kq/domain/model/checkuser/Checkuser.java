@@ -38,6 +38,8 @@ public class Checkuser {
 	
 	private String name;//	考勤机姓名
 	
+	private String role;//角色
+	
 	@OneToOne
 	@JoinColumn(name="fid")
 	User user;
@@ -104,6 +106,14 @@ public class Checkuser {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

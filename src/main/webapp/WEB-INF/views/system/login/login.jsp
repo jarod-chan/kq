@@ -60,7 +60,7 @@
 </head>
 <body>
 
-	<div id="loginDiv" title="考勤系统用户登录">
+	<div id="loginDiv" title="考勤系统用户登录" class="none">
 		<form action="${ctx}/login" method="post">
 		<c:if test="${not empty message}">
 		<div class="div_block">

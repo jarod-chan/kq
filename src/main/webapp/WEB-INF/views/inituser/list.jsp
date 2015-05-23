@@ -37,7 +37,7 @@
 <table id="tblmain" class="hctable deftable col-6">
 <thead>
 	<tr>
-		<th>用户</th><th>考勤状态</th><th>考勤工号</th><th>考勤姓名</th><th>操作</th>
+		<th>用户</th><th>考勤状态</th><th>考勤工号</th><th>考勤姓名</th><th>角色</th><th>操作</th>
 	</tr>
 </thead>
 <tbody>
@@ -55,6 +55,7 @@
 				<td colspan="2"></td>
 			</c:otherwise>
 		</c:choose>
+		<td>${checkuser.role}</td>
 		<td>
 			<input data-id="${checkuser.id}" class="btn_set" type="button" value="配置">
 		
