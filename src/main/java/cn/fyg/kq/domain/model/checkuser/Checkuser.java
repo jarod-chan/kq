@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import cn.fyg.kq.domain.model.role.Role;
 import cn.fyg.kq.domain.model.user.User;
 
 /**
@@ -38,7 +40,10 @@ public class Checkuser {
 	
 	private String name;//	考勤机姓名
 	
-	private String role;//角色
+	
+	@ManyToOne(targetEntity=Role.class)
+	@JoinColumn(name="role_key")
+	private Role role;//角色
 	
 	@OneToOne
 	@JoinColumn(name="fid")
@@ -108,13 +113,14 @@ public class Checkuser {
 		this.user = user;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
+
 	
 	
 }

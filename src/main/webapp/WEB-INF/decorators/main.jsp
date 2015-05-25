@@ -105,7 +105,7 @@ function logout(){
 		</div>
 		<div class="top_right">
 			<div class="main_blank"><input type="button" value="退出" onclick="logout()"/>&nbsp;&nbsp;</div>
-			<div class="main_info">${user.fnumber}${checkuser.comp}&nbsp;&nbsp;${checkuser.role}</div>
+			<div class="main_info">${user.fnumber}${checkuser.comp}&nbsp;&nbsp;${checkuser.role.key}</div>
 		</div>
 	</div>
 	
@@ -120,7 +120,7 @@ function logout(){
 			
 			<ul class="nav" style="float:left">
 				
-				<c:if test="${checkuser.role=='tijiaoren'||checkuser.role=='guanliyuan'||checkuser.role=='shenpiren'}">
+				<c:if test="${checkuser.role.key=='tijiaoren'||checkuser.role.key=='guanliyuan'||checkuser.role.key=='shenpiren'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程中心&nbsp;&nbsp;</div>
 					<ul>
@@ -134,7 +134,7 @@ function logout(){
 				</li>
 				</c:if>
 				
-				<c:if test="${checkuser.role=='tijiaoren'||checkuser.role=='guanliyuan'}">
+				<c:if test="${checkuser.role.key=='tijiaoren'||checkuser.role.key=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />员工考勤&nbsp;&nbsp;</div>
 					<ul>
@@ -145,19 +145,19 @@ function logout(){
 				</li>
 				</c:if>
 
-				<c:if test="${checkuser.role=='guanliyuan'}">
+				<c:if test="${checkuser.role.key=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />考勤管理&nbsp;&nbsp;</div>
 					<ul>
 					
 						<li><a href="/${ctx}/inituser/list">&nbsp;&nbsp;用户初始化&nbsp;&nbsp;</a></li>
-						<li><a href="/${ctx}/period/list">&nbsp;&nbsp;考勤期间&nbsp;&nbsp;</a></li>
 						<li><a href="/${ctx}/reptline/list">&nbsp;&nbsp;汇报关系&nbsp;&nbsp;</a></li>
+						<li><a href="/${ctx}/period/list">&nbsp;&nbsp;考勤期间&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
 				</c:if>
 				
-				<c:if test="${checkuser.role=='guanliyuan'}">
+				<c:if test="${checkuser.role.key=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />系统配置&nbsp;&nbsp;</div>
 					<ul>
@@ -171,7 +171,7 @@ function logout(){
 				</li>
 				</c:if>
 				
-				<c:if test="${checkuser.role=='guanliyuan'}">
+				<c:if test="${checkuser.role.key=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程管理&nbsp;&nbsp;</div>
 					<ul>

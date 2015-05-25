@@ -1,23 +1,19 @@
-package cn.fyg.kq.domain.model.kq.tag;
+package cn.fyg.kq.domain.model.role;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.FilterDef;
-
 @Entity
-@Table(name="bs_tag")
-public class Tag {
+@Table(name="kq_role")
+public class Role {
 	
 	@Id
 	@Column(name="fkey")
-	private String key;//	关键字
+	private String key;//关键字
 	
-	private String name;//	标签名
-	
-	private String tagtype;//	类型id
+	private String name;//名称
 
 	public String getKey() {
 		return key;
@@ -35,13 +31,6 @@ public class Tag {
 		this.name = name;
 	}
 
-	public String getTagtype() {
-		return tagtype;
-	}
-
-	public void setTagtype(String tagtype) {
-		this.tagtype = tagtype;
-	}
-
+	
 	
 }

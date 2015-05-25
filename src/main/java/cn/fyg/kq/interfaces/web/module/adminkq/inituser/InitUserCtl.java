@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.CheckuserService;
+import cn.fyg.kq.application.RoleService;
 import cn.fyg.kq.application.TagService;
 import cn.fyg.kq.application.TagtypeService;
 import cn.fyg.kq.application.UserService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.Kqstat;
 import cn.fyg.kq.domain.model.kq.tag.Tag;
+import cn.fyg.kq.domain.model.role.Role;
 import cn.fyg.kq.interfaces.web.modify.User;
 import cn.fyg.kq.interfaces.web.modify.http.AdminHelp;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
@@ -53,7 +55,7 @@ public class InitUserCtl {
 	
 	
 	@Autowired
-	TagService tagService;
+	RoleService roleService;
 	
 	
 	@RequestMapping(value="{checkuserId}/set",method=RequestMethod.GET)
@@ -62,8 +64,8 @@ public class InitUserCtl {
 		map.put("checkuser", checkuser);
 		map.put("kqstatVs",Kqstat.values());
 		
-		List<Tag> tagList = tagService.findByTagtype("role");
-		map.put("tagList", tagList);
+		List<Role> roleList = this.roleService.findAll();
+		map.put("roleList", roleList);
 		
 		return Page.SET;
 	}

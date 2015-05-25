@@ -14,9 +14,8 @@
     $(function() {
     	var validator=$("form").validate({
     		rules: {
-    			name: {
-    				required: true,
-    				maxlength: 8
+    			fid: {
+    				required: true
     			}
     		}
     	});

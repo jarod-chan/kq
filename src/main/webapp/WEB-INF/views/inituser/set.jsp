@@ -65,6 +65,13 @@
 	</td></tr>
 	
 	<tr><td>
+	角色：</td><td>
+		<select name="role.key">
+		<c:forEach var="role" items="${roleList}">
+			<option <c:if test="${role.key==checkuser.role.key}">selected="selected"</c:if>="" value="${role.key}">${role.name}</option>
+		</c:forEach>
+	</select>
+	</td></tr><tr><td>
 	考勤状态：</td><td>
 	<select name="kqstat" id="selKqstat">
 		<c:forEach var="kqstat" items="${kqstatVs}">
@@ -87,14 +94,7 @@
 	<span id="spanName">${checkuser.name}</span>
 	</td></tr>
 	
-	<tr><td>
-	角色：</td><td>
-		<select name="role">
-		<c:forEach var="tag" items="${tagList}">
-			<option <c:if test="${tag.key==checkuser.role}">selected="selected"</c:if> value="${tag.key}">${tag.name}</option>
-		</c:forEach>
-	</select>
-	</td></tr>
+	
 </table>
 
 		<input type="button" value="保存"  id="btn_save">
