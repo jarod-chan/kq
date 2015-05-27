@@ -13,8 +13,19 @@
 		$(function(){
 			$('#tabmain tr').find('td:eq(0)').css("text-align","right");
 			
+			var validator=$("form").validate({
+	    		rules: {
+	    			code: {
+	    				required: true
+	    			},
+	    			'user.fid':{
+						required: true
+					}
+	    		}
+	    	});
+			
 			$("#btn_save").click(function(){
-				//if(!validator.form()){return;}
+				if(!validator.form()){return;}
 				var actionFrom=$("form");
 				var oldAction=actionFrom.attr("action");
 				actionFrom.attr("action",oldAction+"/save").submit();

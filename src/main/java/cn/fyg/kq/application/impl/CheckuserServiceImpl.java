@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.application.common.impl.SericeQueryImpl;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
+import cn.fyg.kq.domain.model.checkuser.CheckuserFactory;
 import cn.fyg.kq.domain.model.checkuser.CheckuserRepository;
 import cn.fyg.kq.domain.model.checkuser.Kqstat;
+import cn.fyg.kq.domain.model.user.User;
 
 @Service
 public class CheckuserServiceImpl extends SericeQueryImpl<Checkuser> implements CheckuserService {
@@ -49,6 +51,11 @@ public class CheckuserServiceImpl extends SericeQueryImpl<Checkuser> implements 
 	@Override
 	public JpaSpecificationExecutor<Checkuser> getSpecExecutor() {
 		return this.checkuserRepository;
+	}
+
+	@Override
+	public Checkuser create(User user) {
+		return CheckuserFactory.create(user);
 	}
 
 }

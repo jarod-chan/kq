@@ -10,6 +10,7 @@ import cn.fyg.kq.application.PeriodService;
 import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
 import cn.fyg.kq.domain.model.period.Period;
 import cn.fyg.kq.domain.model.period.PeriodRepository;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 @Service
 public class PeriodServiceImpl implements PeriodService {
@@ -40,7 +41,7 @@ public class PeriodServiceImpl implements PeriodService {
 	}
 
 	@Override
-	public boolean exist(MonthItem monthItem, String comp) {
+	public boolean exist(MonthItem monthItem, Comp comp) {
 		List<Period> periodList=this.periodRepository.findByMonthitem_YearAndMonthitem_MonthAndComp(monthItem.getYear(),monthItem.getMonth(),comp);
 		if(periodList.isEmpty()){
 			return false;

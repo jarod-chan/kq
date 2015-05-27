@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.qingjia;
+package cn.fyg.kq.domain.model.qingjia;
 
 import cn.fyg.kq.domain.model.user.User;
 

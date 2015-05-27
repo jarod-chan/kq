@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
 import cn.fyg.kq.domain.model.period.Period;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 public interface PeriodService {
 	
@@ -15,6 +16,6 @@ public interface PeriodService {
 	
 	Period find(Long id);
 	
-	boolean exist(MonthItem monthItem,String comp);
+	boolean exist(MonthItem monthItem,Comp comp);
 
 }

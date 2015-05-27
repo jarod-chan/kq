@@ -8,6 +8,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 public class CheckuserSpecs {
 	
@@ -25,6 +26,15 @@ public class CheckuserSpecs {
 			@Override
 			public Predicate toPredicate(Root<Checkuser> root,CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.<String> get("comp"),comp);
+			}
+		};
+	}
+	
+	public static Specification<Checkuser> inComp(final Comp comp) {
+		return new Specification<Checkuser>() {
+			@Override
+			public Predicate toPredicate(Root<Checkuser> root,CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.equal(root.<Comp> get("comp"),comp);
 			}
 		};
 	}

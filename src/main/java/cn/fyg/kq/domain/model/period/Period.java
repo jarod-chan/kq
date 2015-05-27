@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 /**
  *考勤期间
@@ -34,7 +35,8 @@ public class Period {
 	@Enumerated(EnumType.STRING)
 	PeriodState state;//状态
 	
-	private String comp;
+	@Enumerated(EnumType.STRING)
+	private Comp comp;//	公司主键
 
 	public Long getId() {
 		return id;
@@ -60,13 +62,14 @@ public class Period {
 		this.monthitem = monthitem;
 	}
 
-	public String getComp() {
+	public Comp getComp() {
 		return comp;
 	}
 
-	public void setComp(String comp) {
+	public void setComp(Comp comp) {
 		this.comp = comp;
 	}
+
 	
 	
 

@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name="kq_user")
+//@Entity
+//@Table(name="kq_user")
 public class KQUser  { 
 
 	@Id

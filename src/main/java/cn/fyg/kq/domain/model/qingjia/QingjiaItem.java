@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.kq.qingjia;
+package cn.fyg.kq.domain.model.qingjia;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

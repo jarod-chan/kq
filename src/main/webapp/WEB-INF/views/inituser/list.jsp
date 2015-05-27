@@ -45,7 +45,7 @@
 	<c:forEach var="checkuser" items="${checkuserList}">
 	<tr>
 		<td>${checkuser.user.fnumber}</td>
-		<td>${checkuser.role.name}</td>
+		<td>${checkuser.user.role.name}</td>
 		<td>${checkuser.kqstat.name}</td>
 		<c:choose>
 			<c:when test="${checkuser.kqstat=='yes'}">

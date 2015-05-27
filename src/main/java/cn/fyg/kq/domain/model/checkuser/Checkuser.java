@@ -1,6 +1,5 @@
 package cn.fyg.kq.domain.model.checkuser;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,28 +7,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import cn.fyg.kq.domain.model.role.Role;
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 /**
  *参与考勤的用户
  */
 @Entity
-@Table(name="bs_checkuser")
+@Table(name="kq_checkuser")
 public class Checkuser {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; // 主键	
 	
-	@Column(insertable=false, updatable=false)
 	private String fid;//	easid
 	
-	private String comp;//	公司主键
+	@Enumerated(EnumType.STRING)
+	private Comp comp;//	公司主键
 	
 	@Enumerated(EnumType.STRING)
 	private Kqstat kqstat;//是否考勤
@@ -40,13 +38,8 @@ public class Checkuser {
 	
 	private String name;//	考勤机姓名
 	
-	
-	@ManyToOne(targetEntity=Role.class)
-	@JoinColumn(name="role_key")
-	private Role role;//角色
-	
 	@OneToOne
-	@JoinColumn(name="fid")
+	@JoinColumn(name="fid",insertable=false, updatable=false)
 	User user;
 
 	public Long getId() {
@@ -65,11 +58,11 @@ public class Checkuser {
 		this.fid = fid;
 	}
 
-	public String getComp() {
+	public Comp getComp() {
 		return comp;
 	}
 
-	public void setComp(String comp) {
+	public void setComp(Comp comp) {
 		this.comp = comp;
 	}
 
@@ -113,14 +106,4 @@ public class Checkuser {
 		this.user = user;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	
-	
 }

@@ -66,12 +66,10 @@
 	
 	<tr><td>
 	角色：</td><td>
-		<select name="role.key">
-		<c:forEach var="role" items="${roleList}">
-			<option <c:if test="${role.key==checkuser.role.key}">selected="selected"</c:if>="" value="${role.key}">${role.name}</option>
-		</c:forEach>
-	</select>
-	</td></tr><tr><td>
+	${checkuser.user.role.name}
+	</td></tr>
+	
+	<tr><td>
 	考勤状态：</td><td>
 	<select name="kqstat" id="selKqstat">
 		<c:forEach var="kqstat" items="${kqstatVs}">

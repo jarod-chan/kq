@@ -22,10 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.OpinionService;
 import cn.fyg.kq.application.QingjiaService;
-import cn.fyg.kq.domain.model.kq.qingjia.Qingjia;
-import cn.fyg.kq.domain.model.kq.qingjia.QingjiaState;
 import cn.fyg.kq.domain.model.opinion.Opinion;
-import cn.fyg.kq.domain.model.opinion.ResultOp;
+import cn.fyg.kq.domain.model.opinion.OpResult;
+import cn.fyg.kq.domain.model.qingjia.Qingjia;
+import cn.fyg.kq.domain.model.qingjia.QingjiaState;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.kq.Ampm;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
@@ -133,7 +133,7 @@ public class QingjiaCtl {
 	public String toCheck(@PathVariable(value="businessId")Long businessId,Map<String,Object> map,@RequestParam(value="taskId",required=false)String taskId){
 		Qingjia qingjia = qingjiaService.find(businessId);
 		map.put("qingjia", qingjia);
-		map.put("resultList", ResultOp.agreeItems());
+		map.put("resultList", OpResult.agreeItems());
 		map.put("ampms", Ampm.values());
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		map.put("task", task);

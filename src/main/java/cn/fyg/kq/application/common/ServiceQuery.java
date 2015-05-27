@@ -14,5 +14,7 @@ public interface ServiceQuery<T> {
 	List<T> findAll(Specification<T> spec, Sort sort);
 	
 	List<T> findAll(Specification<T> spec);
+	
+	List<T> findAll(Sort sort);
 
 }

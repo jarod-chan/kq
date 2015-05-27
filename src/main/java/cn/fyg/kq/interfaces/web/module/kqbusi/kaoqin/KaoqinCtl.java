@@ -43,7 +43,7 @@ import cn.fyg.kq.interfaces.web.shared.message.Message;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 import cn.fyg.kq.interfaces.web.shared.tool.Constant;
-import cn.fyg.kq.domain.model.opinion.ResultOp;
+import cn.fyg.kq.domain.model.opinion.OpResult;
 
 @Controller
 @RequestMapping("kaoqin")
@@ -172,7 +172,7 @@ public class KaoqinCtl {
 
 		Kaoqin kaoqin = this.kaoqinService.find(businessId);
 		map.put("kaoqin", kaoqin);
-		map.put("resultList", ResultOp.agreeItems());
+		map.put("resultList", OpResult.agreeItems());
 		map.put("PassStates", PassState.values());
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		String assignee = task.getAssignee();

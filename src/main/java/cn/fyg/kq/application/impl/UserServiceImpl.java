@@ -3,16 +3,18 @@ package cn.fyg.kq.application.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.UserService;
+import cn.fyg.kq.application.common.impl.SericeQueryImpl;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.model.user.UserFactory;
 import cn.fyg.kq.domain.model.user.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends SericeQueryImpl<User> implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
@@ -48,6 +50,17 @@ public class UserServiceImpl implements UserService {
 	public User findByFnumber(String fnumber) {
 		return this.userRepository.findByFnumber(fnumber);
 	}
+
+	@Override
+	public boolean exists(String fid) {
+		return this.userRepository.exists(fid);
+	}
+
+	@Override
+	public JpaSpecificationExecutor<User> getSpecExecutor() {
+		return this.userRepository;
+	}
+
 	
 
 

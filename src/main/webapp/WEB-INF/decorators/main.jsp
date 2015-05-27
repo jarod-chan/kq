@@ -65,11 +65,25 @@ body {
 .coth-11 {width:912px;}
 .coth-12 {width:995px;}
 
+.coemp-1 {width:81px;}
+.coemp-2 {width:164px;}
+.coemp-3 {width:247px;}
+.coemp-4 {width:330px;}
+.coemp-5 {width:413px;}
+.coemp-6 {width:496px;}
+.coemp-7 {width:579px;}
+.coemp-8 {width:663px;}
+.coemp-9 {width:745px;}
+.coemp-10 {width:828px;}
+.coemp-11 {width:911px;}
+.coemp-12 {width:994px;}
+
+
 .nodate{
 	border: 1px solid #AAAAAA;
 	border-top-width: 0px;
 	text-align: center;
-	padding: 2px;
+	border-collapse: collapse;
 }
 
 /*-----------------------------------------------------------------------------------------*/
@@ -105,7 +119,7 @@ function logout(){
 		</div>
 		<div class="top_right">
 			<div class="main_blank"><input type="button" value="退出" onclick="logout()"/>&nbsp;&nbsp;</div>
-			<div class="main_info">${user.fnumber}${checkuser.comp}&nbsp;&nbsp;${checkuser.role.key}</div>
+			<div class="main_info">${user.fnumber}${checkuser.comp}&nbsp;&nbsp;${user.role.key}</div>
 		</div>
 	</div>
 	
@@ -120,7 +134,7 @@ function logout(){
 			
 			<ul class="nav" style="float:left">
 				
-				<c:if test="${checkuser.role.key=='tijiaoren'||checkuser.role.key=='guanliyuan'||checkuser.role.key=='shenpiren'}">
+				<c:if test="${user.role.key=='tijiaoren'||user.role.key=='guanliyuan'||user.role.key=='shenpiren'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程中心&nbsp;&nbsp;</div>
 					<ul>
@@ -134,7 +148,7 @@ function logout(){
 				</li>
 				</c:if>
 				
-				<c:if test="${checkuser.role.key=='tijiaoren'||checkuser.role.key=='guanliyuan'}">
+				<c:if test="${user.role.key=='tijiaoren'||user.role.key=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />员工考勤&nbsp;&nbsp;</div>
 					<ul>
@@ -145,7 +159,7 @@ function logout(){
 				</li>
 				</c:if>
 
-				<c:if test="${checkuser.role.key=='guanliyuan'}">
+				<c:if test="${user.role.key=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />考勤管理&nbsp;&nbsp;</div>
 					<ul>
@@ -157,7 +171,7 @@ function logout(){
 				</li>
 				</c:if>
 				
-				<c:if test="${checkuser.role.key=='guanliyuan'}">
+				<c:if test="${user.role.key=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />系统配置&nbsp;&nbsp;</div>
 					<ul>
@@ -171,7 +185,7 @@ function logout(){
 				</li>
 				</c:if>
 				
-				<c:if test="${checkuser.role.key=='guanliyuan'}">
+				<c:if test="${user.role.key=='guanliyuan'}">
 				<li>
 					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程管理&nbsp;&nbsp;</div>
 					<ul>

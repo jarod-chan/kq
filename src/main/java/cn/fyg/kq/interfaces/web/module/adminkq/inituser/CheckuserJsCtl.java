@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 @Controller
 @RequestMapping("checkuser")
@@ -32,7 +33,7 @@ public class CheckuserJsCtl {
 	@ResponseBody 
 	public List<Map<String,Object>> simpleQuery(@Param("name")String name){
 		Specification<Checkuser> namelike = CheckuserSpecs.nameLike(name);
-		Specification<Checkuser> inComp = CheckuserSpecs.inComp("fangchan");
+		Specification<Checkuser> inComp = CheckuserSpecs.inComp(Comp.fangchan);
 		Specifications<Checkuser> specs=Specifications.where(inComp).and(namelike);
 		Sort sort=new Sort(new Order(Direction.ASC,"user.fnumber"));
 		

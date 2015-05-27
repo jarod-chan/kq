@@ -20,12 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.application.RoleService;
-import cn.fyg.kq.application.TagService;
-import cn.fyg.kq.application.TagtypeService;
 import cn.fyg.kq.application.UserService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.Kqstat;
-import cn.fyg.kq.domain.model.kq.tag.Tag;
 import cn.fyg.kq.domain.model.role.Role;
 import cn.fyg.kq.interfaces.web.modify.User;
 import cn.fyg.kq.interfaces.web.modify.http.AdminHelp;
@@ -52,21 +49,16 @@ public class InitUserCtl {
 		map.put("checkuserList", checkuserList);
 		return Page.LIST;
 	}
-	
-	
+		
 	@Autowired
 	RoleService roleService;
-	
 	
 	@RequestMapping(value="{checkuserId}/set",method=RequestMethod.GET)
 	public String toSet(@PathVariable("checkuserId")Long checkuserId,Map<String,Object> map){
 		Checkuser checkuser = this.checkuserService.find(checkuserId);
 		map.put("checkuser", checkuser);
 		map.put("kqstatVs",Kqstat.values());
-		
-		List<Role> roleList = this.roleService.findAll();
-		map.put("roleList", roleList);
-		
+
 		return Page.SET;
 	}
 	

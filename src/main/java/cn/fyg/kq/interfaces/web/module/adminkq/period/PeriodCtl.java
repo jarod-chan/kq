@@ -24,6 +24,7 @@ import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.period.Period;
 import cn.fyg.kq.domain.model.period.PeriodState;
+import cn.fyg.kq.domain.shared.kq.Comp;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 
 
@@ -50,14 +51,14 @@ public class PeriodCtl {
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
 	public String create(Period period,Map<String,Object> map,RedirectAttributes redirectAttributes){
-		String comp="fangchan";
-		boolean exist = this.periodService.exist(period.getMonthitem(),comp);
+		Comp fangchan = Comp.fangchan;
+		boolean exist = this.periodService.exist(period.getMonthitem(),fangchan);
 		if(exist){
 			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("当前月份期间已经存在！"));
 			return "redirect:list";
 		}
 		period.setState(PeriodState.create);
-		period.setComp(comp);
+		period.setComp(fangchan);
 		this.periodService.save(period);
 		
 		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("保存成功！"));

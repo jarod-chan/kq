@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.QingjiaService;
-import cn.fyg.kq.domain.model.kq.qingjia.Qingjia;
-import cn.fyg.kq.domain.model.kq.qingjia.QingjiaFactory;
-import cn.fyg.kq.domain.model.kq.qingjia.QingjiaRepository;
-import cn.fyg.kq.domain.model.kq.qingjia.QingjiaState;
+import cn.fyg.kq.domain.model.qingjia.Qingjia;
+import cn.fyg.kq.domain.model.qingjia.QingjiaFactory;
+import cn.fyg.kq.domain.model.qingjia.QingjiaRepository;
+import cn.fyg.kq.domain.model.qingjia.QingjiaState;
 import cn.fyg.kq.domain.model.user.User;
 
 @Repository

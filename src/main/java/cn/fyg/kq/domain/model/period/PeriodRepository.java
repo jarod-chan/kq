@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.repository.Repository;
 
+import cn.fyg.kq.domain.shared.kq.Comp;
+
 
 public interface PeriodRepository extends Repository<Period, Long> {
 	
@@ -16,6 +18,6 @@ public interface PeriodRepository extends Repository<Period, Long> {
 	Period findOne(Long id);
 
 	List<Period> findByMonthitem_YearAndMonthitem_MonthAndComp(int year,
-			int month, String comp);
+			int month, Comp comp);
 
 }

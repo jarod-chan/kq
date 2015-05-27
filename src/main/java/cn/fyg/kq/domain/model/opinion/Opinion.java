@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,6 +18,7 @@ import javax.persistence.TemporalType;
  *用来记录领导对业务单据的审批记录
  */
 @Entity
+@Table(name="kq_opinion")
 public class Opinion {
 	
 	@Id
@@ -36,21 +38,18 @@ public class Opinion {
 	private String userName;//审批人姓名
 	
 	@Enumerated(EnumType.STRING)
-	private ResultOp result;//是否同意
+	private OpResult result;//是否同意
 	
 	@Column(length=512)
 	private String description;//审批意见
 	
-	@Column(name="date_")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;//日期
+	private Date createtime;// 创建时间
 	
 	@PrePersist
 	private void prePersist(){
-		this.date=new Date();
+		this.createtime=new Date();
 	}
-	
-	
 
 	public Long getId() {
 		return id;
@@ -58,6 +57,22 @@ public class Opinion {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getBusinessCode() {
+		return businessCode;
+	}
+
+	public void setBusinessCode(String businessCode) {
+		this.businessCode = businessCode;
+	}
+
+	public Long getBusinessId() {
+		return businessId;
+	}
+
+	public void setBusinessId(Long businessId) {
+		this.businessId = businessId;
 	}
 
 	public String getTaskKey() {
@@ -92,11 +107,11 @@ public class Opinion {
 		this.userName = userName;
 	}
 
-	public ResultOp getResult() {
+	public OpResult getResult() {
 		return result;
 	}
 
-	public void setResult(ResultOp result) {
+	public void setResult(OpResult result) {
 		this.result = result;
 	}
 
@@ -108,38 +123,14 @@ public class Opinion {
 		this.description = description;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getCreatetime() {
+		return createtime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
 	}
-
-
-
-	public String getBusinessCode() {
-		return businessCode;
-	}
-
-
-
-	public void setBusinessCode(String businessCode) {
-		this.businessCode = businessCode;
-	}
-
-
-
-	public Long getBusinessId() {
-		return businessId;
-	}
-
-
-
-	public void setBusinessId(Long businessId) {
-		this.businessId = businessId;
-	}
-
-		
+	
+	
 
 }

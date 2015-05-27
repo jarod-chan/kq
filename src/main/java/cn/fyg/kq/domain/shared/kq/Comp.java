@@ -5,7 +5,7 @@ import cn.fyg.kq.domain.shared.CommonEnum;
 public enum Comp implements CommonEnum {
 	jianshen("建设公司"),
 	fangchan("房产公司"),
-	jituan("集团");
+	jituan("集团公司");
 	
 	private final String name;
 

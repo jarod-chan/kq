@@ -2,20 +2,40 @@ package cn.fyg.kq.application.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KQUserService;
 import cn.fyg.kq.domain.model.md.KQUser;
-import cn.fyg.kq.domain.model.md.KQUserFactory;
-import cn.fyg.kq.domain.model.md.KQUserRepository;
 
 @Service
 public class KQUserServiceImpl implements KQUserService {
+
+	@Override
+	public void init(String fid, String fnumber, String fname, int userid)
+			throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isInit(String fid) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<KQUser> all() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(String fid) {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	@Autowired
+/*	@Autowired
 	KQUserRepository kqUserRepository;
 	
 	@Override
@@ -43,5 +63,5 @@ public class KQUserServiceImpl implements KQUserService {
 	public void delete(String fid) {
 		this.kqUserRepository.delete(fid);
 	}
-
+*/
 }

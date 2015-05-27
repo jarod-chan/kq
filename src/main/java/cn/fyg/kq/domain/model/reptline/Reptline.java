@@ -14,7 +14,7 @@ import cn.fyg.kq.domain.model.user.User;
  *定义流程的汇报关系
  */
 @Entity
-@Table(name="bs_reptline")
+@Table(name="kq_reptline")
 public class Reptline {
 	
 	@Id
