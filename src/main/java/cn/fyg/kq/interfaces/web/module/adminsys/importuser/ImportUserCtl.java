@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -25,8 +24,7 @@ import cn.fyg.kq.application.RoleService;
 import cn.fyg.kq.application.UserService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
-import cn.fyg.kq.domain.model.checkuser.Kqstat;
-import cn.fyg.kq.domain.model.role.Role;
+import cn.fyg.kq.domain.model.modmenu.role.Role;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.kq.Comp;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
@@ -150,37 +148,10 @@ public class ImportUserCtl {
 	}
 	
 	@RequestMapping(value="{fid}/deleteSet",method=RequestMethod.POST)
-	public String delete(@PathVariable("fid")String fid,@RequestParam("checkuserId") Long checkuserId,RedirectAttributes redirectAttributes){
+	public String deleteSet(@PathVariable("fid")String fid,@RequestParam("checkuserId") Long checkuserId,RedirectAttributes redirectAttributes){
 		this.checkuserService.delete(checkuserId);
 		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("删除成功"));
 		return "redirect:set";
 	}
 	
-	
-	
-	@RequestMapping(value="save1",method=RequestMethod.POST)
-	public String save1(@RequestParam("fid")String fid,HttpServletRequest request,RedirectAttributes redirectAttributes){
-		
-		User user=StringUtils.isBlank(fid)?this.userService.create():this.userService.find(fid);
-		BindTool.bindRequest(user, request);
-		user=this.userService.save(user);
-		
-		Specification<Checkuser> ofUser = CheckuserSpecs.ofUser(user);
-		Specifications<Checkuser> specs=Specifications.where(ofUser);
-
-		List<Checkuser> checkuserList = this.checkuserService.findAll(specs);
-		for (Checkuser checkuser : checkuserList) {
-			this.checkuserService.delete(checkuser.getId());
-		}
-		
-		String comp = request.getParameter("comp");
-		Checkuser checkuser = new Checkuser();
-		checkuser.setKqstat(Kqstat.todo);
-	//	checkuser.setComp(comp);
-		checkuser.setUser(user);
-		this.checkuserService.save(checkuser);
-		
-		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("保存成功"));
-		return "redirect:list";
-	}
 }

@@ -23,7 +23,6 @@ import cn.fyg.kq.application.RoleService;
 import cn.fyg.kq.application.UserService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.Kqstat;
-import cn.fyg.kq.domain.model.role.Role;
 import cn.fyg.kq.interfaces.web.modify.User;
 import cn.fyg.kq.interfaces.web.modify.http.AdminHelp;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;

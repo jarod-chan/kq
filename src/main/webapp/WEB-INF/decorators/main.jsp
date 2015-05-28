@@ -178,9 +178,8 @@ function logout(){
 					
 						<li><a href="/${ctx}/importuser/list">&nbsp;&nbsp;导入用户&nbsp;&nbsp;</a></li>
 					
-						<li><a href="/${ctx}/tagtype/list">&nbsp;&nbsp;配置属性&nbsp;&nbsp;</a></li>
+						<li><a href="/${ctx}/rolemenu/list">&nbsp;&nbsp;角色菜单&nbsp;&nbsp;</a></li>
 						
-						<li><a href="/${ctx}/admincomp/list">&nbsp;&nbsp;考勤管理员&nbsp;&nbsp;</a></li>
 					</ul>
 				</li>
 				</c:if>

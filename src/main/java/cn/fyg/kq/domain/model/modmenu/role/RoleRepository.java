@@ -1,4 +1,4 @@
-package cn.fyg.kq.domain.model.role;
+package cn.fyg.kq.domain.model.modmenu.role;
 
 import java.util.List;
 
