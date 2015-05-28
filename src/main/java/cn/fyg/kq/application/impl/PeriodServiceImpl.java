@@ -3,17 +3,19 @@ package cn.fyg.kq.application.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.PeriodService;
+import cn.fyg.kq.application.common.impl.SericeQueryImpl;
 import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
 import cn.fyg.kq.domain.model.period.Period;
 import cn.fyg.kq.domain.model.period.PeriodRepository;
 import cn.fyg.kq.domain.shared.kq.Comp;
 
 @Service
-public class PeriodServiceImpl implements PeriodService {
+public class PeriodServiceImpl extends SericeQueryImpl<Period> implements PeriodService {
 	
 	@Autowired
 	PeriodRepository periodRepository;
@@ -47,6 +49,11 @@ public class PeriodServiceImpl implements PeriodService {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public JpaSpecificationExecutor<Period> getSpecExecutor() {
+		return this.periodRepository;
 	}
 
 }

@@ -2,12 +2,13 @@ package cn.fyg.kq.domain.model.period;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.Repository;
 
 import cn.fyg.kq.domain.shared.kq.Comp;
 
 
-public interface PeriodRepository extends Repository<Period, Long> {
+public interface PeriodRepository extends Repository<Period, Long>, JpaSpecificationExecutor<Period> {
 	
 	Period save(Period kaoqin);
 	

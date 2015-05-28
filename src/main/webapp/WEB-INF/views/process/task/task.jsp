@@ -37,37 +37,37 @@
 <c:set target="${pagefunc}" property="url" value="${ctx}/process/task" />
 
 <body>
+<%@ include file="/common/message.jsp" %>		
 
-	<%@ include file="/common/message.jsp" %>	
-	<%@ include file="/common/message.jsp" %>	
-	
-	<table border="1" class="hctable deftable col-12"  style="padding-left: 20px;">
-		<thead>
-			<tr>
-				<th>业务流程</th>
-				<th>序号</th>
-				<th>待办任务</th>
-				<th>任务详情</th>
-				<th>操作</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="processTask" items="${processTaskList}">
-				<tr>
-					<td>${processTask.processName}</td>
-					<td>${processTask.businessNo}</td>
-					<td>${processTask.taskName}</td>
-					<td>${processTask.businessTitle}</td>
-					<td>
-						<button class="btn_execute {taskId:'${processTask.taskId }',formKey:'${processTask.formKey}',businessId:'${processTask.businessId}'}" >处理</button>
-						<button class="btn_trace {executionId:'${processTask.executionId}'}" >流程跟踪</button>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-		</table>
-
-
+<table  class="hctable deftable col-12" >
+	<thead>
+		<tr>
+			<th>业务流程</th>
+			<th>序号</th>
+			<th>待办任务</th>
+			<th>任务详情</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="processTask" items="${processTaskList}">
+		<tr>
+			<td>${processTask.processName}</td>
+			<td>${processTask.businessNo}</td>
+			<td>${processTask.taskName}</td>
+			<td>${processTask.businessTitle}</td>
+			<td>
+				<button class="btn_execute {taskId:'${processTask.taskId }',formKey:'${processTask.formKey}',businessId:'${processTask.businessId}'}" >处理</button>
+				<button class="btn_trace {executionId:'${processTask.executionId}'}" >流程跟踪</button>
+			</td>
+		</tr>
+	</c:forEach>
+</tbody>
+</table>
+<c:if test="${empty roleList}">		
+<c:set var="nodate_cls" value="coth-12"/>
+<%@ include file="/common/emp-context.jsp" %>
+</c:if>
 
 </body>
 </html>

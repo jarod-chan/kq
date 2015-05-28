@@ -57,6 +57,7 @@
 
 <body>
 <%@ include file="/common/message.jsp" %>	
+<c:if test="${empty period}">
 <form action="${ctx}/period" method="post">
 年：<select name="monthitem.year">
 	<option value="2015">2015</option>
@@ -78,26 +79,45 @@
 
 <input class="btn_create"  type="button"  value="生成考勤期间" >
 </form>
+</c:if>
 
-<table id="tblmain" class="hctable deftable col-6">
-<thead>
-	<tr>
-		<th>考勤期间</th><th>状态</th><th>操作</th>
-	</tr>
-</thead>
+<c:if test="${not empty period}">
+<script type="text/javascript">
+$(function(){
+	var state='${period.state}';
+	var periodId='${period.id}';
+	function syncState(){
+		$.getJSON('${ctx}/period/period.json',{periodId:periodId},function(period){
+			if(period.state=='finishcal'){
+					$("#tabmain .state").html('计算完成');
+					$("#tabmain .button").show();
+			}else{
+				setTimeout(syncState,1000*5);
+			}
+		});
+	}
+	if(state=='docal'){syncState();}
+})
+
+</script>
+
+<table id="tabmain" class="hctable deftable col-7">
 <tbody>
-	<c:forEach var="period" items="${periodList}">
 	<tr>
-		<td>${period.monthitem.year}年${period.monthitem.month}月</td>
-		<td>${period.state.name}</td>
-		<td>
+		<td class="coth-2">${period.monthitem.year}年${period.monthitem.month}月考勤</td>
+		<td class="coth-1 state">${period.state.name}</td>
+		<td class="coth-4">
 			<c:choose>
 			<c:when test="${period.state=='create'}">
 				<input data-id="${period.id}" class="btn_docal" type="button" value="执行计算">
 				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
 			</c:when>
 			<c:when test="${period.state=='docal'}">
-				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
+				<span class="none button">
+					<input data-id="${period.id}" class="btn_calresult" type="button" value="查看计算结果">
+					<input data-id="${period.id}" class="btn_produce" type="button" value="生成考勤单">
+					<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
+				</span>
 			</c:when>
 			<c:when test="${period.state=='finishcal'}">
 				<input data-id="${period.id}" class="btn_calresult" type="button" value="查看计算结果">
@@ -112,9 +132,35 @@
 			
 		</td>
 	</tr>
+</tbody>
+</table>
+</c:if>
+
+
+<h2>历史记录</h2>
+<table class="hctable deftable col-6">
+<thead>
+	<tr>
+		<th class="coth-2">考勤期间</th><th class="coth-2">状态</th><th class="coth-2">操作</th>
+	</tr>
+</thead>
+<tbody>
+	<c:forEach var="period" items="${finishPeriodList}">
+	<tr>
+		<td>${period.monthitem.year}年${period.monthitem.month}月</td>
+		<td>${period.state.name}</td>
+		<td>
+				<input data-id="${period.id}" class="btn_calresult" type="button" value="查看计算结果">
+				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
+		</td>
+	</tr>
 	</c:forEach>
 </tbody>
 </table>
+<c:if test="${empty finishPeriodList}">		
+<c:set var="nodate_cls" value="coemp-6"/>
+<%@ include file="/common/emp-context.jsp" %>
+</c:if>
 
 </body>
 </html>

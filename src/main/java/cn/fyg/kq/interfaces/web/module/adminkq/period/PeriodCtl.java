@@ -23,6 +23,7 @@ import cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.period.Period;
+import cn.fyg.kq.domain.model.period.PeriodSpecs;
 import cn.fyg.kq.domain.model.period.PeriodState;
 import cn.fyg.kq.domain.shared.kq.Comp;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
@@ -43,8 +44,24 @@ public class PeriodCtl {
 	
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
-		List<Period> periodList = this.periodService.findAll();
-		map.put("periodList", periodList);
+		Comp comp=Comp.fangchan;
+		
+	
+		Specifications<Period> specs=Specifications
+				.where(PeriodSpecs.notFinish())
+				.and(PeriodSpecs.inComp(comp));
+		
+		List<Period> periodList = this.periodService.findAll(specs);
+		if(periodList.size()==1){
+			map.put("period", periodList.get(0));
+		}
+		
+		specs=Specifications
+				.where(PeriodSpecs.isFinish())
+				.and(PeriodSpecs.inComp(comp));
+		List<Period> finishPeriodList = this.periodService.findAll(specs);
+		map.put("finishPeriodList",finishPeriodList);
+		
 		return Page.LIST;
 	}
 	
