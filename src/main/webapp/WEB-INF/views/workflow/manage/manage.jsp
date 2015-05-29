@@ -26,41 +26,45 @@
     });
     </script>
 </head>
-<body class="tbody">
-	<h2>流程管理</h2>
-	<%@ include file="/common/message.jsp" %>	
-	
-		
-		<table id="tblmain" class="hctable deftable">
-			<thead>
-				<tr>
-					<th class="noborder">id</th>
-					<th class="title">部署id【deploymentId】</th>
-					<th class="title">名称【name】</th>
-					<th class="title">关键字【KEY】</th>
-					<th class="title">版本【version】</th>
-					<th class="title">XML</th>
-					<th class="title">image</th>
-					<th class="title">操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${processes }" var="process">
-					<tr>
-						<td>${process.id }</td>
-						<td>${process.deploymentId }</td>
-						<td>${process.name }</td>
-						<td>${process.key }</td>
-						<td>${process.version }</td>
-						<td><a target="_blank" href='${ctx }/workflow/manage/${process.deploymentId}/resource?resourceName=${process.resourceName }'>${process.resourceName }</a></td>
-						<td><a target="_blank" href='${ctx }/workflow/manage/${process.deploymentId}/resource?resourceName=${process.diagramResourceName }'>${process.diagramResourceName }</a></td>
-						<td>
-							<button class="btn_delete" param='{"deploymentId":"${process.deploymentId}"}' >删除</button>
-							<button class="btn_start" param='{"processDefinitionId":"${process.id }"}' >启动</button>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+
+<c:set target="${pagefunc}" property="name" value="流程管理" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/workflow/manage" />
+
+<body>
+<%@ include file="/common/message.jsp" %>	
+
+
+<table id="tblmain" class="hctable deftable col-12">
+	<thead>
+		<tr>
+			<th class="noborder">id</th>
+			<th class="title">部署id【deploymentId】</th>
+			<th class="title">名称【name】</th>
+			<th class="title">关键字【KEY】</th>
+			<th class="title">版本【version】</th>
+			<th class="title">XML</th>
+			<th class="title">image</th>
+			<th class="title">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach items="${processes }" var="process">
+			<tr>
+				<td>${process.id }</td>
+				<td>${process.deploymentId }</td>
+				<td>${process.name }</td>
+				<td>${process.key }</td>
+				<td>${process.version }</td>
+				<td><a target="_blank" href='${ctx }/workflow/manage/${process.deploymentId}/resource?resourceName=${process.resourceName }'>${process.resourceName }</a></td>
+				<td><a target="_blank" href='${ctx }/workflow/manage/${process.deploymentId}/resource?resourceName=${process.diagramResourceName }'>${process.diagramResourceName }</a></td>
+				<td>
+					<button class="btn_delete" param='{"deploymentId":"${process.deploymentId}"}' >删除</button>
+					<button class="btn_start" param='{"processDefinitionId":"${process.id }"}' >启动</button>
+				</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
+
 </body>
 </html>

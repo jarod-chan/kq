@@ -40,10 +40,14 @@
     </script>
    
 </head>
+
+<c:set target="${pagefunc}" property="name" value="流程运行" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/workflow/running" />
+
 <body class="tbody">
-	<h2>流程管理</h2>
+
 	<%@ include file="/common/message.jsp" %>
-	<table class="hctable deftable">
+	<table class="hctable deftable col-12">
 			<thead>
 				<tr>
 					<th class="noborder">流程Id</th>

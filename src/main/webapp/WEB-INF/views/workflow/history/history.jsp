@@ -11,10 +11,14 @@
 	<%@ include file="/common/include.jsp" %>	
 	
 </head>
-<body class="tbody">
-	<h2>流程历史</h2>
+
+<c:set target="${pagefunc}" property="name" value="流程历史" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/workflow/history" />
+
+<body>
+
 	<%@ include file="/common/message.jsp" %>	
-	<table class="hctable deftable">
+	<table class="hctable deftable col-12">
 			<thead>
 				<tr>
 					<th class="noborder">id</th>
