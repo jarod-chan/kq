@@ -38,7 +38,7 @@ import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 @RequestMapping("qingjia")
 public class QingjiaCtl {
 	
-	private static final String PATH = "kq/qingjia/";
+	private static final String PATH = "qingjia/";
 	private interface Page {
 		String LIST = PATH + "list";
 		String EDIT = PATH + "edit";

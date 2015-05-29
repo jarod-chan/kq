@@ -64,7 +64,7 @@
 	</c:forEach>
 </tbody>
 </table>
-<c:if test="${empty roleList}">		
+<c:if test="${empty processTaskList}">		
 <c:set var="nodate_cls" value="coemp-12"/>
 <%@ include file="/common/emp-context.jsp" %>
 </c:if>
