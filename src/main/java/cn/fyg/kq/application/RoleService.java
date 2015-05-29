@@ -15,6 +15,8 @@ public interface RoleService {
 	Role save(Role role);
 	
 	Role find(String key);
+	
+	Role find(String key,boolean lazy);
 
 	void delete(String key);
 

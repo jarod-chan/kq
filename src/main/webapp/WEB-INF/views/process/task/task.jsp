@@ -65,7 +65,7 @@
 </tbody>
 </table>
 <c:if test="${empty roleList}">		
-<c:set var="nodate_cls" value="coth-12"/>
+<c:set var="nodate_cls" value="coemp-12"/>
 <%@ include file="/common/emp-context.jsp" %>
 </c:if>
 

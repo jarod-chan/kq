@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.RoleService;
+import cn.fyg.kq.domain.model.modmenu.menu.Menu;
 import cn.fyg.kq.domain.model.modmenu.role.Role;
 import cn.fyg.kq.domain.model.modmenu.role.RoleFactory;
 import cn.fyg.kq.domain.model.modmenu.role.RoleRepository;
@@ -46,6 +47,16 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public void delete(String key) {
 		this.roleRepository.delete(key);
+	}
+
+	@Override
+	@Transactional
+	public Role find(String key, boolean lazy) {
+		Role role = this.roleRepository.findOne(key);
+		if(!lazy){
+			for (@SuppressWarnings("unused") Menu menu:role.getMenus()) {}
+		}
+		return role;
 	}
 
 }

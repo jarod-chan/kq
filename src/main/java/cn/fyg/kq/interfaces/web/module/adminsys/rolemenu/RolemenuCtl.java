@@ -98,7 +98,7 @@ public class RolemenuCtl {
 	
 	@RequestMapping(value="{key}/set",method=RequestMethod.GET)
 	public String toSet(@PathVariable("key")String key,Map<String,Object> map){
-		Role role=this.roleService.find(key);
+		Role role=this.roleService.find(key,false);
 		map.put("role", role);
 		
 		List<Menu> roleMenus = role.getMenus();

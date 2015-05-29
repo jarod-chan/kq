@@ -29,6 +29,9 @@
 		.span_btn{
 			margin-top: 5px;
 		}
+		.none{
+			display: none;
+		}
 	</style>
 
     <script type="text/javascript">

@@ -2,6 +2,7 @@ package cn.fyg.kq.interfaces.web.module.system.login;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,9 +23,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.CheckuserService;
+import cn.fyg.kq.application.ModuleService;
+import cn.fyg.kq.application.RoleService;
 import cn.fyg.kq.application.UserService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
+import cn.fyg.kq.domain.model.modmenu.menu.Menu;
+import cn.fyg.kq.domain.model.modmenu.module.Module;
+import cn.fyg.kq.domain.model.modmenu.role.Role;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
@@ -49,11 +55,16 @@ public class LoginCtl {
 	SessionUtil sessionUtil;
 	@Autowired
 	CheckuserService checkuserService;
+	@Autowired
+	RoleService roleService;
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String toLogin(Map<String,Object> map) {
 		return Page.LOGIN;
 	}
+	
+	@Autowired
+	ModuleService moduleService;
 	
 	@RequestMapping(value = "login",method=RequestMethod.POST)
 	public String dologin(LoginBean loginBean,RedirectAttributes redirectAttributes) {
@@ -63,9 +74,33 @@ public class LoginCtl {
 		boolean loginSucess=dologin(user,loginBean);
 		if(loginSucess){
 			this.sessionUtil.setValue("user", user); 
-			Specifications<Checkuser> specs = Specifications.where(CheckuserSpecs.ofUser(user));
-			List<Checkuser> checkUserList = this.checkuserService.findAll(specs);
-			this.sessionUtil.setValue("checkuser", checkUserList.get(0)); 
+			Role role = this.roleService.find(user.getRole().getKey(), false);
+			List<Menu> menus = role.getMenus();
+			Set<String> menuSn = new HashSet<String>();
+			for(Menu menu:menus){
+				menuSn.add(menu.getSn());
+			}
+			Sort sort=new Sort(Direction.ASC,"sn");
+			List<Module> moduleList = this.moduleService.findAll(sort);
+			for (Module module : moduleList) {
+				Iterator<Menu> iterator = module.getMenus().iterator();
+				while(iterator.hasNext()){
+					Menu menu = iterator.next();
+					if(!menuSn.contains(menu.getSn())){
+						iterator.remove();
+					}
+				}
+			}
+			Iterator<Module> iterator = moduleList.iterator();
+			while(iterator.hasNext()){
+				Module module = iterator.next();
+				if(module.getMenus().isEmpty()){
+					iterator.remove();
+				}
+			}
+			this.sessionUtil.setValue("userModuleList", moduleList);
+			
+			
 			return "redirect:/process/task";
 		}else{
 			loginBean.setPassword("");

@@ -30,7 +30,7 @@ public class Role {
 	
 	private String remark;//说明，用户角色的内容
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)//优化查询
 	@JoinTable(name="kq_rolemenu",joinColumns=@JoinColumn(name="role_key"),inverseJoinColumns=@JoinColumn(name="menu_sn"))
 	@OrderBy("sn ASC")
 	private List<Menu> menus = new ArrayList<Menu>();

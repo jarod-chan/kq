@@ -129,76 +129,18 @@ function logout(){
 		</div>
 
 		<div class="second_right" >
-			
-		
-			
+				
 			<ul class="nav" style="float:left">
-				
-				<c:if test="${user.role.key=='tijiaoren'||user.role.key=='guanliyuan'||user.role.key=='shenpiren'}">
+				<c:forEach var="module" items="${userModuleList}">
 				<li>
-					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程中心&nbsp;&nbsp;</div>
+					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />${module.name}&nbsp;&nbsp;</div>
 					<ul>
-					
-						<li><a href="/${ctx}/process/task">&nbsp;&nbsp;任务中心&nbsp;&nbsp;</a></li>
-						
-						<li><a href="/${ctx}/process/start">&nbsp;&nbsp;流程启动&nbsp;&nbsp;</a></li>
-						
-						<li><a href="/${ctx}/process/track">&nbsp;&nbsp;流程跟踪&nbsp;&nbsp;</a></li>
+					<c:forEach var="menu" items="${module.menus}">
+						<li><a href="/${ctx}/${menu.url}">&nbsp;&nbsp;${menu.name}&nbsp;&nbsp;</a></li>
+					</c:forEach>
 					</ul>
 				</li>
-				</c:if>
-				
-				<c:if test="${user.role.key=='tijiaoren'||user.role.key=='guanliyuan'}">
-				<li>
-					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />员工考勤&nbsp;&nbsp;</div>
-					<ul>
-					
-						<li><a href="/${ctx}/kaoqin/list">&nbsp;&nbsp;考勤单&nbsp;&nbsp;</a></li>
-						<li><a href="/${ctx}/qingjia/list">&nbsp;&nbsp;请假单&nbsp;&nbsp;</a></li>
-					</ul>
-				</li>
-				</c:if>
-
-				<c:if test="${user.role.key=='guanliyuan'}">
-				<li>
-					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />考勤管理&nbsp;&nbsp;</div>
-					<ul>
-					
-						<li><a href="/${ctx}/inituser/list">&nbsp;&nbsp;用户初始化&nbsp;&nbsp;</a></li>
-						<li><a href="/${ctx}/reptline/list">&nbsp;&nbsp;汇报关系&nbsp;&nbsp;</a></li>
-						<li><a href="/${ctx}/period/list">&nbsp;&nbsp;考勤期间&nbsp;&nbsp;</a></li>
-					</ul>
-				</li>
-				</c:if>
-				
-				<c:if test="${user.role.key=='guanliyuan'}">
-				<li>
-					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />系统配置&nbsp;&nbsp;</div>
-					<ul>
-					
-						<li><a href="/${ctx}/importuser/list">&nbsp;&nbsp;导入用户&nbsp;&nbsp;</a></li>
-					
-						<li><a href="/${ctx}/rolemenu/list">&nbsp;&nbsp;角色菜单&nbsp;&nbsp;</a></li>
-						
-					</ul>
-				</li>
-				</c:if>
-				
-				<c:if test="${user.role.key=='guanliyuan'}">
-				<li>
-					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />流程管理&nbsp;&nbsp;</div>
-					<ul>
-						<li><a href="/${ctx}/workflow/deploy">&nbsp;&nbsp;流程部署&nbsp;&nbsp;</a></li>
-						
-						<li><a href="/${ctx}/workflow/manage">&nbsp;&nbsp;流程管理&nbsp;&nbsp;</a></li>
-						
-						<li><a href="/${ctx}/workflow/running">&nbsp;&nbsp;流程运行&nbsp;&nbsp;</a></li>
-						
-						<li><a href="/${ctx}/workflow/history">&nbsp;&nbsp;流程历史&nbsp;&nbsp;</a></li>
-					</ul>
-				</li>
-				</c:if>
-				
+				</c:forEach>
 			</ul>
 		</div>
 		<div class="clear_div"></div>

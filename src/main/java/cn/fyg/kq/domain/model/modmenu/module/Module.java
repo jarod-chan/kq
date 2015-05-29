@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -21,7 +22,8 @@ public class Module {
 	
 	private String name;
 	
-	@OneToMany(fetch = FetchType.EAGER,targetEntity = Menu.class,mappedBy="module")
+	@OneToMany(fetch = FetchType.EAGER,targetEntity = Menu.class)
+	@JoinColumn(name="module_sn")
 	@OrderBy("sn ASC")
 	private List<Menu> menus=new ArrayList<Menu>();
 
