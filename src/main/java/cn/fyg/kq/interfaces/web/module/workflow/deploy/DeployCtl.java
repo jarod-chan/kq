@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.domain.model.process.ProcessFile;
+import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
-import cn.fyg.kq.interfaces.web.shared.tool.Constant;
 
 @Controller
 @RequestMapping("/workflow/deploy")
@@ -38,7 +38,7 @@ public class DeployCtl {
 			map.put("processFiles", processFiles);
 		} catch (FileNotFoundException e) {
 			logger.error("file directory not found");
-			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.error("无法找到流程文件目录！"));
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.error("无法找到流程文件目录！"));
 		}
 		return Page.DEPLOY;
 	}
@@ -49,14 +49,14 @@ public class DeployCtl {
 			deployFacade.deployFile(filename);
 		} catch (FileNotFoundException e) {
 			logger.error("file not found", e);
-			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.error("文件[%s]不存在！",filename));
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.error("文件[%s]不存在！",filename));
 			return "redirect:/workflow/deploy";
 		} catch(Exception e){
 			logger.error("deploy fail", e);
-			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.error("文件[%s]发布失败！",filename));
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.error("文件[%s]发布失败！",filename));
 			return "redirect:/workflow/deploy";
 		}
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("文件[%s]发布成功。",filename));
+		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("文件[%s]发布成功。",filename));
 		return "redirect:/workflow/deploy";
 	}
 

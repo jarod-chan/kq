@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
-import cn.fyg.kq.interfaces.web.shared.tool.Constant;
 
 
 @Controller
@@ -49,7 +49,7 @@ public class ManageCtl {
 	@RequestMapping(value = "{deploymentId}/delete", method = RequestMethod.POST)
 	public String delete(@PathVariable("deploymentId") String deploymentId,RedirectAttributes redirectAttributes){
 		repositoryService.deleteDeployment(deploymentId, true);
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("流程[%s]删除成功。",deploymentId));
+		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("流程[%s]删除成功。",deploymentId));
 		return "redirect:/workflow/manage";
 	}
 	
@@ -70,10 +70,10 @@ public class ManageCtl {
 			runtimeService.startProcessInstanceById(processDefinitionId);
 		} catch (ActivitiException e) {
 			logger.error("process start fail by id:[]", processDefinitionId);
-			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("流程[%s]启动失败！",processDefinitionId));
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("流程[%s]启动失败！",processDefinitionId));
 			return "redirect:/workflow/manage";
 		}
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME,  Message.info("流程[%s]启动。",processDefinitionId));
+		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME,  Message.info("流程[%s]启动。",processDefinitionId));
 		return "redirect:/workflow/manage";
 	}
 

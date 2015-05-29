@@ -3,7 +3,7 @@ package cn.fyg.kq.infrastructure.message.imp;
 import javax.servlet.http.HttpSession;
 
 import cn.fyg.kq.infrastructure.message.MessagePasser;
-import cn.fyg.kq.interfaces.web.shared.tool.Constant;
+import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 
 public class SessionMPR implements MessagePasser {
 	
@@ -15,13 +15,13 @@ public class SessionMPR implements MessagePasser {
 
 	@Override
 	public void setMessage(String message) {
-		session.setAttribute(Constant.MESSAGE_NAME, message);
+		session.setAttribute(AppConstant.MESSAGE_NAME, message);
 	}
 
 	@Override
 	public String getMessage() {
-		Object obj=session.getAttribute(Constant.MESSAGE_NAME);
-		session.setAttribute(Constant.MESSAGE_NAME, null);
+		Object obj=session.getAttribute(AppConstant.MESSAGE_NAME);
+		session.setAttribute(AppConstant.MESSAGE_NAME, null);
 		return obj==null?null:(String) obj;
 	}
 

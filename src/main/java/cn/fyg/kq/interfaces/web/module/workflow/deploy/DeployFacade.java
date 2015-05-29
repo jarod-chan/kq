@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import cn.fyg.kq.application.WorkflowService;
 import cn.fyg.kq.domain.model.process.ProcessFile;
-import cn.fyg.kq.interfaces.web.shared.tool.Constant;
+import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 
 @Component
 public class DeployFacade {
@@ -34,7 +34,7 @@ public class DeployFacade {
 	}
 	
 	private String getProcessFilePath(){
-		return servletContext.getRealPath("") + File.separator+ Constant.PROCESS_FILE;
+		return servletContext.getRealPath("") + File.separator+ AppConstant.PROCESS_FILE;
 	}
 	
 	public void deployFile(String filename) throws FileNotFoundException {

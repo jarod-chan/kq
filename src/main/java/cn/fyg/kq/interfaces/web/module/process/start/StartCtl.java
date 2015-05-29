@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
-import cn.fyg.kq.interfaces.web.shared.tool.Constant;
 
 @Controller
 @RequestMapping("process/start")
@@ -55,10 +55,10 @@ public class StartCtl {
 			runtimeService.startProcessInstanceByKey(key);
 		} catch (ActivitiException e) {
 			logger.error("process start fail by key:[]", key);
-			redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.error("流程[%s]启动失败！",key));
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.error("流程[%s]启动失败！",key));
 			return "redirect:/process/start";
 		}
-		redirectAttributes.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("流程[%s]启动。",key));
+		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("流程[%s]启动。",key));
 		return "redirect:/process/start";
 	}
 	

@@ -22,8 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.OpinionService;
 import cn.fyg.kq.application.QingjiaService;
-import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.opinion.OpResult;
+import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.qingjia.Qingjia;
 import cn.fyg.kq.domain.model.qingjia.QingjiaState;
 import cn.fyg.kq.domain.model.user.User;
@@ -33,7 +33,6 @@ import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
-import cn.fyg.kq.interfaces.web.shared.tool.Constant;
 
 @Controller
 @RequestMapping("qingjia")
@@ -153,7 +152,7 @@ public class QingjiaCtl {
 		runtimeService.setVariableLocal(task.getExecutionId(), LeaveVarName.IS_AGGREE,opinion.getResult().<Boolean>val());
 		taskService.complete(task.getId());
 		redirectAttributes
-			.addFlashAttribute(Constant.MESSAGE_NAME, Message.info("任务完成！"));
+			.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("任务完成！"));
 		return "redirect:/process/task";
 	}
 	

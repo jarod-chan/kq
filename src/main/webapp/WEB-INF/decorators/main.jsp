@@ -119,7 +119,7 @@ function logout(){
 		</div>
 		<div class="top_right">
 			<div class="main_blank"><input type="button" value="退出" onclick="logout()"/>&nbsp;&nbsp;</div>
-			<div class="main_info">${user.fnumber}${checkuser.comp}&nbsp;&nbsp;${user.role.key}</div>
+			<div class="main_info">${user.fnumber}&nbsp;&nbsp;</div>
 		</div>
 	</div>
 	
@@ -128,8 +128,7 @@ function logout(){
 			<a href="/${ctx}/userhome">首页</a><c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if><c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
 		</div>
 
-		<div class="second_right" >
-				
+		<div class="second_right" >	
 			<ul class="nav" style="float:left">
 				<c:forEach var="module" items="${userModuleList}">
 				<li>
