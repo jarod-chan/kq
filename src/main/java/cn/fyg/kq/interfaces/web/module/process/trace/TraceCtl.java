@@ -34,8 +34,27 @@ public class TraceCtl {
 	ProcessEngineFactoryBean processEngine;
 	
 	@RequestMapping(value = "{executionId}")
-	@ResponseBody
 	public void readResource(@PathVariable("executionId") String executionId, HttpServletResponse response)throws Exception {
+		 //TODO 并行节点出现问题
+		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
+		
+		BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
+		List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
+		// 使用spring注入引擎请使用下面的这行代码
+		Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
+		InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
+		
+	    // 输出资源内容到相应对象
+	    byte[] b = new byte[1024];
+	    int len;
+	    while ((len = imageStream.read(b, 0, 1024)) != -1) {
+	      response.getOutputStream().write(b, 0, len);
+	    }
+	}
+	
+	@RequestMapping(value = "/bak/{executionId}")
+	@ResponseBody
+	public void readResource_bak(@PathVariable("executionId") String executionId, HttpServletResponse response)throws Exception {
 		 //TODO 并行节点出现问题
 		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
 		
