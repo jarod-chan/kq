@@ -23,7 +23,7 @@ import cn.fyg.kq.domain.shared.verify.Result;
 
 
 
-@Service
+@Service("kaoqinService")
 public class KaoqinServiceImpl extends SericeQueryImpl<Kaoqin>  implements KaoqinService {
 	
 	@Autowired
@@ -54,8 +54,7 @@ public class KaoqinServiceImpl extends SericeQueryImpl<Kaoqin>  implements Kaoqi
 	public Kaoqin save(Kaoqin kaoqin) {
 		noFactory=new KaoqinNo();
 		Pattern<Kaoqin> pattern = noFactory.create(kaoqin).setEmpty(kaoqin.getId()!=null);
-	
-		
+			
 		Lock lock = this.lockService.getLock(pattern);
 		lock.lock();
 		try{

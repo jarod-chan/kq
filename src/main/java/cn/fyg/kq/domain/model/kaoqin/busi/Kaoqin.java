@@ -31,6 +31,8 @@ import cn.fyg.kq.domain.shared.ProcessDoc;
 @Table(name="kq_kaoqin")
 public class Kaoqin implements ProcessDoc{
 	
+	public static final String BUSI_CODE = "KQ";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id; // 主键	

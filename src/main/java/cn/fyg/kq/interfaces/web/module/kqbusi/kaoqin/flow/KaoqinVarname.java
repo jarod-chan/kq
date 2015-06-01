@@ -12,5 +12,8 @@ public interface KaoqinVarname {
 	 *异常记录总条数
 	 */
 	String ITEM_ALL = "item_all";
+
+
+	String IS_AGGREE = "isAggree";
 	
 }

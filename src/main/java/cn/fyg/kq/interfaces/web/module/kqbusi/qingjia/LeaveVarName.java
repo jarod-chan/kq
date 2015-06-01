@@ -2,6 +2,9 @@ package cn.fyg.kq.interfaces.web.module.kqbusi.qingjia;
 
 public interface LeaveVarName {
 	
+	public static final String BUSINESS_CODE = "temp";
+
+
 	/**
 	 *是否同意
 	 */
@@ -13,6 +16,4 @@ public interface LeaveVarName {
 	 */
 	String ACTURL_DAY="acturlDay";
 
-
-	String BUSINESS_CODE = "temp";
 }

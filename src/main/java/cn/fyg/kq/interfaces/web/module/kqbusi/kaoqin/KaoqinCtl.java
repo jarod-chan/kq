@@ -31,13 +31,13 @@ import cn.fyg.kq.application.OpinionService;
 import cn.fyg.kq.application.UserService;
 import cn.fyg.kq.application.facade.KaoqinFacade;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
+import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.kaoqin.busi.PassState;
 import cn.fyg.kq.domain.model.opinion.OpResult;
 import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.verify.Result;
 import cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin.flow.KaoqinVarname;
-import cn.fyg.kq.interfaces.web.module.kqbusi.qingjia.LeaveVarName;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
@@ -94,6 +94,7 @@ public class KaoqinCtl {
 		user=kaoqin.getUser();
 		
 		BindTool.bindRequest(kaoqin, request);
+		kaoqin.setState(KaoqinState.save);
 		kaoqin=kaoqinService.save(kaoqin);
 		
 		if(afteraction.equals("save")){
@@ -192,13 +193,13 @@ public class KaoqinCtl {
 		kaoqin=kaoqinService.save(kaoqin);
 		
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-		opinion.setBusinessCode(LeaveVarName.BUSINESS_CODE);
+		opinion.setBusinessCode(Kaoqin.BUSI_CODE);
 		opinion.setTaskKey(task.getTaskDefinitionKey());
 		opinion.setTaskName(task.getName());
 		opinion.setUserKey("chenzw");
 		opinion.setUserName("username");
 		opinionService.append(opinion);
-		runtimeService.setVariableLocal(task.getExecutionId(), LeaveVarName.IS_AGGREE,opinion.getResult().<Boolean>val());
+		runtimeService.setVariableLocal(task.getExecutionId(), KaoqinVarname.IS_AGGREE,opinion.getResult().<Boolean>val());
 		taskService.complete(task.getId());
 		redirectAttributes
 			.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("任务完成！"));
@@ -213,7 +214,7 @@ public class KaoqinCtl {
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		map.put("task", task);
 		
-		List<Opinion> opinionList = opinionService.allOpinion(LeaveVarName.BUSINESS_CODE, businessId);
+		List<Opinion> opinionList = opinionService.allOpinion(Kaoqin.BUSI_CODE, businessId);
 		map.put("opinionList", opinionList);
 		return Page.CHECK_EDIT;
 	}
