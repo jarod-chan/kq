@@ -3,6 +3,7 @@ package cn.fyg.kq.interfaces.web.module.process.trace;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,9 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
-import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
+import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.context.Context;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,9 +42,21 @@ public class TraceCtl {
 		
 		BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
 		List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
-		// 使用spring注入引擎请使用下面的这行代码
-		Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
-		InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
+
+//		 使用spring注入引擎请使用下面的这行代码
+//		Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
+		
+		ProcessEngineConfigurationImpl processEngineConfiguration = processEngine.getProcessEngineConfiguration();
+        Context.setProcessEngineConfiguration((ProcessEngineConfigurationImpl)processEngineConfiguration);
+        
+        ProcessDiagramGenerator processDiagramGenerator = processEngineConfiguration.getProcessDiagramGenerator();
+        
+        
+		InputStream imageStream = processDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds
+				,Collections.<String>emptyList()
+				,processEngine.getProcessEngineConfiguration().getActivityFontName(), 
+				processEngine.getProcessEngineConfiguration().getLabelFontName(), 
+				null, 1.0);
 		
 	    // 输出资源内容到相应对象
 	    byte[] b = new byte[1024];
@@ -62,7 +76,7 @@ public class TraceCtl {
 		List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
 		// 使用spring注入引擎请使用下面的这行代码
 		Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
-		InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
+		InputStream imageStream =null;// ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
 		
 		writeStreamToResponse(response, imageStream);
 	}
@@ -93,7 +107,7 @@ public class TraceCtl {
 		// 使用spring注入引擎请使用下面的这行代码
 		Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
 		
-		InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
+		InputStream imageStream =null;// ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
 		return imageStream;
 	}
 

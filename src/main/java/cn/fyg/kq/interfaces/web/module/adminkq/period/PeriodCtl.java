@@ -96,13 +96,13 @@ public class PeriodCtl {
 	}
 	
 	@RequestMapping(value="{periodId}/calresult",method=RequestMethod.GET)
-	public String toCalresult(@PathVariable("periodId") Long periodId,Map<String,Object> map){
-Period period = this.periodService.find(periodId);
-		
+	public String toCalresult(@PathVariable("periodId") Long periodId,Map<String, Object> map) {
+		Period period = this.periodService.find(periodId);
+
 		Specification<Kaoqin> inPeriod = KaoqinSpecs.inPeriod(period);
-		Specifications<Kaoqin> specs=Specifications.where(inPeriod);
-		Sort sort=null;
-		
+		Specifications<Kaoqin> specs = Specifications.where(inPeriod);
+		Sort sort = null;
+
 		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
 		map.put("kaoqinList", kaoqinList);
 		return Page.CALRESULT;

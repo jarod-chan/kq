@@ -11,7 +11,6 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.impl.RepositoryServiceImpl;
-import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.Execution;
@@ -117,7 +116,7 @@ public class WorkflowCtl {
 		highLightedActivities.add(activityId);
 		
 		BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
-		resourceAsStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", highLightedActivities);
+		resourceAsStream =null;// ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", highLightedActivities);
 		
 		byte[] b = new byte[1024];
 		int len = -1;
