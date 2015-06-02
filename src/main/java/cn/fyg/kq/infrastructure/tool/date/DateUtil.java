@@ -1,5 +1,6 @@
 package cn.fyg.kq.infrastructure.tool.date;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.joda.time.DateTime;
@@ -32,6 +33,17 @@ public class DateUtil {
 		DateTime endTime = new DateTime(endDate);   
 		Duration  duration = new Duration(startTime,endTime);
 		return duration.getStandardMinutes();
+	}
+	
+	public static String minute(int minutes){
+		DateTime dateTime = new DateTime(new Date()); 
+		dateTime=dateTime.plusMinutes(minutes);
+		Date date = dateTime.toDate();
+		return new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss").format(date);
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(minute(2));
 	}
 
 }

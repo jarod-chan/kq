@@ -199,7 +199,7 @@ public class KaoqinCtl {
 		opinion.setUserKey("chenzw");
 		opinion.setUserName("username");
 		opinionService.append(opinion);
-		runtimeService.setVariableLocal(task.getExecutionId(), KaoqinVarname.IS_AGGREE,opinion.getResult().<Boolean>val());
+		runtimeService.setVariable(task.getExecutionId(), KaoqinVarname.IS_AGGREE,Boolean.TRUE);
 		taskService.complete(task.getId());
 		redirectAttributes
 			.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("任务完成！"));
