@@ -3,7 +3,7 @@ package cn.fyg.zktime.domain;
 import java.util.Date;
 
 /**
- *考情时间
+ *具体的打卡时间
  */
 public class Checkinout {
 	

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.scheduling.annotation.Async;
@@ -22,10 +23,11 @@ import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
 import cn.fyg.kq.domain.model.kaoqin.busi.SchclassInout;
 import cn.fyg.kq.domain.model.period.Period;
 import cn.fyg.kq.domain.model.period.PeriodState;
+import cn.fyg.kq.domain.shared.kq.Comp;
 import cn.fyg.zktime.domain.Checkinout;
-import cn.fyg.zktime.domain.DateCheck;
-import cn.fyg.zktime.domain.MonthCheck;
 import cn.fyg.zktime.domain.Schclass;
+import cn.fyg.zktime.domain.monthcheck.DateCheck;
+import cn.fyg.zktime.domain.monthcheck.MonthCheck;
 import cn.fyg.zktime.service.MonthCheckService;
 @Service
 public class CalculateFacade {
@@ -42,29 +44,52 @@ public class CalculateFacade {
 	
 	@Async
 	public void calculate(Period period){
-		
-		Specification<Checkuser> inComp = CheckuserSpecs.inComp(period.getComp());
+		List<Checkuser> checkuserList = allCheckUserOfComp(period.getComp());	
+		for (Checkuser checkuser : checkuserList) {
+			produceKaoqin(checkuser,period);
+		}	
+		finishCal(period);
+	}
+
+
+
+	/**
+	 * 查找本公司所有参与考勤的人员
+	 */
+	private List<Checkuser> allCheckUserOfComp(Comp comp) {
+		Specification<Checkuser> inComp = CheckuserSpecs.inComp(comp);
 		Specification<Checkuser> kqstat = CheckuserSpecs.isKqstat(Kqstat.yes);
 		Specifications<Checkuser> specs=Specifications.where(inComp).and(kqstat);
-		Sort sort=null;
+		Sort sort=new Sort(new Order("userid"));
 		
 		List<Checkuser> checkuserList = this.checkuserService.findAll(specs, sort);
-		
-		for (Checkuser checkuser : checkuserList) {
-			int year = period.getMonthitem().getYear();
-			int month = period.getMonthitem().getMonth();
-			int userid = checkuser.getUserid();
-			MonthCheck monthCheck = this.monthCheckService.getMonthCheck(year, month, userid);
-			
-			produceKaoqin(monthCheck,checkuser,period.getMonthitem());
-		}
-		
+		return checkuserList;
+	}
+
+
+	/**
+	 *生成用户的考勤单
+	 */
+	private void produceKaoqin(Checkuser checkuser,Period period) {
+		MonthItem monthitem = period.getMonthitem();
+		int userid = checkuser.getUserid();
+		MonthCheck monthCheck = this.monthCheckService.getMonthCheck(userid,monthitem.getYear(), monthitem.getMonth());
+		monthCheckToKaoqin(checkuser,period,monthCheck);
+	}
+
+
+
+	/**
+	 *更改计算状态为计算完成
+	 */
+	private void finishCal(Period period) {
 		period.setState(PeriodState.finishcal);
 		this.periodService.save(period);
 	}
-	
-	
-	public void produceKaoqin(MonthCheck monthcheck,Checkuser checkuser,MonthItem monthItem){
+
+
+
+	public void monthCheckToKaoqin(Checkuser checkuser,Period period,MonthCheck monthcheck){
 		List<KaoqinItem> kaoqinItems = new ArrayList<KaoqinItem>();
 		int sn=0;
 		for (DateCheck dateCheck : monthcheck.getDatechecks()) {
@@ -87,7 +112,7 @@ public class CalculateFacade {
 					for(Checkinout checkinout:dateCheck.getCheckinout()){
 						realtime+=dateFormat.format(checkinout.getChecktime())+" ";
 					}
-					kaoqinItem.setRealtime(realtime);
+					kaoqinItem.setRealtime(realtime.trim());
 					
 					kaoqinItems.add(kaoqinItem);
 				}
@@ -109,7 +134,7 @@ public class CalculateFacade {
 					for(Checkinout checkinout:dateCheck.getCheckinout()){
 						realtime+=dateFormat.format(checkinout.getChecktime())+" ";
 					}
-					kaoqinItem.setRealtime(realtime);
+					kaoqinItem.setRealtime(realtime.trim());
 					
 					kaoqinItems.add(kaoqinItem);
 				}
@@ -120,11 +145,11 @@ public class CalculateFacade {
 			Kaoqin kaoqin = new Kaoqin();
 			kaoqin.setNo(null);
 			kaoqin.setUser(checkuser.getUser());
-			kaoqin.setMonthitem(monthItem);
+			kaoqin.setMonthitem(period.getMonthitem());
 			kaoqin.setState(null);
 			kaoqin.setItem_all(kaoqinItems.size());
 			kaoqin.setItem_real(0);
-			kaoqin.setComp("fangchan");
+			kaoqin.setComp(period.getComp().toString());
 			
 			kaoqin.setKaoqinItems(kaoqinItems);
 		

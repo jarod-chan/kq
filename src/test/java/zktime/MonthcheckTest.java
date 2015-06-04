@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import common.H;
-
 import cn.fyg.zktime.domain.Checkinout;
 import cn.fyg.zktime.domain.CheckinoutMapper;
-import cn.fyg.zktime.domain.MonthCheck;
 import cn.fyg.zktime.domain.Schclass;
 import cn.fyg.zktime.domain.UserrunMapper;
+import cn.fyg.zktime.domain.monthcheck.MonthCheck;
+
+import common.H;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")

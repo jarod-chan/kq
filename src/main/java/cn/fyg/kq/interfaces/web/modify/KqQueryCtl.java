@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.fyg.kq.interfaces.web.modify.dto.DateCheckDao;
-import cn.fyg.zktime.domain.DateCheck;
-import cn.fyg.zktime.domain.MonthCheck;
 import cn.fyg.zktime.domain.Schclass;
+import cn.fyg.zktime.domain.monthcheck.DateCheck;
+import cn.fyg.zktime.domain.monthcheck.MonthCheck;
 import cn.fyg.zktime.service.MonthCheckService;
 
 

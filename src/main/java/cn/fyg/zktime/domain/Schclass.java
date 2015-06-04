@@ -3,7 +3,7 @@ package cn.fyg.zktime.domain;
 import java.util.Date;
 
 /**
- *班次
+ *时段
  */
 public class Schclass {
 	

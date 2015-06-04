@@ -1,9 +1,15 @@
-package cn.fyg.zktime.domain;
+package cn.fyg.zktime.domain.monthcheck;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import cn.fyg.kq.infrastructure.tool.date.DateUtil;
+import cn.fyg.zktime.domain.Checkinout;
+import cn.fyg.zktime.domain.Schclass;
+
+/**
+ *某一日起的具体打卡时段和打卡时间
+ */
 public class DateCheck {
 	
 	private Date date;//日期
@@ -39,29 +45,17 @@ public class DateCheck {
 	public void compareCheckinout(){
 		for (Checkinout checkinout : this.checkinout) {
 			for (Schclass schclass : this.schclasses) {
-				Date checktime =this.to1900_1_1(checkinout.getChecktime());
-				if(checktimeIn(checktime,schclass.getCheckintime1(),schclass.getCheckintime2())){
+				Date checktime =DateUtil.dateDateZero(checkinout.getChecktime());
+				if(DateUtil.inDate(checktime,schclass.getCheckintime1(),schclass.getCheckintime2())){
 					schclass.setCheckin(true);
 				}
-				if(checktimeIn(checktime,schclass.getCheckouttime1(),schclass.getCheckouttime2())){
+				if(DateUtil.inDate(checktime,schclass.getCheckouttime1(),schclass.getCheckouttime2())){
 					schclass.setCheckout(true);
 				}
 			}
 		}
 	}
 	
-	private boolean checktimeIn(Date checktime,Date begin,Date end){
-		return checktime.compareTo(begin)>=0
-				&&checktime.compareTo(end)<=0;
-	}
-	
-	private Date to1900_1_1(Date Date){
-		Calendar calendar=Calendar.getInstance();
-		calendar.setTime(Date);
-		calendar.set(Calendar.YEAR, 1900);
-		calendar.set(Calendar.MONTH, 0);
-		calendar.set(Calendar.DATE, 1);
-		return calendar.getTime();
-	}
-	
+
+
 }

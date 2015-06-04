@@ -15,4 +15,35 @@
 		order by starttime
 	</select>
 	
+	<select id="userrun" resultType="Userrun" >
+		   select userid,startdate,enddate,num_of_run_id from user_of_run where userid=#{userid} 
+		   <![CDATA[ and startdate<=#{monthend} and enddate >=#{monthbeg} ]]>
+		   order by create_time desc
+	</select>
+	
+	<select id="findNumrun" resultMap="numrunResult">
+	select a.num_runid,
+	a.sdays,a.edays,
+	b.schclassid,b.schname,b.starttime,b.endtime,b.checkintime1,b.checkintime2,b.checkouttime1,b.checkouttime2 
+	from num_run_deil a left join schclass b on a.schclassid=b.schclassid 
+	where a.num_runid=#{num_runid}
+	order by a.sdays,a.edays,b.starttime
+	</select>
+	
+	<resultMap id="numrunResult" type="Numrun">
+		<id property="numrunid" column="num_runid" />
+		<collection property="numrunDeils" ofType="NumrunDeil">
+			<result property="sdays" column="sdays" />
+			<result property="edays" column="edays" />
+			<result property="schclass.schclassid" column="schclassid" />
+			<result property="schclass.schname" column="schname" />
+			<result property="schclass.starttime" column="starttime" />
+			<result property="schclass.endtime" column="endtime" />
+			<result property="schclass.checkintime1" column="checkintime1" />
+			<result property="schclass.checkintime2" column="checkintime2" />
+			<result property="schclass.checkouttime1" column="checkouttime1" />
+			<result property="schclass.checkouttime2" column="checkouttime2" />
+		</collection>  
+	</resultMap>  
+		
 </mapper>
