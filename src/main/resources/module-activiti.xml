@@ -19,7 +19,7 @@
 		<property name="databaseSchemaUpdate" value="true" />
 		
 		<!-- 任务执行器：开启支持定时任务 -->
-		<property name="jobExecutorActivate" value="true" />
+		<property name="jobExecutorActivate" value="false" />
 		
 		  <!-- 生成流程图的字体 -->
         <property name="activityFontName" value="simsun"/>

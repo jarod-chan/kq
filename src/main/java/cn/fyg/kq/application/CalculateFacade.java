@@ -28,6 +28,7 @@ import cn.fyg.zktime.domain.Checkinout;
 import cn.fyg.zktime.domain.Schclass;
 import cn.fyg.zktime.domain.monthcheck.DateCheck;
 import cn.fyg.zktime.domain.monthcheck.MonthCheck;
+import cn.fyg.zktime.domain.monthcheck.SchclassInOut;
 import cn.fyg.zktime.service.MonthCheckService;
 @Service
 public class CalculateFacade {
@@ -45,15 +46,19 @@ public class CalculateFacade {
 	@Async
 	public void calculate(Period period){
 		List<Checkuser> checkuserList = allCheckUserOfComp(period.getComp());	
-		for (Checkuser checkuser : checkuserList) {
-			produceKaoqin(checkuser,period);
-		}	
+		List<MonthCheck> monthCheckList=allMonthCheck(checkuserList,period);
+		
+		for(int i=0,len=checkuserList.size();i<len;i++){
+			Checkuser checkuser = checkuserList.get(i);
+			MonthCheck monthCheck = monthCheckList.get(i);
+			monthCheckToKaoqin(checkuser,period,monthCheck);
+		}
+				
 		finishCal(period);
 	}
 
 
-
-	/**
+	/*
 	 * 查找本公司所有参与考勤的人员
 	 */
 	private List<Checkuser> allCheckUserOfComp(Comp comp) {
@@ -67,19 +72,19 @@ public class CalculateFacade {
 	}
 
 
-	/**
-	 *生成用户的考勤单
+	/*
+	 * 返回所有人员对应的考勤结果
 	 */
-	private void produceKaoqin(Checkuser checkuser,Period period) {
+	private List<MonthCheck> allMonthCheck(List<Checkuser> checkuserList,Period period) {
+		List<Integer> userids=new ArrayList<Integer>();
+		for(Checkuser checkuser:checkuserList){
+			userids.add(checkuser.getUserid());
+		}
 		MonthItem monthitem = period.getMonthitem();
-		int userid = checkuser.getUserid();
-		MonthCheck monthCheck = this.monthCheckService.getMonthCheck(userid,monthitem.getYear(), monthitem.getMonth());
-		monthCheckToKaoqin(checkuser,period,monthCheck);
+		return this.monthCheckService.getMonthCheck(userids,monthitem.getYear(), monthitem.getMonth());
 	}
 
-
-
-	/**
+	/*
 	 *更改计算状态为计算完成
 	 */
 	private void finishCal(Period period) {
@@ -93,8 +98,9 @@ public class CalculateFacade {
 		List<KaoqinItem> kaoqinItems = new ArrayList<KaoqinItem>();
 		int sn=0;
 		for (DateCheck dateCheck : monthcheck.getDatechecks()) {
-			for(Schclass schclass:dateCheck.getSchclasses()){
-				if(!schclass.isCheckin()){
+			for(SchclassInOut inOut:dateCheck.getSchclassInOuts()){
+				Schclass schclass = inOut.getSchclass();
+				if(!inOut.isCheckin()){
 					sn++;
 					KaoqinItem kaoqinItem = new KaoqinItem();
 					kaoqinItem.setSn(Long.valueOf(sn));
@@ -116,7 +122,7 @@ public class CalculateFacade {
 					
 					kaoqinItems.add(kaoqinItem);
 				}
-				if(!schclass.isCheckout()){
+				if(!inOut.isCheckout()){
 					sn++;
 					KaoqinItem kaoqinItem = new KaoqinItem();
 					kaoqinItem.setSn(Long.valueOf(sn));

@@ -23,9 +23,7 @@ public class Schclass {
 	
 	private Date checkouttime2;//结束签退时间
 	
-	private boolean checkin=false;//是否签到
-	
-	private boolean checkout=false;//是否签退
+
 
 	public int getSchclassid() {
 		return schclassid;
@@ -90,25 +88,5 @@ public class Schclass {
 	public void setCheckouttime2(Date checkouttime2) {
 		this.checkouttime2 = checkouttime2;
 	}
-
-
-	public boolean isCheckin() {
-		return checkin;
-	}
-
-	public void setCheckin(boolean checkin) {
-		this.checkin = checkin;
-	}
-
-	public boolean isCheckout() {
-		return checkout;
-	}
-
-	public void setCheckout(boolean checkout) {
-		this.checkout = checkout;
-	}
-	
-	
-	
 
 }

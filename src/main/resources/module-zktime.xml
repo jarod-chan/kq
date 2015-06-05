@@ -30,6 +30,6 @@
         <property name="basePackage" value="cn.fyg.zktime.domain" /> 
     </bean>
     
-    <context:component-scan base-package="cn.fyg.zktime.service" />
+    <context:component-scan base-package="cn.fyg.zktime.service,cn.fyg.zktime.domain.monthcheck" />
 	
 </beans>

@@ -14,7 +14,6 @@ import cn.fyg.zktime.domain.Checkinout;
 import cn.fyg.zktime.domain.CheckinoutMapper;
 import cn.fyg.zktime.domain.Schclass;
 import cn.fyg.zktime.domain.UserrunMapper;
-import cn.fyg.zktime.domain.monthcheck.MonthCheck;
 
 import common.H;
 
@@ -28,11 +27,7 @@ public class MonthcheckTest {
 	@Autowired
 	CheckinoutMapper checkinoutMapper;
 	
-	@Test
-	public void test(){
-		new MonthCheck().initDate(38,2015,4,userrunMapper,checkinoutMapper);
-		
-	}
+
 	
 	@Test
 	public void test2(){

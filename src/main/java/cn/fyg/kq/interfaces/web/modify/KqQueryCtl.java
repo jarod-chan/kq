@@ -40,7 +40,7 @@ public class KqQueryCtl {
 		MonthCheck monthCheck = this.monthCheckService.getMonthCheck(year, month, userid);
 		List<DateCheckDao> datecheckdaoList = new ArrayList<DateCheckDao>();
 		for (DateCheck dateCheck : monthCheck.getDatechecks()) {
-			List<Schclass> schclasses = dateCheck.getSchclasses();
+			List<Schclass> schclasses = null;//dateCheck.getSchclasses();
 			if(schclasses.isEmpty()){
 				DateCheckDao dateCheckDao = makeDateCheckDao(dateCheck,1,new Schclass());
 				datecheckdaoList.add(dateCheckDao);

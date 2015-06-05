@@ -1,5 +1,6 @@
 package cn.fyg.zktime.domain.monthcheck;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class DateCheck {
 	
 	private Date date;//日期
 	
-	private List<Schclass> schclasses;//当天班次
+	private List<SchclassInOut> schclassInOuts;//当天班次
 
 	private List<Checkinout> checkinout;//打卡时间
 
@@ -26,12 +27,12 @@ public class DateCheck {
 		this.date = date;
 	}
 
-	public List<Schclass> getSchclasses() {
-		return schclasses;
+	public List<SchclassInOut> getSchclassInOuts() {
+		return schclassInOuts;
 	}
 
-	public void setSchclasses(List<Schclass> schclasses) {
-		this.schclasses = schclasses;
+	public void setSchclassInOuts(List<SchclassInOut> schclassInOuts) {
+		this.schclassInOuts = schclassInOuts;
 	}
 
 	public List<Checkinout> getCheckinout() {
@@ -44,15 +45,23 @@ public class DateCheck {
 	
 	public void compareCheckinout(){
 		for (Checkinout checkinout : this.checkinout) {
-			for (Schclass schclass : this.schclasses) {
+			for (SchclassInOut schclassInOut : this.schclassInOuts) {
+				Schclass schclass = schclassInOut.getSchclass();
 				Date checktime =DateUtil.dateDateZero(checkinout.getChecktime());
 				if(DateUtil.inDate(checktime,schclass.getCheckintime1(),schclass.getCheckintime2())){
-					schclass.setCheckin(true);
+					schclassInOut.setCheckin(true);
 				}
 				if(DateUtil.inDate(checktime,schclass.getCheckouttime1(),schclass.getCheckouttime2())){
-					schclass.setCheckout(true);
+					schclassInOut.setCheckout(true);
 				}
 			}
+		}
+	}
+
+	public void setSchclassesToInOut(List<Schclass> schclasses) {
+		this.schclassInOuts = new ArrayList<SchclassInOut>();
+		for (Schclass schclass : schclasses) {
+			this.schclassInOuts.add(new SchclassInOut(schclass));
 		}
 	}
 	
