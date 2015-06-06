@@ -1,11 +1,19 @@
 package cn.fyg.kq.interfaces.web.module.process.trace;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.bpmn.model.BpmnModel;
@@ -35,19 +43,65 @@ public class TraceCtl {
 	@Autowired
 	ProcessEngineFactoryBean processEngine;
 	
-	@RequestMapping(value = "{executionId}")
+	@RequestMapping(value = "b/{executionId}")
 	public void readResource(@PathVariable("executionId") String executionId, HttpServletResponse response)throws Exception {
+        int width = 1000;   
+        int height = 1000;   
+        String s = "你好sfsfsffffffffffffffffffffff";   
+        
+		  Font font = new Font("Serif", Font.BOLD, 10);   
+	        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);   
+	        Graphics2D g2 = (Graphics2D)bi.getGraphics();   
+	        g2.setBackground(Color.WHITE);   
+	        g2.clearRect(0, 0, width, height);   
+	        g2.setPaint(Color.RED);   
+	           
+	        FontRenderContext context = g2.getFontRenderContext();   
+	        Rectangle2D bounds = font.getStringBounds(s, context);   
+	        double x = (width - bounds.getWidth()) / 2;   
+	        double y = (height - bounds.getHeight()) / 2;   
+	        double ascent = -bounds.getY();   
+	        double baseY = y + ascent;   
+	           
+	        g2.drawString(s, (int)x, (int)baseY);   
+	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+	           
+	        ImageIO.write(bi, "jpg",  response.getOutputStream()); 
+
+		
+	    // 输出资源内容到相应对象
+//	    byte[] b = new byte[1024];
+//	    int len;
+//	    while ((len = imageStream.read(b, 0, 1024)) != -1) {
+//	      response.getOutputStream().write(b, 0, len);
+//	    }
+	}
+	
+	
+	@RequestMapping(value = "{executionId}")
+	public void readResource_bak2(@PathVariable("executionId") String executionId, HttpServletResponse response)throws Exception {
 		 //TODO 并行节点出现问题
 		ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
 		
 		BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
 		List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
+		
+		 Thread thread = Thread.currentThread();
+		    ClassLoader ccl = thread.getContextClassLoader(); // PUSH
+		    try {
+		        thread.setContextClassLoader(ClassLoader.getSystemClassLoader());
+		        java.awt.Toolkit.getDefaultToolkit().createImage(new byte[]{});
+		    } finally {
+		        thread.setContextClassLoader(ccl); // POP
+		    }
 
 //		 使用spring注入引擎请使用下面的这行代码
 //		Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
-		
+//		
 		ProcessEngineConfigurationImpl processEngineConfiguration = processEngine.getProcessEngineConfiguration();
-        Context.setProcessEngineConfiguration((ProcessEngineConfigurationImpl)processEngineConfiguration);
+//        Context.setProcessEngineConfiguration((ProcessEngineConfigurationImpl)processEngineConfiguration);
+		
+		
         
         ProcessDiagramGenerator processDiagramGenerator = processEngineConfiguration.getProcessDiagramGenerator();
         
