@@ -34,16 +34,17 @@
 
 <%@ include file="/common/message.jsp" %>
 
-<table id="tblmain" class="hctable deftable col-6">
+<table id="tblmain" class="hctable deftable col-9">
 <thead>
-	<tr><th>编号</th><th>考勤单</th><th>姓名</th></tr>
+	<tr><th>编号</th><th>考勤单</th><th>姓名</th><th>次数</th></tr>
 </thead>
 <tbody>
 	<c:forEach var="kaoqin" items="${kaoqinList}">
 		<tr>
-			<td>${kaoqin.id}</td>
+			<td>${kaoqin.no}</td>
 			<td>${kaoqin.monthitem.year}年${kaoqin.monthitem.month}月</td>
 			<td>${kaoqin.user.fnumber}</td>
+			<td>${kaoqin.item_all}</td>
 		</tr>
 	</c:forEach>
 </tbody>

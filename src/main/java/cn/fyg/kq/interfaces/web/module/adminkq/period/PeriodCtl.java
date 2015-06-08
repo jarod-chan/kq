@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
@@ -101,7 +102,7 @@ public class PeriodCtl {
 
 		Specification<Kaoqin> inPeriod = KaoqinSpecs.inPeriod(period);
 		Specifications<Kaoqin> specs = Specifications.where(inPeriod);
-		Sort sort = null;
+		Sort sort=new Sort(Direction.ASC,"id");
 
 		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
 		map.put("kaoqinList", kaoqinList);

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.period.Period;
+import cn.fyg.kq.domain.model.user.User;
 
 public class KaoqinSpecs {
 
@@ -41,6 +42,16 @@ public class KaoqinSpecs {
 	
 	public static Specification<Kaoqin> isFinish() {
 		return inState(KaoqinState.finish,KaoqinState.voided);
+	}
+	
+	public static Specification<Kaoqin> ofUser(final User user){
+		return new Specification<Kaoqin>() {
+			@Override
+			public Predicate toPredicate(Root<Kaoqin> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.equal(root.get("user").<String>get("fid"), user.getFid());
+			}
+		};
 	}
 
 }

@@ -29,8 +29,7 @@ public class TaskCtl {
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
 		User user=sessionUtil.getValue("user");
-		//TODO 修改成对应人员
-		List<ProcessTask> processTaskList = taskAssembler.getProcessTasks("chenzw");
+		List<ProcessTask> processTaskList = taskAssembler.getProcessTasks(user.getFid());
 		map.put("processTaskList", processTaskList);
 		return Page.TASK;
 	}

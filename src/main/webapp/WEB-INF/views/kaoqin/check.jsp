@@ -82,8 +82,7 @@
 <h3>审批信息</h3>
 
 <form action="${ctx}/kaoqin/check" method="post" >
-	<input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
-	<input type="hidden" name="businessId" value="${qingjia.id}"/>
+	<input type="hidden" name="businessId" value="${kaoqin.id}"/>
 	<input type="hidden" name="taskId" value="${task.id}"/>
 	
 	

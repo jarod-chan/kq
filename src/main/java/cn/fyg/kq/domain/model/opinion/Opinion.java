@@ -29,6 +29,8 @@ public class Opinion {
 	
 	private Long businessId;//业务id，唯一确定一个id
 	
+	private String taskId;//任务id
+	
 	private String taskKey;//任务key
 	
 	private String taskName;//任务名称
@@ -49,6 +51,14 @@ public class Opinion {
 	@PrePersist
 	private void prePersist(){
 		this.createtime=new Date();
+	}
+
+	public String getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
 	}
 
 	public Long getId() {

@@ -9,15 +9,23 @@
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include.jsp" %>	
+	
 	<script type="text/javascript">
 	$(function(){
 		
+		$("#btn_save").click(function(){
+			var actionFrom=$("form");
+			var oldAction=actionFrom.attr("action"); 
+			$("input[name=afteraction]").val("save");
+			actionFrom.attr("action",oldAction+"/save").submit();
+		});
+		
 		$("#btn_commit").click(function(){
 			var actionFrom=$("form");
-			var oldAction=actionFrom.attr("action");
-			actionFrom.attr("action",oldAction+"/commit").submit();
-			return false;
-		})
+			var oldAction=actionFrom.attr("action"); 
+			$("input[name=afteraction]").val("commit");
+			actionFrom.attr("action",oldAction+"/save").submit();
+		});
 		
 
 		$("#btn_back").click(function(){
@@ -32,10 +40,9 @@
 <%@ include file="/script/fmttable.jsp" %>
 
 <form action="${ctx}/kaoqin/checkedit" method="post" >
+<input type="hidden" name="afteraction"  >
+
 <input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
-<input type="hidden" name="taskId" value="${task.id}"/>
-
-
 <h2>考勤单</h2>
 <table id="tabmain" class="fmttable">
 
@@ -80,11 +87,14 @@
 </tbody>
 </table>
 
+<%@ include file="/component/opinionDiv.jsp" %>
+<input type="hidden" name="taskId"  value="${task.id}">
+
+<input type="button" value="保存"  id="btn_save">
+<input type="button" value="提交流程"  id="btn_commit">
+<input type="button" value="返回"  id="btn_back">
 
 
-<input type="button" value="提交" id="btn_commit">
-
-<input type="button" value="返回" id="btn_back">
 
 </form>
 

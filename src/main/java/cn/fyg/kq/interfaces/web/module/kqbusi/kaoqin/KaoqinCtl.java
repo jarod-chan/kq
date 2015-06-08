@@ -2,10 +2,10 @@ package cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin;
 
 import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.isFinish;
 import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.notFinish;
+import static cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs.ofUser;
 import static cn.fyg.kq.interfaces.web.shared.message.Message.error;
 import static cn.fyg.kq.interfaces.web.shared.message.Message.info;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +39,6 @@ import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.verify.Result;
 import cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin.flow.KaoqinVarname;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
-import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
@@ -58,15 +57,30 @@ public class KaoqinCtl {
 	
 	@Autowired
 	KaoqinService kaoqinService;
+	@Autowired
+	IdentityService identityService;
+	@Autowired
+	RuntimeService runtimeService;
+	@Autowired
+	SessionUtil sessionUtil;
+	@Autowired
+	OpinionService opinionService;
+	@Autowired
+	TaskService taskService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	KaoqinFacade kaoqinFacade;
 	
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
-		Specifications<Kaoqin> specs = Specifications.where(notFinish());
+		User user=sessionUtil.getValue("user");
+		Specifications<Kaoqin> specs = Specifications.where(notFinish()).and(ofUser(user));
 		Sort sort=new Sort(Direction.DESC,"id");
 		List<Kaoqin> notFinishList = this.kaoqinService.findAll(specs,sort);
 		map.put("notFinishList", notFinishList);
 		
-		specs = Specifications.where(isFinish());
+		specs = Specifications.where(isFinish()).and(ofUser(user));
 		List<Kaoqin> isFinishList = this.kaoqinService.findAll(specs,sort);
 		map.put("isFinishList", isFinishList);
 	
@@ -80,19 +94,12 @@ public class KaoqinCtl {
 		return Page.EDIT;
 	}
 	
-	@Autowired
-	KaoqinFacade kaoqinFacade;
-	
 	@RequestMapping(value="saveEdit",method=RequestMethod.POST)
 	public String saveEdit(@RequestParam("kaoqinId")Long kaoqinId,@RequestParam("afteraction")String afteraction,HttpServletRequest request,RedirectAttributes redirectAttributes){
-		User user=new User();
-
+		
+		User user=sessionUtil.getValue("user");
 		
 		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId); 
-		
-		//TODO 使用当前用户
-		user=kaoqin.getUser();
-		
 		BindTool.bindRequest(kaoqin, request);
 		kaoqin.setState(KaoqinState.save);
 		kaoqin=kaoqinService.save(kaoqin);
@@ -116,55 +123,7 @@ public class KaoqinCtl {
 		return "";
 	
 	}
-	
-	@Autowired
-	IdentityService identityService;
-	@Autowired
-	RuntimeService runtimeService;
-	
-	//提交流程
-	@RequestMapping(value="saveCommit",method=RequestMethod.POST)
-	public String saveCommit(@RequestParam("kaoqinId")Long kaoqinId,HttpServletRequest request,RedirectAttributes redirectAttributes){
-		User user=new User();
-		user.setFid("u2");
-		
-		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId);
-		
-		BindTool.bindRequest(kaoqin, request);
-		kaoqin=kaoqinService.save(kaoqin);
-		
-		try{
-			Map<String, Object> variableMap = new HashMap<String, Object>();
-			variableMap.put(FlowConstant.BUSINESS_ID, kaoqin.getId());
-			variableMap.put(FlowConstant.BUSINESS_NO, kaoqin.getNo());
-			variableMap.put(FlowConstant.APPLY_USER, kaoqin.getUser().getFid());
-			variableMap.put(FlowConstant.BUSINESS_TITLE, kaoqin.getMonthitem().getYear()+"年"+kaoqin.getMonthitem().getMonth()+"月"+kaoqin.getUser().getFnumber()+"考勤单");
-			variableMap.put("item_all", kaoqin.getItem_all());
-			identityService.setAuthenticatedUserId(user.getFid());
-			runtimeService.startProcessInstanceByKey(KaoqinVarname.PROCESS_DEFINITION_KEY, variableMap);			
-		} finally {
-			identityService.setAuthenticatedUserId(null);
-		}
-		
-		
-		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("流程启动"));
-		return "redirect:list";
-	
-	}
-	
-	
-	
-	@Autowired
-	SessionUtil sessionUtil;
-	
-	@Autowired
-	OpinionService opinionService;
-	
-	@Autowired
-	TaskService taskService;
-	
-	@Autowired
-	UserService userService;
+
 	
 	//流程审批
 	@RequestMapping(value="{businessId}/check",method=RequestMethod.GET)
@@ -185,21 +144,22 @@ public class KaoqinCtl {
 	}
 	
 	@RequestMapping(value="check/commit",method=RequestMethod.POST)
-	public String checkCommit(@RequestParam("kaoqinId")Long kaoqinId,HttpServletRequest request,Opinion opinion,Map<String,Object> map,RedirectAttributes redirectAttributes,@RequestParam(value="taskId",required=false)String taskId){
+	public String checkCommit(HttpServletRequest request,Opinion opinion,Map<String,Object> map,RedirectAttributes redirectAttributes,@RequestParam(value="taskId",required=false)String taskId){
 		
-		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId);
-		
-		BindTool.bindRequest(kaoqin, request);
-		kaoqin=kaoqinService.save(kaoqin);
+		User user=sessionUtil.getValue("user");
 		
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		opinion.setBusinessCode(Kaoqin.BUSI_CODE);
+		
+		opinion.setTaskId(task.getId());
 		opinion.setTaskKey(task.getTaskDefinitionKey());
 		opinion.setTaskName(task.getName());
-		opinion.setUserKey("chenzw");
-		opinion.setUserName("username");
+		
+		opinion.setUserKey(user.getFid());
+		opinion.setUserName(user.getFnumber());
 		opinionService.append(opinion);
-		runtimeService.setVariable(task.getExecutionId(), KaoqinVarname.IS_AGGREE,Boolean.TRUE);
+
+		runtimeService.setVariable(task.getExecutionId(), KaoqinVarname.IS_AGGREE,opinion.getResult().<Boolean>val());
 		taskService.complete(task.getId());
 		redirectAttributes
 			.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("任务完成！"));
@@ -215,23 +175,34 @@ public class KaoqinCtl {
 		map.put("task", task);
 		
 		List<Opinion> opinionList = opinionService.allOpinion(Kaoqin.BUSI_CODE, businessId);
-		map.put("opinionList", opinionList);
+		map.put("opinions", opinionList);
 		return Page.CHECK_EDIT;
 	}
 	
-	@RequestMapping(value="checkedit/commit",method=RequestMethod.POST)
-	public String editCommit(@RequestParam("kaoqinId")Long kaoqinId,HttpServletRequest request,RedirectAttributes redirectAttributes,@RequestParam(value="taskId",required=false)String taskId){
+	@RequestMapping(value="checkedit/save",method=RequestMethod.POST)
+	public String saveCheckedit(@RequestParam("kaoqinId")Long kaoqinId,@RequestParam("afteraction")String afteraction,HttpServletRequest request,RedirectAttributes redirectAttributes,@RequestParam(value="taskId",required=false)String taskId){
 
 		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId);
-		
 		BindTool.bindRequest(kaoqin, request);
 		kaoqin=kaoqinService.save(kaoqin);
 		
-		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-		taskService.complete(task.getId());
-		redirectAttributes
-			.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("任务完成！"));
-		return "redirect:/process/task";
+		if(afteraction.equals("save")){
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("保存成功！"));
+			return "redirect:/process/task";
+		}
+		if(afteraction.equals("commit")){
+			User user = sessionUtil.getValue("user");
+			Result result =this.kaoqinFacade.commitCheck(kaoqin,user,taskId);
+			if(result.notPass()){
+				redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("提交失败！"+result.message()));
+				return String.format("redirect:%s/checkedit?taskId",kaoqin.getId(),taskId);
+			}else{				
+				redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("提交成功！"));
+				return "redirect:/process/task";
+			}	
+		}
+		
+		return "";
 	}
 
 }

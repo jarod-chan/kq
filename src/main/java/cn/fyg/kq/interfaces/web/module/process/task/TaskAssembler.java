@@ -32,9 +32,8 @@ public class TaskAssembler {
 	
 	public List<ProcessTask> getProcessTasks(String userKey){
 		List<ProcessTask> result=new ArrayList<ProcessTask>();
-		//TODO 暂时查询所有数据
-		//List<Task> tasks = taskService.createTaskQuery().taskAssignee(userKey).orderByTaskCreateTime().desc().list();
-		List<Task> tasks = taskService.createTaskQuery().orderByTaskCreateTime().desc().list();
+		List<Task> tasks = taskService.createTaskQuery().taskAssignee(userKey).orderByTaskCreateTime().desc().list();
+
 		for (Task task : tasks) {
 			ProcessTask processTaskBean=new ProcessTask();
 			
