@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<!-- =============================================================== -->
+<!-- Configure the Jetty Server                                      -->
+<!--                                                                 -->
+<!-- Documentation of this file format can be found at:              -->
+<!-- http://wiki.eclipse.org/Jetty/Reference/jetty.xml_syntax        -->
+<!--                                                                 -->
+<!-- Additional configuration files are available in $JETTY_HOME/etc -->
+<!-- and can be mixed in.  For example:                              -->
+<!--   java -jar start.jar etc/jetty-ssl.xml                         -->
+<!--                                                                 -->
+<!-- See start.ini file for the default configuraton files           -->
+<!-- =============================================================== -->
+
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+    <!-- =========================================================== -->
+    <!-- Server Thread Pool                                          -->
+    <!-- =========================================================== -->
+    <Set name="ThreadPool">
+      <!-- Default queued blocking threadpool -->
+      <New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+        <Set name="minThreads">10</Set>
+        <Set name="maxThreads">200</Set>
+        <Set name="detailedDump">false</Set>
+      </New>
+    </Set>
+   
+   
+  <!-- 防止调用awt生成图片，服务器无响应，无法确定这个可以解决问题 -->
+  <Call name="addBean">
+    <Arg>
+      <New class="org.eclipse.jetty.util.preventers.AWTLeakPreventer"/>
+    </Arg>
+   </Call>
+	 
+
+
+	<!-- =========================================================== -->
+    <!-- 去掉提交表单大小限制                                               -->
+    <!-- =========================================================== -->
+	<Call class="java.lang.System" name="setProperty">
+	  <Arg>org.eclipse.jetty.server.Request.maxFormKeys</Arg>
+	  <Arg>-1</Arg>
+	</Call>
+
+</Configure>
