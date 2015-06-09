@@ -12,27 +12,18 @@
 	<%@ include file="/common/plu-easydialog.jsp" %>	
 	
     <script type="text/javascript">
-	    $(function() {
-	    	
-	    	var extra={
-	    		'yes':{'left':3,'top':34},
-	    		'no':{'left':0,'top':31}
-	    	};
-	    	
-	    	
+	    $(function() { 	
+	    	$("#processImg").bind("load",function(){
+	    		easyDialog.open({
+					container:'flowimgdiv' ,
+					overlay : false,
+					drag : true
+				});
+	    	})
 	    	$('.btn_trace').click(function(){
 	    		if($("#easyDialogBox").is(":visible")){easyDialog.close();}
 	    		var param=jQuery.parseJSON($(this).attr("param"));
-				$("#processImg").attr("src",'${ctx}/workflow/cm/process/'+param.processDefinitionId+'.png');
-				$.getJSON('${ctx}/workflow/cm/process/activity/' + param.processInstanceId+'.json', function(info) {
-					var exa= $("#flowimgdiv").css("borderTopWidth")=='3px'?extra.yes:extra.no;
-					$("#currentdiv").css({'left':exa.left+info.x+'px','top':exa.top+info.y+'px', 'height':info.height+'px', 'width':info.width+'px'});
-					easyDialog.open({
-						container:'flowimgdiv' ,
-						overlay : false,
-						drag : true
-					});
-				});
+				$("#processImg").attr("src",'${ctx}/trace/'+param.processInstanceId+'?random='+Math.random());	
 	    	});
 	    	
 	    	$('.btn_delete').click(function(){
@@ -131,7 +122,6 @@
 			<div class="headdiv"><div class="headtxt">流程图</div></div>
 			<div><img id="processImg" src=""  /> </div>
 			<a  id="closeBtn" class="close_link" title="关闭窗口" href="javascript:void(0)">×</a>
-			<div id="currentdiv" style='' ></div> 
 		</div>
 	</div>
 </body>
