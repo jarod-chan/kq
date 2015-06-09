@@ -34,7 +34,13 @@
 					});
 				});
 	    	});
-	    
+	    	
+	    	$('.btn_delete').click(function(){
+	    		var param=jQuery.parseJSON($(this).attr("param"));
+	    		$('<form/>',{action:'${ctx}/workflow/running/'+param.processInstanceId+'/delete',method:'post'})
+	 		 	.appendTo($("body"))
+	 		 	.submit();
+	    	});
 	    	
 	    });
     </script>
@@ -50,11 +56,11 @@
 	<table class="hctable deftable col-12">
 			<thead>
 				<tr>
-					<th class="noborder">流程Id</th>
-					<th class="title">流程实例Id</th>
-					<th class="title">流程定义ID</th>
-					<th class="title">是否挂起</th>
-					<th class="title">运行状态</th>
+					<th>流程Id</th>
+					<th>流程实例Id</th>
+					<th>流程定义ID</th>
+					<th>是否挂起</th>
+					<th>运行状态</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -66,34 +72,13 @@
 						<td>${processInstance.suspended }</td>
 						<td>
 							<button class="btn_trace" param='{"processInstanceId":"${processInstance.processInstanceId }","processDefinitionId":"${processInstance.processDefinitionId }"}'>跟踪流程</button>
+							<button class="btn_delete" param='{"processInstanceId":"${processInstance.processInstanceId}"}' >删除</button>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>	
-	<div>
-		<div class="txt_title">
-			
-		</div>
 	
-		<div style="" class="toolbg toolbgline toolheight nowrap">
-			<div class="nowrap left">
-			</div>
-			<div class="right">
-				<!--页码 -->&nbsp;
-			</div>
-		</div>
-	
-		
-		
-		<div style="" class="toolbg toolbgline toolheight nowrap">
-			<div class="nowrap left">
-			</div>
-			<div class="right">
-				<!--页码 -->&nbsp;
-			</div>
-		</div>
-	</div>	
 	
 	
 	
