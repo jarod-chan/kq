@@ -53,6 +53,7 @@ public class KaoqinCtl {
 		String EDIT = PATH + "edit";
 		String CHECK = PATH + "check";
 		String CHECK_EDIT = PATH + "check_edit";
+		String VIEW = PATH + "view";
 	}
 	
 	@Autowired
@@ -123,6 +124,15 @@ public class KaoqinCtl {
 		return "";
 	
 	}
+	
+	@RequestMapping(value="{kaoqinId}/view",method=RequestMethod.GET)
+	public String toView(@PathVariable("kaoqinId")Long kaoqinId,Map<String,Object> map){
+		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId);
+		map.put("kaoqin", kaoqin);
+		List<Opinion> opinions = opinionService.listOpinions(Kaoqin.BUSI_CODE, kaoqinId);
+		map.put("opinions", opinions);
+		return Page.VIEW;
+	}
 
 	
 	//流程审批
@@ -133,19 +143,25 @@ public class KaoqinCtl {
 		map.put("kaoqin", kaoqin);
 		map.put("resultList", OpResult.agreeItems());
 		map.put("PassStates", PassState.values());
-		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-		String assignee = task.getAssignee();
 		
+		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+		map.put("task", task);
+		
+		String assignee = task.getAssignee();
 		User user = this.userService.find(assignee);
 		map.put("user", user);
 		
-		map.put("task", task);
 		return Page.CHECK;
 	}
 	
 	@RequestMapping(value="check/commit",method=RequestMethod.POST)
-	public String checkCommit(HttpServletRequest request,Opinion opinion,Map<String,Object> map,RedirectAttributes redirectAttributes,@RequestParam(value="taskId",required=false)String taskId){
+	public String checkCommit(@RequestParam("kaoqinId")Long kaoqinId,HttpServletRequest request,Opinion opinion,Map<String,Object> map,RedirectAttributes redirectAttributes,@RequestParam(value="taskId",required=false)String taskId){
 		
+		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId);
+		BindTool.bindRequest(kaoqin, request);
+		kaoqin=kaoqinService.save(kaoqin);
+		
+
 		User user=sessionUtil.getValue("user");
 		
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
@@ -174,7 +190,7 @@ public class KaoqinCtl {
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 		map.put("task", task);
 		
-		List<Opinion> opinionList = opinionService.allOpinion(Kaoqin.BUSI_CODE, businessId);
+		List<Opinion> opinionList = opinionService.listOpinions(Kaoqin.BUSI_CODE, businessId);
 		map.put("opinions", opinionList);
 		return Page.CHECK_EDIT;
 	}

@@ -23,7 +23,7 @@ public class OpinionServiceImpl implements OpinionService {
 	}
 
 	@Override
-	public List<Opinion> allOpinion(String businessCode, Long businessId) {
+	public List<Opinion> listOpinions(String businessCode, Long businessId) {
 		return opinionRepository.findByBusinessCodeAndBusinessIdOrderByIdAsc(businessCode, businessId);
 	}
 

@@ -26,10 +26,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import cn.fyg.kq.domain.model.user.User;
-import cn.fyg.kq.domain.shared.ProcessDoc;
+import cn.fyg.kq.domain.shared.process.ProcessObj;
+
 @Entity
 @Table(name="kq_kaoqin")
-public class Kaoqin implements ProcessDoc{
+public class Kaoqin implements ProcessObj {
 	
 	public static final String BUSI_CODE = "KQ";
 	
@@ -67,6 +68,16 @@ public class Kaoqin implements ProcessDoc{
 	@JoinColumn(name = "kaoqin_id")
 	private List<KaoqinItem> kaoqinItems = new ArrayList<KaoqinItem>();
 	
+	protected String processId;//流程id，根据单据查找对应的流程
+	
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
+	}
+
 	@PrePersist
 	private void prePersist(){
 		this.createtime=new Date();

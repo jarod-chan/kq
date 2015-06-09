@@ -9,18 +9,11 @@
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include.jsp" %>	
+	
 	<script type="text/javascript">
-	$(function(){
-		
-		$("#btn_commit").click(function(){
-			var actionFrom=$("form");
-			var oldAction=actionFrom.attr("action");
-			actionFrom.attr("action",oldAction+"/commit").submit();
-			return false;
-		})
-		
+	$(function(){	
 		$("#btn_back").click(function(){
-			window.open('${ctx}/process/task','_self');
+			window.open('${ctx}/kaoqin/list','_self');
 			return false;
 		})
 	})
@@ -29,9 +22,6 @@
 
 <body>
 <%@ include file="/script/fmttable.jsp" %>
-
-<form action="${ctx}/kaoqin/check" method="post" >
-<input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>
 
 <h2>考勤单</h2>
 <table id="tabmain" class="fmttable">
@@ -72,51 +62,17 @@
 			<td>${item.schclass.begendtime}</td>
 			<td>${item.realtime}</td>
 			<td>${item.reason}</td>
-			<td>
-			<select name="kaoqinItems[${status.index}].state">
-			<c:forEach items="${PassStates}" var="state">
-			<option value="${state}">${state.name}</option>
-			</c:forEach>
-			</select></td>
+			<td>${item.state.name}</td>
 		</tr>
 	</c:forEach>
 </tbody>
 </table>
 
-<h3>审批信息</h3>
+<%@ include file="/component/opinionDiv.jsp" %>
 
+<input type="button" value="返回"  id="btn_back">
 
-	<input type="hidden" name="businessId" value="${kaoqin.id}"/>
-	<input type="hidden" name="taskId" value="${task.id}"/>
-	
-	
-	<table class="fmttable">
-		<tbody>
-			<tr>
-				<td>${task.name}：</td><td><select name="result">
-						<c:forEach var="result" items="${resultList}">
-							<option value="${result}" >${result.name}</option>
-						</c:forEach>
-					</select>
-				</td>
-				<td>审批人:</td><td>${user.fname}</td>
-			</tr>
-			<tr>
-				<td style="vertical-align: top">原因：</td><td colspan="3"><textarea name="description" class="edittextarea"></textarea></td>
-			</tr>
-		</tbody>
-	</table>
-				
 </form>
-
-	
-	
-
-<input type="button" value="提交" id="btn_commit">
-
-<input type="button" value="返回" id="btn_back">
-
-
 
 </body>
 </html>

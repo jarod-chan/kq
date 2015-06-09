@@ -6,6 +6,7 @@ import java.util.Map;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +37,7 @@ public class KaoqinFacade {
 	public Result commit(Kaoqin kaoqin, User user) {
 		Result result = this.kaoqinService.verifyForCommit(kaoqin);
 		if(result.notPass()) return result;
-		kaoqin.setState(KaoqinState.process);
-		kaoqin=this.kaoqinService.save(kaoqin);
+		
 		String userFid=user.getFid();
 		try{
 			Map<String, Object> variableMap = new HashMap<String, Object>();
@@ -52,7 +52,8 @@ public class KaoqinFacade {
 			variableMap.put("gm_time", DateUtil.minute(3));
 			
 			identityService.setAuthenticatedUserId(userFid);
-			runtimeService.startProcessInstanceByKey(KaoqinVarname.PROCESS_DEFINITION_KEY, variableMap);			
+			 runtimeService.startProcessInstanceByKey(KaoqinVarname.PROCESS_DEFINITION_KEY, variableMap);	
+			 
 		} finally {
 			identityService.setAuthenticatedUserId(null);
 		}
