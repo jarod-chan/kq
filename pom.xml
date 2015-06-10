@@ -230,6 +230,7 @@
 			<artifactId>json-lib</artifactId>
 			<version>2.4</version>
 			<classifier>jdk15</classifier>
+			<scope>compile</scope>
 		</dependency>
 		
 		<!-- 引入对javax.mail 的显示依赖 此处待重构 进一步的修改 -->

@@ -19,6 +19,7 @@
 	<import resource="infrastructure-persistence.xml"/>
 	<import resource="module-zktime.xml"/>
 	<import resource="module-activiti.xml"/>
+	<import resource="module-easser.xml"/>
 
 	
 	<context:component-scan base-package="cn.fyg.kq.infrastructure" />
