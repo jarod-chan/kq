@@ -1,6 +1,5 @@
 package cn.fyg.easser.domain.encrypt;
 
-import cn.fyg.kq.interfaces.web.modify.http.encrypt.DES;
 
 public class DesUtil {
 
