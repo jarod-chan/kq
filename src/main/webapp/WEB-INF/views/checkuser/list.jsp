@@ -11,12 +11,12 @@
 	$(function(){
 		$('.btn_set').click(function(){
     		var id=$(this).data("id");
-    		window.open('${ctx}/inituser/{id}/set'.replace('{id}',id),'_self');
+    		window.open('${ctx}/checkuser/{id}/set'.replace('{id}',id),'_self');
         	return false;
     	});
 		$('.btn_delete').click(function(){
     		var fid=$(this).data("fid");
-        	$('<form/>',{action:'${ctx}/inituser/delete',method:'post'})
+        	$('<form/>',{action:'${ctx}/checkuser/delete',method:'post'})
 	    		.append($('<input/>',{type:'hidden',name:'checkuserFid',value:fid}))
 				.appendTo($("body"))
 			.submit();

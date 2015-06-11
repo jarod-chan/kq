@@ -12,10 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import cn.fyg.easser.infrastructure.encrypt.DesUtil;
+import cn.fyg.easser.domain.config.Cons;
+import cn.fyg.easser.domain.encrypt.DesUtil;
 import cn.fyg.easser.service.LoginService;
 import cn.fyg.easser.service.NetException;
-import cn.fyg.kq.interfaces.web.modify.http.config.Cons;
 
 @Service
 public class LoginServiceImpl implements LoginService {

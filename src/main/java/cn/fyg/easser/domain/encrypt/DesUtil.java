@@ -1,4 +1,4 @@
-package cn.fyg.easser.infrastructure.encrypt;
+package cn.fyg.easser.domain.encrypt;
 
 import cn.fyg.kq.interfaces.web.modify.http.encrypt.DES;
 

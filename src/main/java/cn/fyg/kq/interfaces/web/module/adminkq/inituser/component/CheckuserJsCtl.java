@@ -1,4 +1,4 @@
-package cn.fyg.kq.interfaces.web.module.adminkq.inituser;
+package cn.fyg.kq.interfaces.web.module.adminkq.inituser.component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +21,8 @@ import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
 import cn.fyg.kq.domain.shared.kq.Comp;
+import cn.fyg.zktime.domain.Userinfo;
+import cn.fyg.zktime.service.UserinfoService;
 
 @Controller
 @RequestMapping("checkuser")
@@ -47,6 +49,19 @@ public class CheckuserJsCtl {
 			mapList.add(map);
 		}
 		return mapList;
+	}
+	
+	@Autowired
+	UserinfoService userinfoService;
+	
+	@RequestMapping(value="kquser.json",method=RequestMethod.GET)
+	@ResponseBody
+	public  Map<String,Object> queryKquser(@Param("name")String name){
+		List<Userinfo> userinfoList = this.userinfoService.queryByName(name);
+		Map<String,Object> ret = new HashMap<String,Object>();
+		ret.put("data", userinfoList);
+		ret.put("result", true);
+		return ret;
 	}
 
 }

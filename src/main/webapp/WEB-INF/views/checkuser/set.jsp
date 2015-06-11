@@ -38,7 +38,7 @@
 			});
 			
 			$("#btn_back").click(function(){
-				window.open('${ctx}/inituser/list','_self');
+				window.open('${ctx}/checkuser/list','_self');
 				return false;
 			});
 			
@@ -53,9 +53,8 @@
 
 <body>
 <%@ include file="/common/message.jsp" %>
-<form action="${ctx}/inituser" method="post">	
+<form action="${ctx}/checkuser" method="post">	
 <input type="hidden" name="id"  value="${checkuser.id}" />
-
 
 <table id="tabmain">	
 	

@@ -53,18 +53,22 @@
 				var renderTd =$("#template").tmpl(data);
 				renderTd.find(".chkreq").click(chkreqFn);
 				renderTd.highColor().appendTo(".dialog-table tbody");
+			}else{
+				var data=ret.data;
+				$(".dialog-query .span-error").html(data);
 			}
+			$("#dlg_query").unlock();
 		}
 	   
 
 		
 		$("#dlg_query").click(function(){
+			$(this).lock();
 			$(".dialog-table tbody").empty();
-			$.getJSON('${ctx}/inituser/queryEasuser',{name:$("#qy_name").val()},appendData);
+			$.getJSON('${ctx}/importuser/easuser.json',{name:$("#qy_name").val()},appendData);
 		})
 		
 		$("#dlg_clear").click(clearFn);		
-		$("#dlg_query").triggerHandler("click");
 
 	})
 </script>
@@ -73,6 +77,7 @@
 	<div id="dialog-container" class="none" title="EAS用户信息" >
 		<div class="dialog-query">
 			用户名:<input type="text" id="qy_name"><input type="button" value="查询" id="dlg_query"><input type="button" value="清空" id="dlg_clear"> 
+			<span class="span-error"></span>
 		</div>
 		<table  class="hctable deftable dialog-table" >
 			<thead>

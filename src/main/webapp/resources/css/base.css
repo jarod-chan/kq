@@ -15,3 +15,7 @@ body,form,h1,h2,h3,h4,h5,h6{
 .link_btn:visited {color:#0080FF;} /* 已被访问的链接 */
 .link_btn:hover {color:#FF0000;}   /* 鼠标指针移动到链接上 */
 .link_btn:active {color:#FF0000;}  /* 正在被点击的链接 */
+
+.span-error{
+	color:red;
+}

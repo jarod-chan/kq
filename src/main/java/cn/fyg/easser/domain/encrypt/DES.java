@@ -1,4 +1,4 @@
-package cn.fyg.easser.infrastructure.encrypt;
+package cn.fyg.easser.domain.encrypt;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

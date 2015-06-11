@@ -1,4 +1,4 @@
-package cn.fyg.easser.service;
+package cn.fyg.easser.service.impl;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,16 +12,23 @@ import net.sf.json.JSONObject;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
-import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-import cn.fyg.easser.infrastructure.encrypt.DesUtil;
-import cn.fyg.kq.interfaces.web.modify.User;
-import cn.fyg.kq.interfaces.web.modify.http.config.Cons;
+import cn.fyg.easser.domain.User;
+import cn.fyg.easser.domain.config.Cons;
+import cn.fyg.easser.domain.encrypt.DesUtil;
+import cn.fyg.easser.service.EasUserService;
+import cn.fyg.easser.service.NetException;
 
-
-public class AdminHelp {
+@Service
+public class EasUserServiceImpl implements EasUserService {
 	
-	public List<User> query(String username){
+	public static final Logger logger=LoggerFactory.getLogger(EasUserServiceImpl.class);
+	
+	@Override
+	public List<User> query(String username) throws NetException,Exception{
 		List<User> userList = new ArrayList<User>();
 		try {
 			username=DesUtil.encryptDES(username);
@@ -41,17 +48,16 @@ public class AdminHelp {
 						userJson.getString("ftype")));
 			}
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(null, e);
+			throw new NetException("网络错误",e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(null, e);
+			throw new NetException("网络错误",e);
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(null, e);
+			throw new Exception("url解析错误",e);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception("方法错误",e);
 		}
 		
 		return userList;

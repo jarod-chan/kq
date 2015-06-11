@@ -63,7 +63,7 @@ public class LoginCtl {
 	@RequestMapping(value = "login",method=RequestMethod.POST)
 	public String dologin(LoginBean loginBean,RedirectAttributes redirectAttributes) {
 
-		String fid=null;
+/*		String fid=null;
 		boolean isfinish=false;
 		try {
 			fid = this.LoginService.login(loginBean.getUsername(), loginBean.getPassword());
@@ -82,9 +82,9 @@ public class LoginCtl {
 			return relogin(loginBean, redirectAttributes);
 		}
 		
+		User user = this.userService.find(fid);*/
 		
-		//User user = this.userService.findByFnumber(loginBean.getUsername());//TODO 待修改
-		User user = this.userService.find(fid);
+		User user = this.userService.findByFnumber(loginBean.getUsername());//TODO 待修改
 		if(user==null){
 			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, "用户没有在考勤系统初始化！");
 			return relogin(loginBean, redirectAttributes);

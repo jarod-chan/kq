@@ -1,4 +1,4 @@
-package cn.fyg.easser.infrastructure.encrypt;
+package cn.fyg.easser.domain.encrypt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
