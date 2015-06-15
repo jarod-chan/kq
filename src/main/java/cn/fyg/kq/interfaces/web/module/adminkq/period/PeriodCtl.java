@@ -20,14 +20,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cn.fyg.kq.application.CalculateFacade;
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.application.PeriodService;
+import cn.fyg.kq.application.facade.KaoqinFacade;
 import cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.period.Period;
 import cn.fyg.kq.domain.model.period.PeriodSpecs;
 import cn.fyg.kq.domain.model.period.PeriodState;
+import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.kq.Comp;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
+import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 
 
 @Controller
@@ -109,19 +112,23 @@ public class PeriodCtl {
 		return Page.CALRESULT;
 	}
 	
+	@Autowired
+	SessionUtil sessionUtil;
 	
 	@RequestMapping(value="produce",method=RequestMethod.POST)
 	public String produce(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){
 		Period period = this.periodService.find(periodId);
+		User user = this.sessionUtil.<User>getValue("user");
 		
 		Specification<Kaoqin> inPeriod = KaoqinSpecs.inPeriod(period);
 		Specifications<Kaoqin> specs=Specifications.where(inPeriod);
-		Sort sort=null;
+		Sort sort=new Sort(Direction.ASC,"id");
 		
 		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
 		for (Kaoqin kaoqin : kaoqinList) {
 			kaoqin.setState(KaoqinState.produce);
 			this.kaoqinService.save(kaoqin);
+			this.kaoqinFacade.commit(kaoqin, user);
 		}
 		period.setState(PeriodState.produce);
 		this.periodService.save(period);
@@ -133,6 +140,8 @@ public class PeriodCtl {
 	
 	@Autowired
 	KaoqinService kaoqinService;
+	@Autowired
+	KaoqinFacade kaoqinFacade;
 	
 	@RequestMapping(value="delete",method=RequestMethod.POST)
 	public String delete(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){

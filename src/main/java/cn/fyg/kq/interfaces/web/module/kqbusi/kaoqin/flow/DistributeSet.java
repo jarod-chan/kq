@@ -26,16 +26,21 @@ public class DistributeSet implements JavaDelegate{
 		
 		Object done_node_obj = execution.getVariable("done_node");
 		StatEnum done_node=done_node_obj==null?null:(StatEnum) done_node_obj;
-		
 		StatEnum require_node = (StatEnum) execution.getVariable("require_node");
 		
 		StatEnum next_node=next_node(reptlineService, fid, done_node, require_node,execution);
-		execution.setVariable("done_node", next_node);
-		
-		
 		String code=(String) execution.getVariable("reptline_code");
-		String done_user=findUser(reptlineService,code,next_node);
-		execution.setVariable("done_user", done_user);
+		String prev_user=(String) execution.getVariable("done_user");
+		String next_user=findUser(reptlineService,code,next_node);
+		
+		//跳过相同审批人的节点
+		while(next_node!=StatEnum.finish && prev_user.equals(next_user)){
+			next_node=next_node.next();
+			next_user=findUser(reptlineService,code,next_node);
+		}
+		
+		execution.setVariable("done_node", next_node);
+		execution.setVariable("done_user", next_user);
 		
 	}
 
@@ -56,6 +61,7 @@ public class DistributeSet implements JavaDelegate{
 			StatEnum done_node, StatEnum require_node,DelegateExecution execution) {
 		if(done_node == null){
 			 Reptline reptline = reptlineService.maxUserLevel(fid);
+			 execution.setVariable("done_user", fid);
 			 execution.setVariable("reptline_code", reptline.getCode());
 			 int level = reptline.getLevel();
 			 StatEnum start_node = StatEnum.levelOf(level);

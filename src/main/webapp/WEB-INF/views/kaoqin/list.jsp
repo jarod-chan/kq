@@ -42,11 +42,11 @@
 			<td>${kaoqin.monthitem.year}年${kaoqin.monthitem.month}月${kaoqin.user.fnumber}考勤单</td>
 			<td>${kaoqin.state.name}</td>
 			<td>
-			<c:choose>
+<%-- 			<c:choose>
 			<c:when test="${kaoqin.state=='produce'||kaoqin.state=='save'}">
 				<input type="button" value="修改" data-id="${kaoqin.id}" class="btn_edit"/> 
 			</c:when>
-			</c:choose>
+			</c:choose> --%>
 			<c:if test="${not empty kaoqin.processId}">
 				<button class="btn_trace {executionId:'${kaoqin.processId}'}" >流程跟踪</button>
 			</c:if>

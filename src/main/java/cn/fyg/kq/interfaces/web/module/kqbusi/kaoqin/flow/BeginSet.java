@@ -25,11 +25,8 @@ public class BeginSet implements JavaDelegate {
 
 		
 		Long businessId = (Long) execution.getVariable(FlowConstant.BUSINESS_ID);
-
-		
 		Kaoqin kaoqin = kaoqinService.find(businessId);
 		kaoqin.setState(KaoqinState.process);
-		kaoqin.setProcessId(execution.getId());//设置单据对应的流程
 		kaoqinService.save(kaoqin);
 		
 		opinionService.clear(Kaoqin.BUSI_CODE, businessId);
