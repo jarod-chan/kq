@@ -46,13 +46,15 @@ public class KaoqinFacade {
 			variableMap.put(FlowConstant.APPLY_USER, userFid);
 			variableMap.put(FlowConstant.BUSINESS_TITLE, kaoqin.getTitle());
 			variableMap.put(KaoqinVarname.ITEM_ALL, kaoqin.getItem_all());
-//TODO			到期时间设定
-			variableMap.put("dm_time", DateUtil.minute(1));
-			variableMap.put("vp_time", DateUtil.minute(2));
-			variableMap.put("gm_time", DateUtil.minute(3));
+
+//			variableMap.put("dm_time", DateUtil.minute(1));
+//			variableMap.put("vp_time", DateUtil.minute(2));
+//			variableMap.put("gm_time", DateUtil.minute(3));
+			
+			variableMap.put("time_staff_edit", DateUtil.minute(1));
 			
 			identityService.setAuthenticatedUserId(userFid);
-			 runtimeService.startProcessInstanceByKey(KaoqinVarname.PROCESS_DEFINITION_KEY, variableMap);	
+			runtimeService.startProcessInstanceByKey(KaoqinVarname.PROCESS_DEFINITION_KEY, variableMap);	
 			 
 		} finally {
 			identityService.setAuthenticatedUserId(null);

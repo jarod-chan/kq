@@ -10,6 +10,7 @@ public enum KaoqinState implements CommonEnum {
 	save("暂存"),
 	process("审批中"), 
 	finish("完成"),
+	overdue("过期"),
 	voided("作废"); 
 	
 	private final String name;

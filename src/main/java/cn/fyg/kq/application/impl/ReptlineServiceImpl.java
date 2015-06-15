@@ -12,7 +12,7 @@ import cn.fyg.kq.application.common.impl.SericeQueryImpl;
 import cn.fyg.kq.domain.model.reptline.Reptline;
 import cn.fyg.kq.domain.model.reptline.ReptlineRepository;
 
-@Service
+@Service("reptlineService")
 public class ReptlineServiceImpl extends SericeQueryImpl<Reptline> implements ReptlineService {
 	
 	@Autowired
@@ -53,6 +53,16 @@ public class ReptlineServiceImpl extends SericeQueryImpl<Reptline> implements Re
 	@Override
 	public JpaSpecificationExecutor<Reptline> getSpecExecutor() {
 		return this.reptlineRepository;
+	}
+
+	@Override
+	@Transactional
+	public Reptline maxUserLevel(String fid) {
+		List<Reptline> reptlineList = this.reptlineRepository.findByUser_fidOrderByLevelAsc(fid);
+		if(reptlineList.size()>0){
+			return reptlineList.get(0);
+		}
+		return null;
 	}
 
 

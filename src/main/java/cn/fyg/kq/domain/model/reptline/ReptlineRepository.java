@@ -18,5 +18,7 @@ public interface ReptlineRepository extends Repository<Reptline, Long>, JpaSpeci
 	Reptline findByUser_fidAndLevel(String fid,int level);
 	
 	Reptline findByCode(String code);
+	
+	List<Reptline> findByUser_fidOrderByLevelAsc(String fid);
 
 }

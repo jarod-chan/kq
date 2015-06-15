@@ -19,5 +19,7 @@ public interface ReptlineService extends ServiceQuery<Reptline> {
 	
 	Reptline findByCode(String code);
 	
+	Reptline maxUserLevel(String fid);
+	
 
 }
