@@ -51,7 +51,7 @@ public class KaoqinFacade {
 //			variableMap.put("vp_time", DateUtil.minute(2));
 //			variableMap.put("gm_time", DateUtil.minute(3));
 			
-			variableMap.put("time_staff_edit", DateUtil.minute(1));
+			variableMap.put("time_staff_edit", DateUtil.minute(1000));
 			
 			identityService.setAuthenticatedUserId(userFid);
 			runtimeService.startProcessInstanceByKey(KaoqinVarname.PROCESS_DEFINITION_KEY, variableMap);	

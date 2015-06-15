@@ -79,7 +79,7 @@ public class DateUtil {
 	//TODO 待修改
 	public static String minute(int minutes){
 		DateTime dateTime = new DateTime(new Date()); 
-		dateTime=dateTime.plusMonths(1).plusMinutes(minutes);
+		dateTime=dateTime.plusMinutes(minutes);
 		Date date = dateTime.toDate();
 		return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(date);
 	}

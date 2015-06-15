@@ -41,7 +41,7 @@ public class KaoqinSpecs {
 	}
 	
 	public static Specification<Kaoqin> isFinish() {
-		return inState(KaoqinState.finish,KaoqinState.voided);
+		return inState(KaoqinState.finish,KaoqinState.voided,KaoqinState.overdue);
 	}
 	
 	public static Specification<Kaoqin> ofUser(final User user){

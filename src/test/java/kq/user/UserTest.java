@@ -1,7 +1,6 @@
 package kq.user;
 
 import junit.framework.Assert;
-import net.sf.oval.constraint.AssertNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
