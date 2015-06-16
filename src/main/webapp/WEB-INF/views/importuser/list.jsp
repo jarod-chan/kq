@@ -48,13 +48,14 @@
 	<input type="button" value="导入"  id="btn_impt">
 	</div>
 
-	<table id="tblmain" class="hctable deftable col-9">
+	<table id="tblmain" class="hctable deftable col-10">
 		<thead>
 		<tr>
 			<th class="coth-4">fid</th>
 			<th class="coth-1">用户名</th>
 			<th class="coth-1">用户实名</th>
 			<th class="coth-1">角色</th>
+			<th class="coth-1">管理公司</th>
 			<th class="coth-2">操作</th>
 		</tr>
 		</thead>
@@ -65,6 +66,7 @@
 				<td>${user.fnumber}</td>
 				<td>${user.fname}</td>
 				<td>${user.role.name}</td>
+				<td>${user.admincomp.name}</td>
 				<td>
 					<input type="button" value="修改" data-id="${user.fid}" class="btn_edit"/>
 					<input type="button" value="配置" data-id="${user.fid}" class="btn_set"/> 

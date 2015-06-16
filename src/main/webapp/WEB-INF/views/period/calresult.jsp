@@ -9,17 +9,11 @@
 	<%@ include file="/common/include.jsp" %>	
 	<script type="text/javascript">
 	$(function(){
-		$(".btn_edit").click(function(){
-			var id=$(this).data("id");
-			window.open('${ctx}/kaoqin/'+id+'/edit','_self');
+		$(".btn_trace").click(function(){
+ 	   		var param=$(this).metadata();
+			window.open('${ctx}/trace/'+param.executionId,'_blank');
+			return false;
 		})
-    	$('.btn_delete').click(function(){
-    		var id=$(this).data("id");
-        	$('<form/>',{action:'${ctx}/qingjia/delete',method:'post'})
-	    		.append($('<input/>',{type:'hidden',name:'qingjiaId',value:id}))
-				.appendTo($("body"))
-			.submit();
-    	});
 	})
 	</script>
 </head>
@@ -36,15 +30,21 @@
 
 <table id="tblmain" class="hctable deftable col-9">
 <thead>
-	<tr><th>编号</th><th>考勤单</th><th>姓名</th><th>次数</th></tr>
+	<tr><th>编号</th><th>考勤单</th><th>姓名</th><th>次数</th><th>状态</th><th>操作</th></tr>
 </thead>
 <tbody>
 	<c:forEach var="kaoqin" items="${kaoqinList}">
 		<tr>
 			<td>${kaoqin.no}</td>
-			<td>${kaoqin.monthitem.year}年${kaoqin.monthitem.month}月</td>
+			<td>${kaoqin.title}</td>
 			<td>${kaoqin.user.fnumber}</td>
 			<td>${kaoqin.item_all}</td>
+			<td>${kaoqin.state.name}</td>
+			<td>
+			<c:if test="${kaoqin.state!='finish' && not empty kaoqin.processId}">
+				<button class="btn_trace {executionId:'${kaoqin.processId}'}" >流程跟踪</button>
+			</c:if>
+			</td>
 		</tr>
 	</c:forEach>
 </tbody>

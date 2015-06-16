@@ -37,7 +37,6 @@ import cn.fyg.kq.domain.model.opinion.OpResult;
 import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.verify.Result;
-import cn.fyg.kq.interfaces.web.module.kqbusi.kaoqin.flow.KaoqinVarname;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
 import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
@@ -141,7 +140,7 @@ public class KaoqinCtl {
 
 		Kaoqin kaoqin = this.kaoqinService.find(businessId);
 		map.put("kaoqin", kaoqin);
-		map.put("resultList", OpResult.agreeItems());
+		map.put("resultList", OpResult.checkItems());
 		map.put("PassStates", PassState.values());
 		
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
@@ -175,7 +174,6 @@ public class KaoqinCtl {
 		opinion.setUserName(user.getFnumber());
 		opinionService.append(opinion);
 
-		runtimeService.setVariable(task.getExecutionId(), KaoqinVarname.IS_AGGREE,opinion.getResult().<Boolean>val());
 		taskService.complete(task.getId());
 		redirectAttributes
 			.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("任务完成！"));

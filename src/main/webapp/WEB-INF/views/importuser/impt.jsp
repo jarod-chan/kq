@@ -70,6 +70,16 @@
 	</c:forEach>
 	</select>
 	</td></tr>
+	
+		<tr><td>
+	管理公司：</td><td>
+	<select name="admincomp">
+	<option value="" >--</option>
+	<c:forEach var="comp" items="${compList}">
+		<option value="${comp}" >${comp.name}</option>
+	</c:forEach>
+	</select>
+	</td></tr>
 		
 </table>
 

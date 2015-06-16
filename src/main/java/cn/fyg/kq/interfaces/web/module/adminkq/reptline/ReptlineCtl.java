@@ -2,7 +2,6 @@ package cn.fyg.kq.interfaces.web.module.adminkq.reptline;
 
 import static cn.fyg.kq.interfaces.web.shared.message.Message.info;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,19 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.ReptlineService;
-import cn.fyg.kq.application.UserService;
 import cn.fyg.kq.domain.model.reptline.Reptline;
+import cn.fyg.kq.domain.model.reptline.ReptlineSpecs;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
+import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 
 
 @Controller
@@ -38,36 +37,31 @@ public class ReptlineCtl {
 	
 	@Autowired 
 	ReptlineService reptlineService;
+	@Autowired 
+	SessionUtil sessionUtil;
 	
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
+		User user=sessionUtil.getValue("user");
+		Specification<Reptline> inComp = ReptlineSpecs.inComp(user.getAdmincomp());
 		Sort sort = new Sort(new Order(Direction.ASC,"code"));
-		List<Reptline> reptlineList = this.reptlineService.findAll(null,sort);
+		List<Reptline> reptlineList = this.reptlineService.findAll(inComp,sort);
 		map.put("reptlineList", reptlineList);
 		return Page.LIST;
 	}
 	
 	@RequestMapping(value="add",method=RequestMethod.GET)
 	public String toAdd(Map<String,Object> map){
+		User user=sessionUtil.getValue("user");
+		map.put("comp", user.getAdmincomp());
 		return Page.ADD;
 	}
 	
-	@Autowired
-	UserService userService;
-	
-	@RequestMapping(value="queryUser",method=RequestMethod.GET)
-	@ResponseBody
-	public  Map<String,Object> queryUser(@Param("name")String name){
-		List<User> userList = this.userService.findAll();
-		Map<String,Object> ret = new HashMap<String,Object>();
-		ret.put("data", userList);
-		ret.put("result", true);
-		return ret;
-	}
-	
+
 	@RequestMapping(value="save",method=RequestMethod.POST)
 	public String save(Reptline reptline,RedirectAttributes redirectAttributes){
-		reptline.setComp("fangchan");
+		User user=sessionUtil.getValue("user");
+		reptline.setComp(user.getAdmincomp());
 		String code = reptline.getCode();
 		int level=StringUtils.split(code,".").length;
 		reptline.setLevel(level);

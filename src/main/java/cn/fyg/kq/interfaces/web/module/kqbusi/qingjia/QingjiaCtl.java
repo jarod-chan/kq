@@ -57,8 +57,7 @@ public class QingjiaCtl {
 	
 	@RequestMapping(value="{qingjiaId}/edit",method=RequestMethod.GET)
 	public String toEdit(@PathVariable("qingjiaId") Long qingjiaId,Map<String,Object> map){
-		User user=new User();
-		user.setFid("u2");
+		User user=sessionUtil.getValue("user");
 		String comp="jianshe";
 		Qingjia qingjia =qingjiaId.longValue()>0?qingjiaService.find(qingjiaId):qingjiaService.create(user,QingjiaState.create,comp) ;
 		map.put("qingjia", qingjia);
@@ -68,8 +67,7 @@ public class QingjiaCtl {
 	
 	@RequestMapping(value="saveEdit",method=RequestMethod.POST)
 	public String saveEdit(@RequestParam("qingjiaId")Long qingjiaId,HttpServletRequest request,RedirectAttributes redirectAttributes){
-		User user=new User();
-		user.setFid("u2");
+		User user=sessionUtil.getValue("user");
 		String comp="jianshe";
 		
 		Qingjia qingjia =qingjiaId!=null?qingjiaService.find(qingjiaId):qingjiaService.create(user,QingjiaState.save,comp) ;

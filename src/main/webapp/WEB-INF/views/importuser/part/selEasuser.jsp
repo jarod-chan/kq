@@ -65,7 +65,7 @@
 		$("#dlg_query").click(function(){
 			$(this).lock();
 			$(".dialog-table tbody").empty();
-			$.getJSON('${ctx}/importuser/easuser.json',{name:$("#qy_name").val()},appendData);
+			$.getJSON('${ctx}/easser/user.json',{name:$("#qy_name").val()},appendData);
 		})
 		
 		$("#dlg_clear").click(clearFn);		

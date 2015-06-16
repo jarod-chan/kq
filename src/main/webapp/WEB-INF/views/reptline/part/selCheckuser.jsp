@@ -52,7 +52,7 @@
 		
 		$("#dlg_query").click(function(){
 			$(".dialog-table tbody").empty();
-			$.getJSON('${ctx}/checkuser/select.json',{name:$("#qy_name").val()},appendData);
+			$.getJSON('${ctx}/checkuser/select.json',{name:$("#qy_name").val(),comp:"${comp}"},appendData);
 		})
 		
 		$("#dlg_clear").click(clearFn);		

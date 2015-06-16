@@ -59,6 +59,7 @@ public class ImportUserCtl {
 	public String toImpt(Map<String,Object> map){
 		List<Role> roleList = this.roleService.findAll();
 		map.put("roleList", roleList);
+		map.put("compList", Comp.values());
 		return Page.IMPT;
 	}
 	
@@ -88,6 +89,7 @@ public class ImportUserCtl {
 		
 		List<Role> roleList = this.roleService.findAll();
 		map.put("roleList", roleList);
+		map.put("compList", Comp.values());
 		return Page.EDIT;
 	}
 	

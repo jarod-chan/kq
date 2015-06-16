@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import cn.fyg.kq.domain.model.modmenu.role.Role;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 @Entity
 @Table(name="kq_user")
@@ -33,6 +36,9 @@ public class User {
 	@Column(name="createtime")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createtime;//创建时间
+	
+	@Enumerated(EnumType.STRING)
+	private Comp admincomp;//用户管理的公司
 	
 	@PrePersist
 	private void prePersist(){
@@ -77,6 +83,14 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Comp getAdmincomp() {
+		return admincomp;
+	}
+
+	public void setAdmincomp(Comp admincomp) {
+		this.admincomp = admincomp;
 	}
 
 

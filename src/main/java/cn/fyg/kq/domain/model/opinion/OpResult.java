@@ -12,7 +12,7 @@ public enum OpResult implements CommonEnum {
 	pass("通过",Boolean.TRUE),
 	nopass("不通过",Boolean.FALSE),
 	
-	checked("确认","");
+	checked("确认","checked");
 	
 	private String name;
 	
@@ -45,6 +45,12 @@ public enum OpResult implements CommonEnum {
 		List<OpResult> items=new ArrayList<OpResult>();
 		items.add(OpResult.pass);
 		items.add(OpResult.nopass);
+		return items;
+	}
+	
+	public static List<OpResult> checkItems(){
+		List<OpResult> items=new ArrayList<OpResult>();
+		items.add(OpResult.checked);
 		return items;
 	}
 	

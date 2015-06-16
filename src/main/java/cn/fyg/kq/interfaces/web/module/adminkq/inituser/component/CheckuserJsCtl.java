@@ -21,8 +21,6 @@ import cn.fyg.kq.application.CheckuserService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
 import cn.fyg.kq.domain.shared.kq.Comp;
-import cn.fyg.zktime.domain.Userinfo;
-import cn.fyg.zktime.service.UserinfoService;
 
 @Controller
 @RequestMapping("checkuser")
@@ -33,9 +31,9 @@ public class CheckuserJsCtl {
 	
 	@RequestMapping(value="select.json",method=RequestMethod.GET)
 	@ResponseBody 
-	public List<Map<String,Object>> simpleQuery(@Param("name")String name){
+	public List<Map<String,Object>> selectQuery(@Param("name")String name,@Param("comp")Comp comp){
 		Specification<Checkuser> namelike = CheckuserSpecs.nameLike(name);
-		Specification<Checkuser> inComp = CheckuserSpecs.inComp(Comp.fangchan);
+		Specification<Checkuser> inComp = CheckuserSpecs.inComp(comp);
 		Specifications<Checkuser> specs=Specifications.where(inComp).and(namelike);
 		Sort sort=new Sort(new Order(Direction.ASC,"user.fnumber"));
 		
@@ -51,17 +49,6 @@ public class CheckuserJsCtl {
 		return mapList;
 	}
 	
-	@Autowired
-	UserinfoService userinfoService;
-	
-	@RequestMapping(value="kquser.json",method=RequestMethod.GET)
-	@ResponseBody
-	public  Map<String,Object> queryKquser(@Param("name")String name){
-		List<Userinfo> userinfoList = this.userinfoService.queryByName(name);
-		Map<String,Object> ret = new HashMap<String,Object>();
-		ret.put("data", userinfoList);
-		ret.put("result", true);
-		return ret;
-	}
+
 
 }

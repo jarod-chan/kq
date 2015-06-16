@@ -1,4 +1,4 @@
-package cn.fyg.kq.interfaces.web.module.adminsys.importuser.component;
+package cn.fyg.kq.interfaces.web.module.imptsys;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,13 +17,14 @@ import cn.fyg.easser.service.EasUserService;
 import cn.fyg.easser.service.NetException;
 
 @Controller
-@RequestMapping("importuser")
-public class ImportUserJsCtl {
+@RequestMapping("easser")
+public class EasserCtl {
+	
 	
 	@Autowired
 	EasUserService easUserService;
 	
-	@RequestMapping(value="easuser.json",method=RequestMethod.GET)
+	@RequestMapping(value="user.json",method=RequestMethod.GET)
 	@ResponseBody
 	public  Map<String,Object> queryEasuser(@Param("name")String name){
 		Map<String,Object> ret = new HashMap<String,Object>();
@@ -53,6 +54,5 @@ public class ImportUserJsCtl {
 		ret.put("result", true);
 		return ret;
 	}
-	
 
 }

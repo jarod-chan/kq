@@ -1,6 +1,8 @@
 package cn.fyg.kq.domain.model.reptline;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 /**
  *定义流程的汇报关系
@@ -27,7 +30,8 @@ public class Reptline {
 	@JoinColumn(name = "fid")
 	private User user;// 考勤人员
 	
-	private String comp;//所属公司
+	@Enumerated(EnumType.STRING)
+	private Comp comp;//用户管理的公司
 	
 	private int level;//等级
 	
@@ -56,11 +60,11 @@ public class Reptline {
 		this.user = user;
 	}
 
-	public String getComp() {
+	public Comp getComp() {
 		return comp;
 	}
 
-	public void setComp(String comp) {
+	public void setComp(Comp comp) {
 		this.comp = comp;
 	}
 

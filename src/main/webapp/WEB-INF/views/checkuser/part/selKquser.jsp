@@ -65,7 +65,7 @@
 		$("#dlg_query").click(function(){
 			$(this).lock();
 			$(".dialog-table tbody").empty();
-			$.getJSON('${ctx}/checkuser/kquser.json',{name:$("#qy_name").val()},appendData);
+			$.getJSON('${ctx}/zktime/user.json',{name:$("#qy_name").val()},appendData);
 		})
 		
 		$("#dlg_clear").click(clearFn);		
