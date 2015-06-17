@@ -15,7 +15,10 @@
 		p:username="${zktime.username}" 
 		p:password="${zktime.password}" /> 
 	
-	<!-- 不使用事务控制，只是查询 -->
+	<!-- 事务控制 -->
+	<bean id="ts_zktime" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	  <property name="dataSource" ref="dataSource_sqlserver" />
+	</bean>
 		
 	<!-- enable autowire -->
     <context:annotation-config />
