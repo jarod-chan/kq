@@ -75,7 +75,7 @@
 			<td>
 			<select name="kaoqinItems[${status.index}].state">
 			<c:forEach items="${PassStates}" var="state">
-			<option value="${state}">${state.name}</option>
+			<option value="${state}" <c:if test="${state==item.state}">selected="selected"</c:if>  >${state.name}</option>
 			</c:forEach>
 			</select></td>
 		</tr>
