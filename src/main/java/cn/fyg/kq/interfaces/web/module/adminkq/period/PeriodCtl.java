@@ -48,12 +48,12 @@ public class PeriodCtl {
 	
 	@RequestMapping(value="list",method=RequestMethod.GET)
 	public String toList(Map<String,Object> map){
-		Comp comp=Comp.fangchan;
-		
+		User user=sessionUtil.getValue("user");
+		Comp admincomp = user.getAdmincomp();
 	
 		Specifications<Period> specs=Specifications
 				.where(PeriodSpecs.notFinish())
-				.and(PeriodSpecs.inComp(comp));
+				.and(PeriodSpecs.inComp(admincomp));
 		
 		List<Period> periodList = this.periodService.findAll(specs);
 		if(periodList.size()==1){
@@ -62,7 +62,7 @@ public class PeriodCtl {
 		
 		specs=Specifications
 				.where(PeriodSpecs.isFinish())
-				.and(PeriodSpecs.inComp(comp));
+				.and(PeriodSpecs.inComp(admincomp));
 		List<Period> finishPeriodList = this.periodService.findAll(specs);
 		map.put("finishPeriodList",finishPeriodList);
 		
@@ -72,14 +72,15 @@ public class PeriodCtl {
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
 	public String create(Period period,Map<String,Object> map,RedirectAttributes redirectAttributes){
-		Comp fangchan = Comp.fangchan;
-		boolean exist = this.periodService.exist(period.getMonthitem(),fangchan);
+		User user=sessionUtil.getValue("user");
+		Comp admincomp = user.getAdmincomp();
+		boolean exist = this.periodService.exist(period.getMonthitem(),admincomp);
 		if(exist){
 			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("当前月份期间已经存在！"));
 			return "redirect:list";
 		}
 		period.setState(PeriodState.create);
-		period.setComp(fangchan);
+		period.setComp(admincomp);
 		this.periodService.save(period);
 		
 		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("保存成功！"));

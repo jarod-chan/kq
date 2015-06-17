@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
-import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.verify.Result;
 import cn.fyg.kq.infrastructure.tool.date.DateUtil;

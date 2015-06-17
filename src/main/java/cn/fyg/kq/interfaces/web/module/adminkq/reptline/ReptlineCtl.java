@@ -5,6 +5,8 @@ import static cn.fyg.kq.interfaces.web.shared.message.Message.info;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +25,7 @@ import cn.fyg.kq.domain.model.reptline.Reptline;
 import cn.fyg.kq.domain.model.reptline.ReptlineSpecs;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
+import cn.fyg.kq.interfaces.web.shared.mvc.BindTool;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 
 
@@ -33,6 +37,7 @@ public class ReptlineCtl {
 	private interface Page {
 		String LIST = PATH + "list";
 		String ADD = PATH + "add";
+		String EDIT = PATH + "edit";
 	}
 	
 	@Autowired 
@@ -57,11 +62,20 @@ public class ReptlineCtl {
 		return Page.ADD;
 	}
 	
+	@RequestMapping(value="{reptlineId}/edit",method=RequestMethod.GET)
+	public String toEdit(@PathVariable("reptlineId")Long reptlineId,Map<String,Object> map){
+		Reptline reptline = this.reptlineService.find(reptlineId);
+		map.put("reptline", reptline);
+		return Page.EDIT;
+	}
+	
 
 	@RequestMapping(value="save",method=RequestMethod.POST)
-	public String save(Reptline reptline,RedirectAttributes redirectAttributes){
+	public String save(@RequestParam("id")Long id,HttpServletRequest request,RedirectAttributes redirectAttributes){
 		User user=sessionUtil.getValue("user");
-		reptline.setComp(user.getAdmincomp());
+		Reptline reptline = id==null? this.reptlineService.create(user.getAdmincomp()):this.reptlineService.find(id);
+		
+		BindTool.bindRequest(reptline, request);
 		String code = reptline.getCode();
 		int level=StringUtils.split(code,".").length;
 		reptline.setLevel(level);

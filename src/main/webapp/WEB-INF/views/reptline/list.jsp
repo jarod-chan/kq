@@ -19,6 +19,10 @@
 				.appendTo($("body"))
 			.submit();
     	});
+		$('.btn_edit').click(function(){
+    		var id=$(this).data("id");
+    		window.open('${ctx}/reptline/'+id+'/edit','_self');
+    	});
 		
 		$("#headdiv").css("width",$("#tblmain").css("width"));
 	})
@@ -38,7 +42,7 @@
 <table id="tblmain" class="hctable deftable col-6">
 <thead>
 	<tr>
-		<th>编码</th><th>用户</th><th>操作</th>
+		<th class="col-2">编码</th><th  class="col-2">用户</th><th  class="col-2">操作</th>
 	</tr>
 </thead>
 <tbody>
@@ -47,7 +51,10 @@
 	<tr>
 		<td>${reptline.code}</td>
 		<td>${reptline.user.fnumber}</td>
-		<td><input data-id="${reptline.id}" class="btn_delete" type="button" value="删除"></td>
+		<td>
+			<input data-id="${reptline.id}" class="btn_edit" type="button" value="修改">
+			<input data-id="${reptline.id}" class="btn_delete" type="button" value="删除">
+		</td>
 	</tr>
 	</c:forEach>
 </tbody>

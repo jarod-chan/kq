@@ -4,8 +4,11 @@ import java.util.List;
 
 import cn.fyg.kq.application.common.ServiceQuery;
 import cn.fyg.kq.domain.model.reptline.Reptline;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 public interface ReptlineService extends ServiceQuery<Reptline> {
+	
+	Reptline create(Comp comp);
 	
 	Reptline save(Reptline reptline);
 	

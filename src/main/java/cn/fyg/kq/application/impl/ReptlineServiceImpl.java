@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.fyg.kq.application.ReptlineService;
 import cn.fyg.kq.application.common.impl.SericeQueryImpl;
 import cn.fyg.kq.domain.model.reptline.Reptline;
+import cn.fyg.kq.domain.model.reptline.ReptlineFactory;
 import cn.fyg.kq.domain.model.reptline.ReptlineRepository;
+import cn.fyg.kq.domain.shared.kq.Comp;
 
 @Service("reptlineService")
 public class ReptlineServiceImpl extends SericeQueryImpl<Reptline> implements ReptlineService {
@@ -63,6 +65,11 @@ public class ReptlineServiceImpl extends SericeQueryImpl<Reptline> implements Re
 			return reptlineList.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public Reptline create(Comp comp) {
+		return ReptlineFactory.create(comp);
 	}
 
 

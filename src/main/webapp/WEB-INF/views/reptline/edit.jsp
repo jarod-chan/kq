@@ -35,7 +35,7 @@
 				window.open('${ctx}/reptline/list','_self');
 				return false;
 			});
-			
+		
 		})
 	</script>
 </head>
@@ -49,19 +49,18 @@
 	<%@ include file="/common/message.jsp" %>	
 	
 	<form action="${ctx}/reptline" method="post">	
-	<input type="hidden" name="id" value=""/>
+	<input type="hidden" name="id" value="${reptline.id}"/>
 	
 	<table id="tabmain">		
 		<tr><td>
 		编码：</td><td>
-		<input type="text" name="code" value=""/>
+		<input type="text" name="code" value="${reptline.code}"/>
 		</td></tr>
 		
 		<tr><td>
 		用户：</td><td>
-		<span id="spanName"></span>
-		<input type="hidden" name="user.fid" id="ipUserFid" />
-		<input type="button" value="选择" id="btn_selCheckuser">
+		<input type="hidden" name="user.fid" value="${reptline.user.fid}" />
+		${reptline.user.fnumber}
 		</td></tr>
 
 	</table>
@@ -71,6 +70,5 @@
 		
 	</form>
 
-<%@ include file="part/selCheckuser.jsp" %>	
 </body>
 </html>
