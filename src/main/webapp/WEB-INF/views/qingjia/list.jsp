@@ -41,14 +41,14 @@
 
 <table id="tblmain" class="hctable deftable col-12">
 <thead>
-	<tr><th>编号</th><th>开始日期</th><th>结束日期</th><th>状态</th><th>操作</th></tr>
+	<tr><th class="coth-2">编号</th><th class="coth-2">开始日期</th><th class="coth-2">结束日期</th><th class="coth-2">状态</th><th class="coth-2">操作</th></tr>
 </thead>
 <tbody>
 	<c:forEach var="qingjia" items="${qingjiaList}">
 		<tr>
 			<td>${qingjia.id}</td>
-			<td>${qingjia.begDayitem.date}:${qingjia.begDayitem.ampm.name}</td>
-			<td>${qingjia.endDayitem.date}:${qingjia.endDayitem.ampm.name}</td>
+			<td>${qingjia.begDayitem.date} ${qingjia.begDayitem.ampm.name}</td>
+			<td>${qingjia.endDayitem.date} ${qingjia.endDayitem.ampm.name}</td>
 			<td>${qingjia.state.name}</td>
 			<td><input type="button" value="修改" data-id="${qingjia.id}" class="btn_edit"/>
 			<input type="button" value="删除" data-id="${qingjia.id}" class="btn_delete"/></td>

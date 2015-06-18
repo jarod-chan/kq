@@ -1,4 +1,4 @@
-package cn.fyg.kq.interfaces.web.module.kqbusi.qingjia;
+package cn.fyg.kq.interfaces.web.module.kqbusi.qingjia.flow;
 
 public interface LeaveVarName {
 	
