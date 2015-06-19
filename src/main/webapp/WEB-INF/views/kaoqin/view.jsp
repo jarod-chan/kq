@@ -6,6 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<c:if test="${notback}">
+	<meta name="decorator" content="/WEB-INF/decorators/none.jsp"/> 
+	</c:if>
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include.jsp" %>	
@@ -70,9 +73,9 @@
 
 <%@ include file="/component/opinionDiv.jsp" %>
 
+<c:if test="${not notback}">
 <input type="button" value="返回"  id="btn_back">
-
-</form>
+</c:if>
 
 </body>
 </html>

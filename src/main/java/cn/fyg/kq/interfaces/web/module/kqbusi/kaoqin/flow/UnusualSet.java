@@ -5,6 +5,7 @@ import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 
 import cn.fyg.kq.application.KaoqinService;
+import cn.fyg.kq.application.NotiService;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
@@ -12,6 +13,8 @@ import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 public class UnusualSet  implements JavaDelegate{
 	
 	private Expression kaoqinServiceExp;
+	
+	private Expression notiServiceExp;
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
@@ -21,6 +24,14 @@ public class UnusualSet  implements JavaDelegate{
 		Kaoqin kaoqin = kaoqinService.find(businessId);
 		kaoqin.setState(KaoqinState.overdue);
 		kaoqinService.save(kaoqin);
+		
+		NotiService notiService=(NotiService) notiServiceExp.getValue(execution);
+		String url=String.format("kaoqin/%s/view", kaoqin.getId());
+		String fmturl=notiService.url(kaoqin.getTitle(), url);
+		String message=String.format("单据%s已经超时！",fmturl);
+		
+		String fid = (String) execution.getVariable(FlowConstant.APPLY_USER);
+		notiService.send(fid, message);
 		
 	}
 

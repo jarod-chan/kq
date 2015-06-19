@@ -125,11 +125,12 @@ public class KaoqinCtl {
 	}
 	
 	@RequestMapping(value="{kaoqinId}/view",method=RequestMethod.GET)
-	public String toView(@PathVariable("kaoqinId")Long kaoqinId,Map<String,Object> map){
+	public String toView(@PathVariable("kaoqinId")Long kaoqinId,Map<String,Object> map,@RequestParam(value="notback",required=false)boolean notback){
 		Kaoqin kaoqin = this.kaoqinService.find(kaoqinId);
 		map.put("kaoqin", kaoqin);
 		List<Opinion> opinions = opinionService.listOpinions(Kaoqin.BUSI_CODE, kaoqinId);
 		map.put("opinions", opinions);
+		map.put("notback", notback);
 		return Page.VIEW;
 	}
 
