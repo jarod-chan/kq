@@ -93,16 +93,25 @@
 	<table class="fmttable">
 		<tbody>
 			<tr>
-				<td>${task.name}：</td><td><select name="result">
+				<td>${task.name}：</td><td>
+				<c:choose>
+					<c:when test="${fn:length(resultList)==1}">
+					${resultList[0].name}<input type="hidden" name="result" value="${resultList[0]}"/>
+					</c:when>
+					<c:otherwise>
+					<select name="result">
 						<c:forEach var="result" items="${resultList}">
 							<option value="${result}" >${result.name}</option>
 						</c:forEach>
 					</select>
+					</c:otherwise>
+				</c:choose>
 				</td>
+				
 				<td>审批人:</td><td>${user.fname}</td>
 			</tr>
 			<tr>
-				<td style="vertical-align: top">原因：</td><td colspan="3"><textarea name="description" class="edittextarea"></textarea></td>
+				<td style="vertical-align: top">审批意见：</td><td colspan="3"><textarea name="description" class="edittextarea"></textarea></td>
 			</tr>
 		</tbody>
 	</table>

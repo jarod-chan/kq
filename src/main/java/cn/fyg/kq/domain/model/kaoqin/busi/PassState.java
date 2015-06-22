@@ -5,8 +5,8 @@ import cn.fyg.kq.domain.shared.CommonEnum;
 
 public enum PassState implements CommonEnum {
 
-	pass("通过"),
-	no("未通过"); 
+	accept("认可"),
+	no("不认可"); 
 	
 	private final String name;
 

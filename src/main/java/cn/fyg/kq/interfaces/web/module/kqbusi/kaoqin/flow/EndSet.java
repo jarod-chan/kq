@@ -31,7 +31,7 @@ public class EndSet implements JavaDelegate {
 		if(!kaoqinItems.isEmpty()){
 			int item_real=0;
 			for(KaoqinItem item:kaoqinItems){
-				if(item.getState()==PassState.pass){
+				if(item.getState()==PassState.accept){
 					item_real++;
 				}
 			}
