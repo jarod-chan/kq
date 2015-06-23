@@ -73,6 +73,17 @@ public class Dayitem {
 		return true;
 	}
 	
+	/*
+	 * 检查日期是否与当前时间有交集
+	 * beg 只检查时间，日期自动转换为1900-1-1
+	 * end 只检查时间，日期自动转换为1900-1-1
+	 */
+	public boolean containDate(Date date,Date beg,Date end){
+		if(date==null) return false;
+		return this.date.equals(date)
+				&& this.ampm.timeInAmpm(beg)
+				&& this.ampm.timeInAmpm(end);
+	}
 	
 
 }

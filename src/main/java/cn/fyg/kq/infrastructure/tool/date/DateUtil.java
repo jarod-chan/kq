@@ -71,6 +71,33 @@ public class DateUtil {
 		return dateTime.withTime(0, 0, 0, 0).toDate();
 	}
 	
+	public static Date dateZeroAmBeg(){
+		DateTime dateTime = new DateTime(1900,1,1,0,0); 
+		return dateTime.toDate();
+	}
+	
+	public static Date dateZeroAmEnd(){
+		DateTime dateTime = new DateTime(1900,1,1,12,0); 
+		return dateTime.toDate();
+	}
+	
+	public static Date dateZeroPmBeg(){
+		DateTime dateTime = new DateTime(1900,1,1,12,0); 
+		return dateTime.toDate();
+	}
+	
+	public static Date dateZeroPmEnd(){
+		DateTime dateTime = new DateTime(1900,1,1,23,59); 
+		return dateTime.toDate();
+	}
+	
+	/**
+	 * 一个日期是否在一段时间之内
+	 * @param date
+	 * @param begin
+	 * @param end
+	 * @return
+	 */
 	public static boolean inDate(Date date,Date begin,Date end){
 		return date.compareTo(begin)>=0 &&
 				date.compareTo(end)<=0;

@@ -9,7 +9,7 @@ import cn.fyg.kq.domain.shared.kq.Ampm;
 
 public interface ExcludeService {
 	
-	  Exclude create(Long period_id,Date date,Ampm ampm);
+	 Exclude create(Long period_id,Date date,Ampm ampm);
 
 	List<Exclude> periodExclude(Period period);
 

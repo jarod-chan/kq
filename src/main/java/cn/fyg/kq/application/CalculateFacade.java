@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
 import cn.fyg.kq.domain.model.checkuser.Kqstat;
+import cn.fyg.kq.domain.model.exclude.Exclude;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinItem;
 import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
@@ -38,20 +39,23 @@ public class CalculateFacade {
 	@Autowired
 	MonthCheckService monthCheckService;
 	@Autowired
-	KaoqinService kaoqinService;
-	
+	KaoqinService kaoqinService;	
 	@Autowired
 	PeriodService periodService;
+	@Autowired
+	ExcludeService excludeService;
 	
 	@Async
 	public void calculate(Period period){
 		List<Checkuser> checkuserList = allCheckUserOfComp(period.getComp());	
 		List<MonthCheck> monthCheckList=allMonthCheck(checkuserList,period);
+		List<Exclude> periodExclude = this.excludeService.periodExclude(period);
+		
 		
 		for(int i=0,len=checkuserList.size();i<len;i++){
 			Checkuser checkuser = checkuserList.get(i);
 			MonthCheck monthCheck = monthCheckList.get(i);
-			monthCheckToKaoqin(checkuser,period,monthCheck);
+			monthCheckToKaoqin(checkuser,period,monthCheck,periodExclude);
 		}
 				
 		finishCal(period);
@@ -94,12 +98,17 @@ public class CalculateFacade {
 
 
 
-	public void monthCheckToKaoqin(Checkuser checkuser,Period period,MonthCheck monthcheck){
+	private void monthCheckToKaoqin(Checkuser checkuser,Period period,MonthCheck monthcheck,List<Exclude> periodExclude){
 		List<KaoqinItem> kaoqinItems = new ArrayList<KaoqinItem>();
 		int sn=0;
 		for (DateCheck dateCheck : monthcheck.getDatechecks()) {
 			for(SchclassInOut inOut:dateCheck.getSchclassInOuts()){
 				Schclass schclass = inOut.getSchclass();
+				
+				if(isSchclassExclude(dateCheck.getDate(),schclass,periodExclude)){
+					continue;
+				}
+				
 				if(!inOut.isCheckin()){
 					sn++;
 					KaoqinItem kaoqinItem = new KaoqinItem();
@@ -165,6 +174,17 @@ public class CalculateFacade {
 		
 	}
 	
+	/*
+	 *排除已经过滤掉的日期
+	 */
+	private boolean isSchclassExclude(Date checkdate,Schclass schclass,List<Exclude> periodExclude){
+		for(Exclude exclude:periodExclude){
+			if(exclude.getDayitem().containDate(checkdate, schclass.getStarttime(), schclass.getEndtime())){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 
 }
