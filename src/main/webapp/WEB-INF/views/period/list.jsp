@@ -16,6 +16,12 @@
 			actionFrom.attr("action",oldAction+"/create").submit();
     	});
 		
+		$(".btn_exclude").click(function(){
+			var id=$(this).data("id");
+			window.open('${ctx}/period/'+id+'/exclude','_self');
+			return false;
+		});
+		
 		$('.btn_docal').click(function(){
 			var id=$(this).data("id");
         	$('<form/>',{action:'${ctx}/period/docal',method:'post'})
@@ -109,6 +115,7 @@ $(function(){
 		<td class="coth-4">
 			<c:choose>
 			<c:when test="${period.state=='create'}">
+				<input data-id="${period.id}" class="btn_exclude" type="button" value="日期过滤">
 				<input data-id="${period.id}" class="btn_docal" type="button" value="执行计算">
 				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
 			</c:when>

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import cn.fyg.kq.application.NotiService;
 import cn.fyg.kq.domain.model.noti.Noti;
 import cn.fyg.kq.domain.model.noti.NotiSpecs;
-import cn.fyg.kq.domain.model.noti.ReadStat;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 

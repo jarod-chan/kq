@@ -54,7 +54,7 @@
 </tbody>
 </table>
 <c:if test="${empty notiList}">		
-<c:set var="nodate_cls" value="coemp-12"/>
+<c:set var="nodate_cls" value="coemp-9"/>
 <%@ include file="/common/emp-context.jsp" %>
 </c:if>
 
