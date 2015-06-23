@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.CalculateFacade;
+import cn.fyg.kq.application.ExcludeService;
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.application.PeriodService;
 import cn.fyg.kq.application.facade.KaoqinFacade;
+import cn.fyg.kq.domain.model.exclude.Exclude;
 import cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
@@ -143,6 +145,8 @@ public class PeriodCtl {
 	KaoqinService kaoqinService;
 	@Autowired
 	KaoqinFacade kaoqinFacade;
+	@Autowired
+	ExcludeService excludeService;
 	
 	@RequestMapping(value="delete",method=RequestMethod.POST)
 	public String delete(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){
@@ -155,6 +159,10 @@ public class PeriodCtl {
 		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
 		for (Kaoqin kaoqin : kaoqinList) {
 			this.kaoqinService.delete(kaoqin.getId());
+		}
+		List<Exclude> periodExclude = this.excludeService.periodExclude(period);
+		for(Exclude exclude:periodExclude){
+			this.excludeService.delete(exclude.getId());
 		}
 		this.periodService.delete(periodId);
 		
