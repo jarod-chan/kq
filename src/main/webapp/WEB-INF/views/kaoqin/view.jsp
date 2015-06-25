@@ -65,7 +65,7 @@
 			<td>${item.schclass.begendtime}</td>
 			<td>${item.realtime}</td>
 			<td>${item.reason}</td>
-			<td>${item.state.name}</td>
+			<td><c:if test="${item.state=='no'}">${item.state.name}</c:if></td> 
 		</tr>
 	</c:forEach>
 </tbody>
