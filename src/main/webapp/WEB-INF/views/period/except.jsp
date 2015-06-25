@@ -39,8 +39,8 @@
 <c:set target="${pagefunc}" property="name" value="考勤期间" />
 <c:set target="${pagefunc}" property="url" value="${ctx}/period/list" />
 
-<c:set target="${pagetitle}" property="name" value="考勤单计算结果" />
-<c:set target="${pagetitle}" property="url" value="${ctx}/period/${period.id}/calresult" />
+<c:set target="${pagetitle}" property="name" value="异常记录" />
+<c:set target="${pagetitle}" property="url" value="${ctx}/period/${period.id}/except" />
 
 <body>
 
@@ -48,7 +48,7 @@
 
 <table id="tblmain" class="hctable deftable col-9">
 <thead>
-	<tr><th class="coth-2">编号</th><th class="coth-2">考勤单</th><th class="coth-1">姓名</th><th class="coth-1">次数</th><th class="coth-1">状态</th><th class="coth-2">操作</th></tr>
+	<tr><th class="coth-2">编号</th><th class="coth-2">考勤单</th><th class="coth-1">姓名</th><th class="coth-1">状态</th><th class="coth-1">不认可次数</th><th class="coth-2">操作</th></tr>
 </thead>
 <tbody>
 	<c:forEach var="kaoqin" items="${kaoqinList}">
@@ -56,13 +56,10 @@
 			<td>${kaoqin.no}</td>
 			<td>${kaoqin.title}</td>
 			<td>${kaoqin.user.fnumber}</td>
-			<td>${kaoqin.item_all}</td>
 			<td>${kaoqin.state.name}</td>
+			<td>${kaoqin.item_all-kaoqin.item_real}</td>
 			<td>
 			<button data-id="${kaoqin.id}" class="btn_view" >详细</button>
-			<c:if test="${kaoqin.state!='finish' && not empty kaoqin.processId}">
-				<button class="btn_trace {executionId:'${kaoqin.processId}'}" >流程跟踪</button>
-			</c:if>
 			</td>
 		</tr>
 	</c:forEach>

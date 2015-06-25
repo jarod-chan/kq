@@ -36,6 +36,16 @@ public class KaoqinSpecs {
 		};
 	}
 	
+	public static Specification<Kaoqin> isState(final KaoqinState state) {
+		return new Specification<Kaoqin>() {
+			@Override
+			public Predicate toPredicate(Root<Kaoqin> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.equal(root.get("state"), state);
+			}
+		};
+	}
+	
 	public static Specification<Kaoqin> notFinish() {
 		return inState(KaoqinState.produce,KaoqinState.save,KaoqinState.process);
 	}
@@ -50,6 +60,24 @@ public class KaoqinSpecs {
 			public Predicate toPredicate(Root<Kaoqin> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				return cb.equal(root.get("user").<String>get("fid"), user.getFid());
+			}
+		};
+	}
+	
+	public static Specification<Kaoqin> isExcept() {
+		return new Specification<Kaoqin>() {
+			@Override
+			public Predicate toPredicate(Root<Kaoqin> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.or(
+							cb.equal(root.get("state"), KaoqinState.voided),
+							cb.equal(root.get("state"), KaoqinState.overdue),
+							cb.and(
+									cb.equal(root.get("state"), KaoqinState.finish),
+									cb.notEqual(root.get("item_all"), root.get("item_real"))
+									)
+						);
+
 			}
 		};
 	}

@@ -36,6 +36,12 @@
 			return false;
 		});
 		
+		$(".btn_except").click(function(){
+			var id=$(this).data("id");
+			window.open('${ctx}/period/'+id+'/except','_self');
+			return false;
+		});
+		
 		$('.btn_produce').click(function(){
 			var id=$(this).data("id");
         	$('<form/>',{action:'${ctx}/period/produce',method:'post'})
@@ -145,10 +151,10 @@ $(function(){
 
 
 <h2>历史记录</h2>
-<table class="hctable deftable col-6">
+<table class="hctable deftable col-7">
 <thead>
 	<tr>
-		<th class="coth-2">考勤期间</th><th class="coth-2">状态</th><th class="coth-2">操作</th>
+		<th class="coth-2">考勤期间</th><th class="coth-2">状态</th><th class="coth-3">操作</th>
 	</tr>
 </thead>
 <tbody>
@@ -158,6 +164,7 @@ $(function(){
 		<td>${period.state.name}</td>
 		<td>
 				<input data-id="${period.id}" class="btn_calresult" type="button" value="查看计算结果">
+				<input data-id="${period.id}" class="btn_except" type="button" value="异常记录">
 				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
 		</td>
 	</tr>

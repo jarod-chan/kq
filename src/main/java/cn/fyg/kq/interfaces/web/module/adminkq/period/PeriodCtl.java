@@ -43,6 +43,7 @@ public class PeriodCtl {
 	private interface Page {
 		String LIST = PATH + "list";
 		String CALRESULT = PATH + "calresult";
+		String EXCEPT = PATH + "except";
 	}
 	
 	@Autowired
@@ -105,6 +106,7 @@ public class PeriodCtl {
 	@RequestMapping(value="{periodId}/calresult",method=RequestMethod.GET)
 	public String toCalresult(@PathVariable("periodId") Long periodId,Map<String, Object> map) {
 		Period period = this.periodService.find(periodId);
+		map.put("period", period);
 
 		Specification<Kaoqin> inPeriod = KaoqinSpecs.inPeriod(period);
 		Specifications<Kaoqin> specs = Specifications.where(inPeriod);
@@ -114,6 +116,23 @@ public class PeriodCtl {
 		map.put("kaoqinList", kaoqinList);
 		return Page.CALRESULT;
 	}
+	
+	@RequestMapping(value="{periodId}/except",method=RequestMethod.GET)
+	public String toExcept(@PathVariable("periodId") Long periodId,Map<String, Object> map) {
+		Period period = this.periodService.find(periodId);
+		map.put("period", period);
+
+		Specification<Kaoqin> inPeriod = KaoqinSpecs.inPeriod(period);
+		Specification<Kaoqin> except = KaoqinSpecs.isExcept();
+
+		Specifications<Kaoqin> specs = Specifications.where(inPeriod).and(except);
+		Sort sort=new Sort(Direction.ASC,"id");
+
+		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
+		map.put("kaoqinList", kaoqinList);
+		return Page.EXCEPT;
+	}
+	
 	
 	@Autowired
 	SessionUtil sessionUtil;
