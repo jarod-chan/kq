@@ -32,6 +32,14 @@
 				</filters>
 			</build>
 		</profile>
+		<profile>
+			<id>prod</id>
+			<build>
+				<filters>
+					<filter>profile/profile-production.properties</filter>
+				</filters>
+			</build>
+		</profile>
 	</profiles>
 	
 	
