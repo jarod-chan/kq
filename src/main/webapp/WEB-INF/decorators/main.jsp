@@ -12,7 +12,7 @@
 <head>
 <title><sitemesh:write property='title' /></title>
 <sitemesh:write property='head' />
-<link type="text/css" rel="stylesheet" href="/${ctx}/resources/css/mainbar.css" /> 
+<link type="text/css" rel="stylesheet" href="/${ctx}/css/mainbar.css" /> 
 <style type="text/css">
 /* 定义页面内部的头部信息 */
 
@@ -125,14 +125,14 @@ function logout(){
 	
 	<div class="second">
 		<div class="second_left" >
-			<a href="/${ctx}/home">首页</a><c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if><c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
+			<c:if test="${not empty user}"><a href="/${ctx}/home">首页</a></c:if><c:if test="${pagefunc.name!=null}">&gt;<a href="${pagefunc.url}">${pagefunc.name}</a></c:if><c:if test="${pagetitle.name!=null}">&gt;<a href="${pagetitle.url}">${pagetitle.name}</a></c:if>
 		</div>
 
 		<div class="second_right" >	
 			<ul class="nav" style="float:left">
 				<c:forEach var="module" items="${userModuleList}">
 				<li>
-					<div><img class="img_down" src="/${ctx}/resources/img/down.gif" />${module.name}&nbsp;&nbsp;</div>
+					<div><img class="img_down" src="/${ctx}/img/down.gif" />${module.name}&nbsp;&nbsp;</div>
 					<ul>
 					<c:forEach var="menu" items="${module.menus}">
 						<li><a href="/${ctx}/${menu.url}">&nbsp;&nbsp;${menu.name}&nbsp;&nbsp;</a></li>

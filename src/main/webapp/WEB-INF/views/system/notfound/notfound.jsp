@@ -6,15 +6,19 @@
 <head>
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
+	<%@ include file="/common/include.jsp" %>
 	<style type="text/css">
 		.div_center{
 			width:600px; 
-		    margin-top:150px;
 			margin-left: auto;
 			margin-right: auto;
 		}
+		.sbig .sinfo{
+			display:block;
+		}
 		.sbig{
-			font-size: 300px;
+			text-align: center;
+			font-size: 200px;
 		}
 	</style>
 </head>
@@ -22,8 +26,8 @@
 
 <div>
 	<div class="div_center">
-		<span class="sbig">404!</span>
-		<span class="sinfo">代码出现错误，请联系管理员。</span>
+		<div class="sbig">404!</div>
+		<div class="sinfo">系统超时，请重新登录。</div>
 	</div>
 </div>
 
