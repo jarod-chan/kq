@@ -105,7 +105,15 @@ function logout(){
 }
 
 
-
+$.ajaxSetup({   
+    contentType:"application/x-www-form-urlencoded;charset=utf-8",   
+    complete:function(XMLHttpRequest,textStatus){ 
+		var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus"); //通过XMLHttpRequest取得响应头，sessionstatus，  
+		if(sessionstatus=="timeout"){ 
+		   	alert("登录超时,请退出重新登录！");
+		}   
+	}   
+  });
 
 </script>
 

@@ -25,7 +25,14 @@ public class SessionTimeoutInterceptor  implements HandlerInterceptor{
 			HttpServletResponse response, Object handler) throws Exception {
 		User user = sessionUtil.getValue("user");
 		if(user==null){
-			response.sendRedirect(request.getContextPath()+"/404");
+			if (request.getHeader("x-requested-with") != null 
+					&& request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")){ 
+				//如果是ajax请求响应头会有，x-requested-with
+				//在响应头设置session状态  
+				response.setHeader("sessionstatus", "timeout");
+			}else{
+				response.sendRedirect(request.getContextPath()+"/404");
+			}
 			return false;
 		}
 		return true;
