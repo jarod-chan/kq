@@ -52,7 +52,7 @@
 <table id="tabitem" class="deftable col-12">
 <thead>
 	<tr>
-		<th>序号</th><th>日期</th><th>班次</th><th>签到、签退</th><th>时间</th><th>打卡时间</th><th>事由</th><th>通过</th>
+		<th>序号</th><th>日期</th><th>班次</th><th>签到、签退</th><th>时间</th><th>打卡时间</th><th>事由</th><th>状态</th>
 	</tr>
 </thead>
 <tbody>

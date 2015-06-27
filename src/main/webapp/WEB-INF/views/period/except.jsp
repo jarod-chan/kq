@@ -48,7 +48,7 @@
 
 <table id="tblmain" class="hctable deftable col-9">
 <thead>
-	<tr><th class="coth-2">编号</th><th class="coth-2">考勤单</th><th class="coth-1">姓名</th><th class="coth-1">状态</th><th class="coth-1">不认可次数</th><th class="coth-2">操作</th></tr>
+	<tr><th class="coth-2">编号</th><th class="coth-2">考勤单</th><th class="coth-1">姓名</th><th class="coth-1">状态</th><th class="coth-1">未认可次数</th><th class="coth-2">操作</th></tr>
 </thead>
 <tbody>
 	<c:forEach var="kaoqin" items="${kaoqinList}">
