@@ -11,6 +11,7 @@ import cn.fyg.kq.application.PeriodService;
 import cn.fyg.kq.application.common.impl.SericeQueryImpl;
 import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
 import cn.fyg.kq.domain.model.period.Period;
+import cn.fyg.kq.domain.model.period.PeriodFactory;
 import cn.fyg.kq.domain.model.period.PeriodRepository;
 import cn.fyg.kq.domain.shared.kq.Comp;
 
@@ -54,6 +55,11 @@ public class PeriodServiceImpl extends SericeQueryImpl<Period> implements Period
 	@Override
 	public JpaSpecificationExecutor<Period> getSpecExecutor() {
 		return this.periodRepository;
+	}
+
+	@Override
+	public Period create() {
+		return PeriodFactory.create();
 	}
 
 }

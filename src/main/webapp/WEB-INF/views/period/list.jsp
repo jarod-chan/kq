@@ -71,23 +71,16 @@
 <%@ include file="/common/message.jsp" %>	
 <c:if test="${empty period}">
 <form action="${ctx}/period" method="post">
-年：<select name="monthitem.year">
-	<option value="2015">2015</option>
-</select>
-月：<select  name="monthitem.month" >
-	<option value="1">1</option>
-	<option value="2">2</option>
-	<option value="3">3</option>
-	<option value="4" selected="selected">4</option>
-	<option value="5">5</option>
-	<option value="6">6</option>
-	<option value="7">7</option>
-	<option value="8">8</option>
-	<option value="9">9</option>
-	<option value="10">10</option>
-	<option value="11">11</option>
-	<option value="12">12</option>
-</select>
+年份：<select name="year">
+		<c:forEach var="item" items="${dateTool.allYears}">
+			<option value="${item}" <c:if test="${item==period_monthitem.year}">selected="true"</c:if> >${item}</option>
+		</c:forEach>
+	 </select>
+月份：<select name="month">
+		<c:forEach var="item" items="${dateTool.allMonths}">
+			<option value="${item}" <c:if test="${item==period_monthitem.month}">selected="true"</c:if> >${item}</option>
+		</c:forEach>
+	 </select>
 
 <input class="btn_create"  type="button"  value="生成考勤期间" >
 </form>

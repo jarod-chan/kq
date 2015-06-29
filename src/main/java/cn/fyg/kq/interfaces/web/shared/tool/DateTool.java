@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DateTool {
-	public static Long BEG_YEAR=2012L;
+	public static Long BEG_YEAR=2015L;
 	private final Calendar thisMonthFirstDay;
 	private final Calendar prevMonthFirstDay;
 	

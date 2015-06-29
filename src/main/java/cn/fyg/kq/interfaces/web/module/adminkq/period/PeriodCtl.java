@@ -1,6 +1,7 @@
 package cn.fyg.kq.interfaces.web.module.adminkq.period;
 
-import static cn.fyg.kq.interfaces.web.shared.message.Message.*;
+import static cn.fyg.kq.interfaces.web.shared.message.Message.error;
+import static cn.fyg.kq.interfaces.web.shared.message.Message.info;
 
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,12 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.fyg.kq.application.CalculateFacade;
@@ -26,17 +29,22 @@ import cn.fyg.kq.domain.model.exclude.Exclude;
 import cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
+import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
 import cn.fyg.kq.domain.model.period.Period;
 import cn.fyg.kq.domain.model.period.PeriodSpecs;
 import cn.fyg.kq.domain.model.period.PeriodState;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.kq.Comp;
+import cn.fyg.kq.interfaces.web.shared.bean.YearAndPrevMonth;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
+import cn.fyg.kq.interfaces.web.shared.tool.DateTool;
+
 
 
 @Controller
 @RequestMapping("period")
+@SessionAttributes({"period_monthitem"})
 public class PeriodCtl {
 	
 	private static final String PATH = "period/";
@@ -49,8 +57,13 @@ public class PeriodCtl {
 	@Autowired
 	PeriodService periodService;
 	
+	@ModelAttribute("period_monthitem")
+	public YearAndPrevMonth period_monthitem(){
+		return new YearAndPrevMonth();
+	}
+	
 	@RequestMapping(value="list",method=RequestMethod.GET)
-	public String toList(Map<String,Object> map){
+	public String toList(@ModelAttribute("period_monthitem")YearAndPrevMonth period_monthitem,Map<String,Object> map){
 		User user=sessionUtil.getValue("user");
 		Comp admincomp = user.getAdmincomp();
 	
@@ -69,19 +82,25 @@ public class PeriodCtl {
 		List<Period> finishPeriodList = this.periodService.findAll(specs);
 		map.put("finishPeriodList",finishPeriodList);
 		
+		map.put("dateTool", new DateTool());
 		return Page.LIST;
 	}
 	
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)
-	public String create(Period period,Map<String,Object> map,RedirectAttributes redirectAttributes){
+	public String create(@ModelAttribute("period_monthitem")YearAndPrevMonth period_monthitem,Map<String,Object> map,RedirectAttributes redirectAttributes){
 		User user=sessionUtil.getValue("user");
 		Comp admincomp = user.getAdmincomp();
-		boolean exist = this.periodService.exist(period.getMonthitem(),admincomp);
+		MonthItem monthItem = new MonthItem();
+		monthItem.setYear(period_monthitem.getYear().intValue());
+		monthItem.setMonth(period_monthitem.getMonth().intValue());
+		boolean exist = this.periodService.exist(monthItem,admincomp);
 		if(exist){
 			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("当前月份期间已经存在！"));
 			return "redirect:list";
 		}
+		Period period = this.periodService.create();
+		period.setMonthitem(monthItem);
 		period.setState(PeriodState.create);
 		period.setComp(admincomp);
 		this.periodService.save(period);

@@ -9,6 +9,8 @@ import cn.fyg.kq.domain.shared.kq.Comp;
 
 public interface PeriodService extends ServiceQuery<Period> {
 	
+	Period create();
+	
 	Period save(Period period);
 	
 	List<Period> findAll();
