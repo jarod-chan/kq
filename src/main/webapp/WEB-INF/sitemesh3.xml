@@ -11,5 +11,6 @@
     <mapping path="/css/*" exclude="true"/> 
     <mapping path="/js/*"  exclude="true"/> 
     <mapping path="/plu/*" exclude="true"/> 
+    <mapping path="/img/*" exclude="true"/> 
 
 </sitemesh>

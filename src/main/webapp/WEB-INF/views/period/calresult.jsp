@@ -7,6 +7,8 @@
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include.jsp" %>	
+	<%@ include file="/common/jqui.jsp" %>	
+	<%@ include file="/common/jqui2.jsp" %>	
 	<script type="text/javascript">
 	function OpenEnvDefineWin(url,width,height)
     {
@@ -20,13 +22,7 @@
         return false;
     }
 	
-	$(function(){
-		$(".btn_trace").click(function(){
- 	   		var param=$(this).metadata();
-			window.open('${ctx}/trace/'+param.executionId,'_blank');
-			return false;
-		})
-		
+	$(function(){	
 		$(".btn_view").click(function(){
 			var id=$(this).data("id");
 			OpenEnvDefineWin("${ctx}/kaoqin/"+id+"/view?notback=true",1050,600);
@@ -72,6 +68,8 @@
 <c:set var="nodate_cls" value="coemp-9"/>
 <%@ include file="/common/emp-context.jsp" %>
 </c:if>
+
+<%@ include file="/component/trace_process.jsp" %>
 
 </body>
 </html>

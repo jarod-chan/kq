@@ -8,9 +8,10 @@
 <head>
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
-	<%@ include file="/common/include.jsp" %>	
+	<%@ include file="/common/include.jsp" %>
+	<%@ include file="/common/jqui.jsp" %>	
+	<%@ include file="/common/jqui2.jsp" %>	
 	
-
  	<script type="text/javascript">
 	    $(function() {
 	    	$('.btn_execute').click(function(){
@@ -21,12 +22,6 @@
 				.submit();
  	    	});
  	    	
-	 	   	$(".btn_trace").click(function(){
-	 	   		var param=$(this).metadata();
-				window.open('${ctx}/trace/'+param.executionId,'_blank');
-				return false;
-			})
-	    	
 	    });
     </script>
 
@@ -68,6 +63,8 @@
 <c:set var="nodate_cls" value="coemp-12"/>
 <%@ include file="/common/emp-context.jsp" %>
 </c:if>
+
+<%@ include file="/component/trace_process.jsp" %>
 
 </body>
 </html>
