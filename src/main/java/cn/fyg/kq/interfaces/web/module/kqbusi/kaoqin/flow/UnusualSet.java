@@ -7,7 +7,9 @@ import org.activiti.engine.delegate.JavaDelegate;
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.application.NotiService;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
+import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinItem;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
+import cn.fyg.kq.domain.model.kaoqin.busi.PassState;
 import cn.fyg.kq.interfaces.web.shared.constant.FlowConstant;
 
 public class UnusualSet  implements JavaDelegate{
@@ -23,6 +25,9 @@ public class UnusualSet  implements JavaDelegate{
 		
 		Kaoqin kaoqin = kaoqinService.find(businessId);
 		kaoqin.setState(KaoqinState.overdue);
+		for(KaoqinItem item:kaoqin.getKaoqinItems()){
+			item.setState(PassState.no);
+		}
 		kaoqinService.save(kaoqin);
 		
 		NotiService notiService=(NotiService) notiServiceExp.getValue(execution);

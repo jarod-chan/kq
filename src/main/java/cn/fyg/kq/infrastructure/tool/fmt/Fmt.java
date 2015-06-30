@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class Fmt {
 	
+	public static String ISO_8601="yyyy-MM-dd'T'HH:mm:ss";
+	
 	public static String toStr(Object obj){
 		return obj==null?"":obj.toString();
 	}
@@ -22,5 +24,6 @@ public class Fmt {
 		DecimalFormat decimalFormat = new DecimalFormat(format);
 		return decimalFormat.format(bigDecimal);
 	}
+	
 
 }

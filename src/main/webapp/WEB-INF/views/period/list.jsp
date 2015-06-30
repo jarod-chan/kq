@@ -165,7 +165,7 @@ $(function(){
 </tbody>
 </table>
 <c:if test="${empty finishPeriodList}">		
-<c:set var="nodate_cls" value="coemp-6"/>
+<c:set var="nodate_cls" value="coemp-7"/>
 <%@ include file="/common/emp-context.jsp" %>
 </c:if>
 
