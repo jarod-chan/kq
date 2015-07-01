@@ -39,12 +39,13 @@
 </head>
 
 <c:set target="${pagefunc}" property="name" value="消息中心" />
-<c:set target="${pagefunc}" property="url" value="${ctx}/noti/list" />
+<c:set target="${pagefunc}" property="url" value="" />
 
 <body>
+<%@ include file="/common/message.jsp" %>
 <%@ include file="/script/fmttable.jsp" %>
 
-
+<h3>消息内容</h3>
 <table id="tabmain" class="fmttable">
 
 	<tr>

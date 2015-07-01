@@ -56,7 +56,7 @@
 	</c:forEach>
 	<c:if test="${not empty isFinishList}">
 		<tr>
-			<td colspan="4">历史考勤单</td>		
+			<td colspan="4"><strong>历史考勤单</strong></td>		
 		</tr>
 		<c:forEach var="kaoqin" items="${isFinishList}">
 		<tr>

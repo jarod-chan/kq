@@ -28,7 +28,7 @@ public class KaoqinCommitVld extends CommonValidator<Kaoqin> {
 	private void verifyItem(KaoqinItem kaoqinItem, CommonResult result) {
 		String messsage=String.format("序号为%s的【事由】不能为空", kaoqinItem.getSn());
 		if(StringUtils.isBlank(kaoqinItem.getReason())){
-			//result.append(messsage);
+			result.append(messsage);
 			return;
 		}
 	}

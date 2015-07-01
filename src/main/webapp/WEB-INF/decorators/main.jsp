@@ -83,6 +83,7 @@ body {
 	border: 1px solid #AAAAAA;
 	border-top-width: 0px;
 	text-align: center;
+	padding:2px 0px;
 	border-collapse: collapse;
 }
 

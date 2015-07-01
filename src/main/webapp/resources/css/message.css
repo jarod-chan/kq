@@ -1,11 +1,15 @@
 @CHARSET "UTF-8";
+.messagebar {
+	min-height: 30px;
+	margin-top: 3px;
+	margin-bottom: 2px;
+}
 
 #message {
-	width: 600px;
-	margin-top:5px;
-	margin-bottom: 5px;
-	display: none;
-} 
+	width: 498px;
+ 	display: none;  
+}
+
 
 .alert {
 	padding: 5px 35px 5px 14px;

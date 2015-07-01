@@ -27,8 +27,15 @@
 	</script>
 </head>
 
+<c:set target="${pagefunc}" property="name" value="任务中心" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/process/task" />
+
+<c:set target="${pagetitle}" property="name" value="领导审批" />
+<c:set target="${pagetitle}" property="url" value="" />
+
 <body>
 <%@ include file="/script/fmttable.jsp" %>
+<%@ include file="/common/message.jsp" %>
 
 <form action="${ctx}/kaoqin/check" method="post" >
 <input type="hidden" name="kaoqinId" value="${kaoqin.id}"/>

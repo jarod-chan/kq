@@ -23,7 +23,15 @@
 	</script>
 </head>
 
+<c:set target="${pagefunc}" property="name" value="考勤单" />
+<c:set target="${pagefunc}" property="url" value="${ctx}/kaoqin/list" />
+
+<c:set target="${pagetitle}" property="name" value="查看" />
+<c:set target="${pagetitle}" property="url" value="" />
+
+
 <body>
+<%@ include file="/common/message.jsp" %>
 <%@ include file="/script/fmttable.jsp" %>
 
 <h2>考勤单</h2>

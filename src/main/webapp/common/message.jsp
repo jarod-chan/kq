@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<div class="messagebar">
 <c:if test="${not empty message}">
 	<script type="text/javascript">
 	$(function(){
@@ -13,4 +14,4 @@
 		<strong>${message.level.name}：</strong>${message.message}
 	</div>
 </c:if>
-
+</div>

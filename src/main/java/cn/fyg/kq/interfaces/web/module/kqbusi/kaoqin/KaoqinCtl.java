@@ -210,7 +210,7 @@ public class KaoqinCtl {
 			Result result =this.kaoqinFacade.commitCheck(kaoqin,user,taskId);
 			if(result.notPass()){
 				redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("提交失败！"+result.message()));
-				return String.format("redirect:%s/checkedit?taskId",kaoqin.getId(),taskId);
+				return String.format("redirect:/kaoqin/%s/checkedit?taskId=%s",kaoqin.getId(),taskId);
 			}else{				
 				redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("提交成功！"));
 				return "redirect:/process/task";
