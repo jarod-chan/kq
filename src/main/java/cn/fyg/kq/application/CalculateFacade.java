@@ -169,7 +169,7 @@ public class CalculateFacade {
 			kaoqin.setKaoqinItems(kaoqinItems);
 		
 			
-			this.kaoqinService.save(kaoqin);
+			this.kaoqinService.saveTemp(kaoqin);
 		}
 		
 	}

@@ -9,7 +9,7 @@ import cn.fyg.kq.domain.shared.kq.Comp;
 
 public interface PeriodService extends ServiceQuery<Period> {
 	
-	Period create();
+	Period create(MonthItem monthItem,Comp comp);
 	
 	Period save(Period period);
 	

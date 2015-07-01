@@ -14,6 +14,6 @@ public interface KaoqinVarname {
 	String ITEM_ALL = "item_all";
 
 
-	String IS_AGGREE = "isAggree";
+	String TIME_STAFF_EDIT = "time_staff_edit";
 	
 }

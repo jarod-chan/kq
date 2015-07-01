@@ -44,16 +44,21 @@
 
 <table id="tblmain" class="hctable deftable col-9">
 <thead>
-	<tr><th class="coth-2">编号</th><th class="coth-2">考勤单</th><th class="coth-1">姓名</th><th class="coth-1">次数</th><th class="coth-1">状态</th><th class="coth-2">操作</th></tr>
+	<tr>
+	<c:if test="${period.state!='finishcal'}"><th class="coth-2">编号</th></c:if>
+	<th class="coth-2">考勤单</th><th class="coth-1">姓名</th><th class="coth-1">次数</th>
+	<th class="coth-1">状态</th>
+	<c:if test="${period.state!='finishcal'}"><th class="coth-2">操作</th></c:if>
+	</tr>
 </thead>
 <tbody>
 	<c:forEach var="kaoqin" items="${kaoqinList}">
 		<tr>
-			<td>${kaoqin.no}</td>
+			<c:if test="${period.state!='finishcal'}"><td>${kaoqin.no}</td></c:if>
 			<td>${kaoqin.title}</td>
 			<td>${kaoqin.user.fnumber}</td>
 			<td>${kaoqin.item_all}</td>
-			<td>${kaoqin.state.name}</td>
+			<c:if test="${period.state!='finishcal'}"><td>${kaoqin.state.name}</td></c:if>
 			<td>
 			<button data-id="${kaoqin.id}" class="btn_view" >详细</button>
 			<c:if test="${kaoqin.state!='finish' && not empty kaoqin.processId}">

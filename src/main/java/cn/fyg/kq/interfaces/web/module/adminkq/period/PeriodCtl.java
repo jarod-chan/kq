@@ -28,7 +28,6 @@ import cn.fyg.kq.application.facade.KaoqinFacade;
 import cn.fyg.kq.domain.model.exclude.Exclude;
 import cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
-import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
 import cn.fyg.kq.domain.model.period.Period;
 import cn.fyg.kq.domain.model.period.PeriodSpecs;
@@ -44,7 +43,7 @@ import cn.fyg.kq.interfaces.web.shared.tool.DateTool;
 
 @Controller
 @RequestMapping("period")
-@SessionAttributes({"period_monthitem"})
+@SessionAttributes("period_monthitem")
 public class PeriodCtl {
 	
 	private static final String PATH = "period/";
@@ -56,7 +55,18 @@ public class PeriodCtl {
 	
 	@Autowired
 	PeriodService periodService;
-	
+	@Autowired
+	SessionUtil sessionUtil;
+	@Autowired
+	KaoqinService kaoqinService;
+	@Autowired
+	KaoqinFacade kaoqinFacade;
+	@Autowired
+	ExcludeService excludeService;
+
+	@Autowired
+	CalculateFacade calculateFacade;
+
 	@ModelAttribute("period_monthitem")
 	public YearAndPrevMonth period_monthitem(){
 		return new YearAndPrevMonth();
@@ -99,18 +109,12 @@ public class PeriodCtl {
 			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("当前月份期间已经存在！"));
 			return "redirect:list";
 		}
-		Period period = this.periodService.create();
-		period.setMonthitem(monthItem);
-		period.setState(PeriodState.create);
-		period.setComp(admincomp);
+		Period period = this.periodService.create(monthItem,admincomp);
 		this.periodService.save(period);
 		
 		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("保存成功！"));
 		return "redirect:list";
 	}
-	
-	@Autowired
-	CalculateFacade calculateFacade;
 	
 	@RequestMapping(value="docal",method=RequestMethod.POST)
 	public String docal(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){
@@ -152,14 +156,11 @@ public class PeriodCtl {
 		return Page.EXCEPT;
 	}
 	
-	
-	@Autowired
-	SessionUtil sessionUtil;
-	
+		
 	@RequestMapping(value="produce",method=RequestMethod.POST)
 	public String produce(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){
 		Period period = this.periodService.find(periodId);
-		User user = this.sessionUtil.<User>getValue("user");
+		User user = this.sessionUtil.getValue("user");
 		
 		Specification<Kaoqin> inPeriod = KaoqinSpecs.inPeriod(period);
 		Specifications<Kaoqin> specs=Specifications.where(inPeriod);
@@ -167,9 +168,7 @@ public class PeriodCtl {
 		
 		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
 		for (Kaoqin kaoqin : kaoqinList) {
-			kaoqin.setState(KaoqinState.produce);
-			this.kaoqinService.save(kaoqin);
-			this.kaoqinFacade.commit(kaoqin, user);
+			this.kaoqinFacade.startProcess(kaoqin, user);
 		}
 		period.setState(PeriodState.produce);
 		this.periodService.save(period);
@@ -178,13 +177,6 @@ public class PeriodCtl {
 		return "redirect:list";
 	}
 	
-	
-	@Autowired
-	KaoqinService kaoqinService;
-	@Autowired
-	KaoqinFacade kaoqinFacade;
-	@Autowired
-	ExcludeService excludeService;
 	
 	@RequestMapping(value="delete",method=RequestMethod.POST)
 	public String delete(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){

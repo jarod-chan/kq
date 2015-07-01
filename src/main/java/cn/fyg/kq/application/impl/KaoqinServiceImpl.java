@@ -1,7 +1,5 @@
 package cn.fyg.kq.application.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -45,15 +43,11 @@ public class KaoqinServiceImpl extends SericeQueryImpl<Kaoqin>  implements Kaoqi
 		return null;
 	}
 
-	@Override
-	public List<Kaoqin> findAll() {
-		return this.kaoqinRepository.findAll();
-	}
 
 	@Override
 	public Kaoqin save(Kaoqin kaoqin) {
 		noFactory=new KaoqinNo();
-		Pattern<Kaoqin> pattern = noFactory.create(kaoqin).setEmpty(kaoqin.getId()!=null);
+		Pattern<Kaoqin> pattern = noFactory.create(kaoqin).setEmpty(kaoqin.getNo()!=null);
 			
 		Lock lock = this.lockService.getLock(pattern);
 		lock.lock();
@@ -93,6 +87,12 @@ public class KaoqinServiceImpl extends SericeQueryImpl<Kaoqin>  implements Kaoqi
 		KaoqinCommitVld vld = new KaoqinCommitVld();
 		vld.setValObject(kaoqin);
 		return vld.verify();
+	}
+
+	@Override
+	@Transactional
+	public Kaoqin saveTemp(Kaoqin kaoqin) {
+		return this.kaoqinRepository.save(kaoqin);
 	}
 
 }

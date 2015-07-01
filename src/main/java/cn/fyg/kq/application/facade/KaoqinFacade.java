@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KaoqinService;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
+import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.verify.Result;
 import cn.fyg.kq.infrastructure.tool.date.DateUtil;
@@ -34,6 +35,32 @@ public class KaoqinFacade {
 	RuntimeService runtimeService;
 	
 	@Transactional
+	public void startProcess(Kaoqin kaoqin, User user) {
+		String userFid=user.getFid();
+		try{
+			Map<String, Object> variableMap = new HashMap<String, Object>();
+			variableMap.put(FlowConstant.BUSINESS_ID, kaoqin.getId());
+			variableMap.put(FlowConstant.APPLY_USER, kaoqin.getUser().getFid());
+			variableMap.put(KaoqinVarname.ITEM_ALL, kaoqin.getItem_all());
+			variableMap.put(KaoqinVarname.TIME_STAFF_EDIT, Fmt.toStr(DateUtil.days(3), Fmt.ISO_8601));
+			
+			identityService.setAuthenticatedUserId(userFid);
+			ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(KaoqinVarname.PROCESS_DEFINITION_KEY,variableMap);	
+			
+			kaoqin.setState(KaoqinState.produce);
+			kaoqin.setProcessId(processInstance.getId());
+			this.kaoqinService.save(kaoqin);
+			
+			//编号在save之后生成
+			runtimeService.setVariable(processInstance.getId(),FlowConstant.BUSINESS_NO, kaoqin.getNo());
+			runtimeService.setVariable(processInstance.getId(),FlowConstant.BUSINESS_TITLE, kaoqin.getTitle());
+			
+		} finally {
+			identityService.setAuthenticatedUserId(null);
+		}
+	}
+	
+	@Transactional
 	public Result commit(Kaoqin kaoqin, User user) {
 		Result result = this.kaoqinService.verifyForCommit(kaoqin);
 		if(result.notPass()) return result;
@@ -45,8 +72,8 @@ public class KaoqinFacade {
 			variableMap.put(FlowConstant.BUSINESS_NO, kaoqin.getNo());
 			variableMap.put(FlowConstant.APPLY_USER, kaoqin.getUser().getFid());
 			variableMap.put(FlowConstant.BUSINESS_TITLE, kaoqin.getTitle());
-			variableMap.put(KaoqinVarname.ITEM_ALL, kaoqin.getItem_all());
 			
+			variableMap.put(KaoqinVarname.ITEM_ALL, kaoqin.getItem_all());
 			variableMap.put("time_staff_edit", Fmt.toStr(DateUtil.days(3), Fmt.ISO_8601));
 			
 			identityService.setAuthenticatedUserId(userFid);

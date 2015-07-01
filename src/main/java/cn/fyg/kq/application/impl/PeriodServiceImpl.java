@@ -58,8 +58,8 @@ public class PeriodServiceImpl extends SericeQueryImpl<Period> implements Period
 	}
 
 	@Override
-	public Period create() {
-		return PeriodFactory.create();
+	public Period create(MonthItem monthItem,Comp comp) {
+		return PeriodFactory.create(monthItem,comp);
 	}
 
 }
