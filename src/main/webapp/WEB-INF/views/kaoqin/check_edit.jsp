@@ -32,6 +32,20 @@
 			window.open('${ctx}/process/task','_self');
 			return false;
 		})
+		
+		var reasonList=["忘记打卡","上班迟到","生病了","公事外出"];
+		
+ 		document.onkeyup =function(e){ 
+ 			var currKey=0,e=e||event;
+　　      　 	 currKey=e.keyCode||e.which||e.charCode;
+			if(currKey==75 && e.altKey ){ 
+				var reasons=$(".reason");
+				reasons.each(function(){
+					$(this).val(reasonList[Math.round(Math.random()*3)]);
+				})
+			} 
+		} 
+
 	})
 	</script>
 </head>
@@ -88,7 +102,7 @@
 			<td>${item.schclass.inout.name}</td>
 			<td>${item.schclass.begendtime}</td>
 			<td>${item.realtime}</td>
-			<td><input type="text" name="kaoqinItems[${status.index}].reason" value="${item.reason}"></td>
+			<td><input type="text" class="reason" name="kaoqinItems[${status.index}].reason" value="${item.reason}"></td>
 		</tr>
 	</c:forEach>
 </tbody>
