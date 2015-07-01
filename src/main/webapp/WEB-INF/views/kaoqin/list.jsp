@@ -6,21 +6,14 @@
 <head>
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
-	<%@ include file="/common/include.jsp" %>	
+	<%@ include file="/common/include.jsp" %>
+	<%@ include file="/common/jqui.jsp" %>	
+	<%@ include file="/common/jqui2.jsp" %>		
 	<script type="text/javascript">
 	$(function(){
-		$(".btn_edit").click(function(){
-			var id=$(this).data("id");
-			window.open('${ctx}/kaoqin/'+id+'/edit','_self');
-		})
 		$(".btn_view").click(function(){
 			var id=$(this).data("id");
 			window.open('${ctx}/kaoqin/'+id+'/view','_self');
-		})
-	 	$(".btn_trace").click(function(){
- 	   		var param=$(this).metadata();
-			window.open('${ctx}/trace/'+param.executionId,'_blank');
-			return false;
 		})
 	})
 	</script>
@@ -42,15 +35,10 @@
 			<td>${kaoqin.monthitem.year}年${kaoqin.monthitem.month}月${kaoqin.user.fnumber}考勤单</td>
 			<td>${kaoqin.state.name}</td>
 			<td>
-<%-- 			<c:choose>
-			<c:when test="${kaoqin.state=='produce'||kaoqin.state=='save'}">
-				<input type="button" value="修改" data-id="${kaoqin.id}" class="btn_edit"/> 
-			</c:when>
-			</c:choose> --%>
 			<c:if test="${not empty kaoqin.processId}">
 				<button class="btn_trace {executionId:'${kaoqin.processId}'}" >流程跟踪</button>
 			</c:if>
-			<input type="button" value="查看" data-id="${kaoqin.id}" class="btn_view"/> 			
+				<input type="button" value="查看" data-id="${kaoqin.id}" class="btn_view"/> 			
 			</td>
 		</tr>
 	</c:forEach>
@@ -72,5 +60,6 @@
 </tbody>
 </table>
 
+<%@ include file="/component/trace_process.jsp" %>
 </body>
 </html>
