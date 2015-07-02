@@ -100,7 +100,7 @@ $(function(){
 				return;
 			}
 	 		if(pdtask.timeout){
-	 			$("btn_timeout").show();
+	 			$(".btn_timeout").show();
 	 		}
 			setTimeout(syncState,1000*5);
 		});
