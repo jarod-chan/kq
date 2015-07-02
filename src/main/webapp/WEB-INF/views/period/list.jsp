@@ -69,6 +69,7 @@
 
 <body>
 <%@ include file="/common/message.jsp" %>	
+
 <c:if test="${empty period}">
 <form action="${ctx}/period" method="post">
 年份：<select name="year">
@@ -87,43 +88,49 @@
 </c:if>
 
 <c:if test="${not empty period}">
+
+<c:if test="${havePeriodTask}">
 <script type="text/javascript">
 $(function(){
-	var state='${period.state}';
 	var periodId='${period.id}';
 	function syncState(){
-		$.getJSON('${ctx}/period/period.json',{periodId:periodId},function(period){
-			if(period.state=='finishcal'){
-					$("#tabmain .state").html('计算完成');
-					$("#tabmain .button").show();
-			}else{
-				setTimeout(syncState,1000*5);
+		$.getJSON('${ctx}/period/pdtask.json',{periodId:periodId},function(pdtask){
+	 		if(pdtask.state=='end'){
+	 			window.open('${ctx}/period/list','_self');
+				return;
 			}
+	 		if(pdtask.timeout){
+	 			$("btn_timeout").show();
+	 		}
+			setTimeout(syncState,1000*5);
 		});
 	}
-	if(state=='docal'){syncState();}
+	syncState();
+	
+	$(".btn_timeout").click(function(){
+		var id=$(this).data("id");
+    	$('<form/>',{action:'${ctx}/period/canceltask',method:'post'})
+    		.append($('<input/>',{type:'hidden',name:'periodId',value:id}))
+			.appendTo($("body"))
+		.submit();
+	});
+	
 })
-
 </script>
+</c:if>
 
-<table id="tabmain" class="hctable deftable col-7">
+<table id="tabmain" class="deftable col-7">
 <tbody>
 	<tr>
 		<td class="coth-2">${period.monthitem.year}年${period.monthitem.month}月考勤</td>
 		<td class="coth-1 state">${period.state.name}</td>
 		<td class="coth-4">
+			<c:if test="${!havePeriodTask}">
 			<c:choose>
 			<c:when test="${period.state=='create'}">
 				<input data-id="${period.id}" class="btn_exclude" type="button" value="日期过滤">
 				<input data-id="${period.id}" class="btn_docal" type="button" value="执行计算">
 				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
-			</c:when>
-			<c:when test="${period.state=='docal'}">
-				<span class="none button">
-					<input data-id="${period.id}" class="btn_calresult" type="button" value="查看计算结果">
-					<input data-id="${period.id}" class="btn_produce" type="button" value="生成考勤单">
-					<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
-				</span>
 			</c:when>
 			<c:when test="${period.state=='finishcal'}">
 				<input data-id="${period.id}" class="btn_calresult" type="button" value="查看计算结果">
@@ -135,7 +142,11 @@ $(function(){
 				<input data-id="${period.id}" class="btn_delete" type="button" value="删除">
 			</c:when>
 			</c:choose>
-			
+			</c:if>
+			<c:if test="${havePeriodTask}">
+			<img src="${ctx}/img/loads.gif">${pdtask.taskname}
+			<input data-id="${period.id}" class="btn_timeout <c:if test='${!pdtask.timeout}'>none</c:if>"  type="button" value="取消超时任务">
+			</c:if>
 		</td>
 	</tr>
 </tbody>

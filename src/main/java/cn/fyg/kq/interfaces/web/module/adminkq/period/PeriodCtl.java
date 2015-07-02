@@ -20,20 +20,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import cn.fyg.kq.application.CalculateFacade;
 import cn.fyg.kq.application.ExcludeService;
 import cn.fyg.kq.application.KaoqinService;
+import cn.fyg.kq.application.PdtaskService;
 import cn.fyg.kq.application.PeriodService;
 import cn.fyg.kq.application.facade.KaoqinFacade;
-import cn.fyg.kq.domain.model.exclude.Exclude;
 import cn.fyg.kq.domain.model.kaoqin.KaoqinSpecs;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.MonthItem;
+import cn.fyg.kq.domain.model.pdtask.Pdtask;
+import cn.fyg.kq.domain.model.pdtask.TaskState;
 import cn.fyg.kq.domain.model.period.Period;
 import cn.fyg.kq.domain.model.period.PeriodSpecs;
-import cn.fyg.kq.domain.model.period.PeriodState;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.kq.Comp;
+import cn.fyg.kq.interfaces.web.module.adminkq.period.facade.PeriodFacade;
 import cn.fyg.kq.interfaces.web.shared.bean.YearAndPrevMonth;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
@@ -63,9 +64,8 @@ public class PeriodCtl {
 	KaoqinFacade kaoqinFacade;
 	@Autowired
 	ExcludeService excludeService;
-
 	@Autowired
-	CalculateFacade calculateFacade;
+	PeriodFacade periodFacade;
 
 	@ModelAttribute("period_monthitem")
 	public YearAndPrevMonth period_monthitem(){
@@ -83,7 +83,14 @@ public class PeriodCtl {
 		
 		List<Period> periodList = this.periodService.findAll(specs);
 		if(periodList.size()==1){
-			map.put("period", periodList.get(0));
+			Period period=periodList.get(0);
+			map.put("period",period);
+			boolean havePeriodTask = this.pdtaskService.havePeriodTask(period.getId());
+			map.put("havePeriodTask", havePeriodTask);
+			if(havePeriodTask){
+				Pdtask pdtask = this.pdtaskService.get(period.getId());
+				map.put("pdtask", pdtask);
+			}
 		}
 		
 		specs=Specifications
@@ -116,13 +123,15 @@ public class PeriodCtl {
 		return "redirect:list";
 	}
 	
+	@Autowired
+	PdtaskService pdtaskService;
+	
 	@RequestMapping(value="docal",method=RequestMethod.POST)
 	public String docal(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){
-		Period period = this.periodService.find(periodId);
-		period.setState(PeriodState.docal);
-		this.periodService.save(period);
-		this.calculateFacade.calculate(period);
-		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("计算执行中！"));
+		Pdtask pdtask = this.pdtaskService.create(periodId,"正在计算考勤结果···");
+		this.pdtaskService.append(pdtask);
+		this.periodFacade.calculate(periodId);
+		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("任务已启动！"));
 		return "redirect:list";
 	}
 	
@@ -159,45 +168,36 @@ public class PeriodCtl {
 		
 	@RequestMapping(value="produce",method=RequestMethod.POST)
 	public String produce(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){
-		Period period = this.periodService.find(periodId);
 		User user = this.sessionUtil.getValue("user");
-		
-		Specification<Kaoqin> inPeriod = KaoqinSpecs.inPeriod(period);
-		Specifications<Kaoqin> specs=Specifications.where(inPeriod);
-		Sort sort=new Sort(Direction.ASC,"id");
-		
-		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
-		for (Kaoqin kaoqin : kaoqinList) {
-			this.kaoqinFacade.startProcess(kaoqin, user);
-		}
-		period.setState(PeriodState.produce);
-		this.periodService.save(period);
-		
-		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("考勤单生产完成！"));
+		Pdtask pdtask = this.pdtaskService.create(periodId,"正在生成考勤单···");
+		this.pdtaskService.append(pdtask);
+		this.periodFacade.produce(periodId, user);
+		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("任务已启动！"));
 		return "redirect:list";
 	}
 	
 	
 	@RequestMapping(value="delete",method=RequestMethod.POST)
 	public String delete(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){
-		Period period = this.periodService.find(periodId);
-		
-		Specification<Kaoqin> inPeriod = KaoqinSpecs.inPeriod(period);
-		Specifications<Kaoqin> specs=Specifications.where(inPeriod);
-		Sort sort=null;
-		
-		List<Kaoqin> kaoqinList = this.kaoqinService.findAll(specs, sort);
-		for (Kaoqin kaoqin : kaoqinList) {
-			this.kaoqinService.delete(kaoqin.getId());
-		}
-		List<Exclude> periodExclude = this.excludeService.periodExclude(period);
-		for(Exclude exclude:periodExclude){
-			this.excludeService.delete(exclude.getId());
-		}
-		this.periodService.delete(periodId);
-		
-		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("删除完成！"));
+		Pdtask pdtask = this.pdtaskService.create(periodId,"正在删除考勤结果···");
+		this.pdtaskService.append(pdtask);
+		this.periodFacade.delete(periodId);
+		redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("任务已启动！"));
 		return "redirect:list";
 	}
 
+	@RequestMapping(value="canceltask",method=RequestMethod.POST)
+	public String cancelTask(@RequestParam("periodId") Long periodId,RedirectAttributes redirectAttributes){
+		Pdtask pdtask = this.pdtaskService.get(periodId);
+		if (pdtask != null 
+				&& pdtask.getState() == TaskState.start
+				&& pdtask.getTimeout()) {
+			this.pdtaskService.cancelPeriodTaks(periodId);
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, info("任务已经取消！"));
+		}else{
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("任务取消失败，请联系管理员！"));
+		}
+		
+		return "redirect:list";
+	}
 }

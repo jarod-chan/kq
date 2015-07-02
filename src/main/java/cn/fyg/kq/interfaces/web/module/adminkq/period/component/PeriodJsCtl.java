@@ -1,4 +1,4 @@
-package cn.fyg.kq.interfaces.web.module.adminkq.period;
+package cn.fyg.kq.interfaces.web.module.adminkq.period.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

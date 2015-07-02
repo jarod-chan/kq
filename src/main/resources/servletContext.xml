@@ -43,9 +43,9 @@
 		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 	</util:list>
 	
-	<context:component-scan base-package="cn.fyg.kq.interfaces.web" />
+
 	
-	<import resource="servletLog.xml" />
+	<import resource="interfaces-web.xml" />
 
 	<!-- 拦截器配置 -->
 	<mvc:interceptors>

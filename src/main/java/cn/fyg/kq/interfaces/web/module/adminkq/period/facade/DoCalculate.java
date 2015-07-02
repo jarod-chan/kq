@@ -1,4 +1,4 @@
-package cn.fyg.kq.application;
+package cn.fyg.kq.interfaces.web.module.adminkq.period.facade;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,9 +11,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+import cn.fyg.kq.application.CheckuserService;
+import cn.fyg.kq.application.ExcludeService;
+import cn.fyg.kq.application.KaoqinService;
+import cn.fyg.kq.application.PdtaskService;
+import cn.fyg.kq.application.PeriodService;
 import cn.fyg.kq.domain.model.checkuser.Checkuser;
 import cn.fyg.kq.domain.model.checkuser.CheckuserSpecs;
 import cn.fyg.kq.domain.model.checkuser.Kqstat;
@@ -31,8 +35,9 @@ import cn.fyg.zktime.domain.monthcheck.DateCheck;
 import cn.fyg.zktime.domain.monthcheck.MonthCheck;
 import cn.fyg.zktime.domain.monthcheck.SchclassInOut;
 import cn.fyg.zktime.service.MonthCheckService;
-@Service
-public class CalculateFacade {
+
+@Component
+public class DoCalculate {
 	
 	@Autowired
 	CheckuserService checkuserService;
@@ -44,9 +49,14 @@ public class CalculateFacade {
 	PeriodService periodService;
 	@Autowired
 	ExcludeService excludeService;
+	@Autowired
+	PdtaskService pdtaskService;
 	
-	@Async
-	public void calculate(Period period){
+	
+	public void calculate(Long periodId){
+		this.pdtaskService.startPeriodTask(periodId);
+		
+		Period period = this.periodService.find(periodId);
 		List<Checkuser> checkuserList = allCheckUserOfComp(period.getComp());	
 		List<MonthCheck> monthCheckList=allMonthCheck(checkuserList,period);
 		List<Exclude> periodExclude = this.excludeService.periodExclude(period);
@@ -59,6 +69,7 @@ public class CalculateFacade {
 		}
 				
 		finishCal(period);
+		this.pdtaskService.endPeriodTask(periodId);
 	}
 
 

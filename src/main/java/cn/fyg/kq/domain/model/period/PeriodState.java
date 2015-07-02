@@ -4,7 +4,6 @@ import cn.fyg.kq.domain.shared.CommonEnum;
 
 public enum PeriodState implements CommonEnum {
 	create("新建"),
-	docal("计算中"),
 	finishcal("计算完成"),
 	produce("已生成");
 	
