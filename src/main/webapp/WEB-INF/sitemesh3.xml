@@ -6,7 +6,8 @@
 
 
     <!-- 指明满足“/exclude.jsp*”的页面，将被排除，不被装饰 -->
-    <mapping path="/login" exclude="true" />
+    <mapping path="/login*" exclude="true" />
+    <mapping path="/help*" exclude="true" />
     
     <mapping path="/css/*" exclude="true"/> 
     <mapping path="/js/*"  exclude="true"/> 

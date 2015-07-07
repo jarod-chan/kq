@@ -54,6 +54,7 @@
 			<mvc:mapping path="/**"/> 
 			<mvc:exclude-mapping path="/"/>
 			<mvc:exclude-mapping path="/login/**"/>
+			<mvc:exclude-mapping path="/help/**"/>
 			<mvc:exclude-mapping path="/404/**"/>
 			<mvc:exclude-mapping path="/css/**"/>
 			<mvc:exclude-mapping path="/img/**"/>

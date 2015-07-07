@@ -49,6 +49,12 @@
 		 	$("#password").val(p); 
 			actionFrom.submit();
 		});
+    	
+    	$("#btn_forgetpwd").click(function(){
+			$.get("${ctx}/help/forgetpwd", function(data){
+			  $("#div_content").html(data);
+			});
+		});
 
     	$("body").bind('keyup',function(event) {
     		if(event.keyCode==13){
@@ -79,9 +85,10 @@
 		</div>
 		<div class="div_block">
 			<button type="button" id="btn_login">登录系统</button>
-			<button type="button" id="btn_fetchpwd">取回密码</button>
+			<button type="button" id="btn_forgetpwd">忘记密码</button>
 		</div>
 		</form>
+		<div id="div_content"></div>
 	</div>
 		
 </body>
