@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>6.1.4</jetty.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
-		<slf4j.version>1.5.10</slf4j.version>
+		<slf4j.version>1.6.1</slf4j.version>
 		<java.version>1.6</java.version>
 		<junit.version>4.8.2</junit.version>
 		<activi.version>5.17.0</activi.version>
@@ -371,25 +371,29 @@
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
 		</dependency>
-		
-<!-- 		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>7.6.13.v20130916</version>
-		</dependency> -->
-		
-	
+
+		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty-maven-plugin</artifactId>
+			<version>7.6.14.v20131031</version>
+			<type>maven-plugin</type>
+		</dependency> 
 	</dependencies>
-	
+
 	<repositories>
-		 
-		 <!-- activiti repository -->
-		 <repository>
-	        <id>activiti</id>
-	        <name>Activiti Repository</name>
-	        <url>http://maven.alfresco.com/nexus/content/repositories/activiti/</url>
-	    </repository>
-	    
+
+		<!-- activiti repository -->
+		<repository>
+			<id>Alfresco Maven Repository</id>
+			<url>https://maven.alfresco.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
 	</repositories>
 	
 
@@ -402,8 +406,8 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-		
-		<plugins>
+
+	<plugins>
 
 			<!-- Facilitates downloading source and javadoc in Eclipse -->
 			<plugin>
@@ -420,12 +424,40 @@
 			<!-- Plugin to run and test through maven -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.6.14.v20131031</version>
+				<configuration>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.bio.SocketConnector">
+							<port>8000</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+					<scanIntervalSeconds>1</scanIntervalSeconds>
+					<webAppConfig implementation="org.mortbay.jetty.plugin.JettyWebAppContext">
+						<!-- 一般是项目名称 -->
+						<contextPath>/kq</contextPath>
+						<sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">
+							<sessionManager
+								implementation="org.eclipse.jetty.server.session.HashSessionManager">
+								<!-- 用于存放持久化的session路径 -->
+								<storeDirectory>c:/temp</storeDirectory>
+								<idleSavePeriod>1</idleSavePeriod>
+							</sessionManager>
+						</sessionHandler>
+					</webAppConfig>
+				</configuration>
+			</plugin>
+<!-- 			
+			
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.25</version>
 				<configuration>
 					<scanIntervalSeconds>3</scanIntervalSeconds>
 				</configuration>
-			</plugin>
+			</plugin> -->
 
 			<!-- Ensures we are compiling at 1.6 level -->
 			<plugin>

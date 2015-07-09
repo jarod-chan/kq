@@ -1,5 +1,6 @@
 package cn.fyg.kq.domain.model.modmenu.role;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,10 @@ import cn.fyg.kq.domain.model.modmenu.menu.Menu;
  */
 @Entity
 @Table(name="kq_role")
-public class Role {
+public class Role implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="fkey")
 	private String key;//关键字

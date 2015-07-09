@@ -1,5 +1,6 @@
 package cn.fyg.kq.domain.model.user;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,8 +20,10 @@ import cn.fyg.kq.domain.shared.kq.Comp;
 
 @Entity
 @Table(name="kq_user")
-public class User {
+public class User implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="fid")
 	private String fid;//easid

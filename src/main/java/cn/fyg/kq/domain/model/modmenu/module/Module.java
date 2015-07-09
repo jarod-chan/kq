@@ -1,5 +1,6 @@
 package cn.fyg.kq.domain.model.modmenu.module;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,10 @@ import cn.fyg.kq.domain.model.modmenu.menu.Menu;
 
 @Entity
 @Table(name="kq_module")
-public class Module {
+public class Module implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private String sn;
 	

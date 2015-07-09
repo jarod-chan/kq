@@ -14,14 +14,37 @@
 <!-- See start.ini file for the default configuraton files           -->
 <!-- =============================================================== -->
 
-
+<!-- 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
 
-  <!-- 防止调用awt生成图片，服务器无响应，无法确定这个可以解决问题 -->
+  防止调用awt生成图片，服务器无响应，无法确定这个可以解决问题
   <Call name="addBean">
     <Arg>
       <New class="org.eclipse.jetty.util.preventers.AWTLeakPreventer"/>
     </Arg>
    </Call>
+   
+  	<Set name="stopAtShutdown">true</Set>
+	<Set name="sendServerVersion">true</Set>
+	<Set name="sendDateHeader">true</Set>
+	<Set name="dumpAfterStart">false</Set>
+	<Set name="dumpBeforeStop">false</Set>
 
-</Configure>
+
+
+</Configure> -->
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+
+  <Set name="sessionHandler">
+    <New class="org.eclipse.jetty.server.session.SessionHandler">
+      <Arg>
+        <New class="org.eclipse.jetty.server.session.HashSessionManager">
+          <Set name="storeDirectory">c:/temp</Set>
+        <!--   <Set name="idleSavePeriod">1</Set> -->
+        </New>
+      </Arg>
+    </New>
+  </Set>
+
+</Configure>  

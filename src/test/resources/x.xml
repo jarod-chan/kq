@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Configure class="org.eclipse.jetty.server.Server" id="Server"><!--Thread 
+		Pool -->
+	<Set name="ThreadPool">
+		<New class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+			<Set name="minThreads">1</Set>
+			<Set name="detailedDump">false</Set>
+		</New>
+	</Set><!--HTTP Connector -->
+	<Call name="addConnector">
+		<Arg>
+			<New class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+				<Set name="port">8000</Set>
+				<Set name="maxIdleTime">300000</Set>
+				<Set name="statsOn">false</Set>
+				<Set name="lowResourcesConnections">5000</Set>
+				<Set name="lowResourcesMaxIdleTime">5000</Set>
+			</New>
+		</Arg>
+	</Call>
+	<!--Handler -->
+	<Set name="handler">
+		<New class="org.eclipse.jetty.webapp.WebAppContext">
+			<Arg type="java.lang.String">D:\git-repository\kq\src\main\webapp</Arg>
+			<Arg type="java.lang.String">/kq</Arg>
+			<Set name="defaultsDescriptor">C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\eclipseJettyPlugin.webDefaults.kq_jetty8.xml
+			</Set>
+			<Set name="configurationClasses">
+				<Array type="java.lang.String">
+					<Item>org.eclipse.jetty.webapp.WebInfConfiguration</Item>
+					<Item>org.eclipse.jetty.webapp.WebXmlConfiguration</Item>
+					<Item>org.eclipse.jetty.webapp.MetaInfConfiguration</Item>
+					<Item>org.eclipse.jetty.webapp.FragmentConfiguration</Item>
+					<Item>net.sourceforge.eclipsejetty.starter.embedded.ExtendedAnnotationConfiguration
+					</Item>
+					<Item>org.eclipse.jetty.webapp.JettyWebXmlConfiguration</Item>
+				</Array>
+			</Set>
+			<Set name="extraClasspath">D:/git-repository/kq/target/classes;E:/maven/repository/org/mybatis/mybatis-spring/1.2.0/mybatis-spring-1.2.0.jar;E:/maven/repository/org/mybatis/mybatis/3.1.1/mybatis-3.1.1.jar;E:/maven/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar;E:/maven/repository/org/hibernate/hibernate-validator/4.1.0.Final/hibernate-validator-4.1.0.Final.jar;E:/maven/repository/org/hibernate/hibernate-entitymanager/3.6.0.Final/hibernate-entitymanager-3.6.0.Final.jar;E:/maven/repository/org/hibernate/hibernate-core/3.6.0.Final/hibernate-core-3.6.0.Final.jar;E:/maven/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar;E:/maven/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar;E:/maven/repository/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final.jar;E:/maven/repository/javax/transaction/jta/1.1/jta-1.1.jar;E:/maven/repository/javassist/javassist/3.12.0.GA/javassist-3.12.0.GA.jar;E:/maven/repository/hsqldb/hsqldb/1.8.0.10/hsqldb-1.8.0.10.jar;E:/maven/repository/com/h2database/h2/1.3.168/h2-1.3.168.jar;E:/maven/repository/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final.jar;E:/maven/repository/org/springframework/spring-context/3.2.0.RELEASE/spring-context-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-core/3.2.0.RELEASE/spring-core-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-aop/3.2.0.RELEASE/spring-aop-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-expression/3.2.0.RELEASE/spring-expression-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-beans/3.2.0.RELEASE/spring-beans-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-webmvc/3.2.0.RELEASE/spring-webmvc-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-web/3.2.0.RELEASE/spring-web-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-orm/3.2.0.RELEASE/spring-orm-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-jdbc/3.2.0.RELEASE/spring-jdbc-3.2.0.RELEASE.jar;E:/maven/repository/org/springframework/spring-tx/3.2.0.RELEASE/spring-tx-3.2.0.RELEASE.jar;E:/maven/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar;E:/maven/repository/org/springframework/spring-context-support/3.2.0.RELEASE/spring-context-support-3.2.0.RELEASE.jar;E:/maven/repository/commons-dbcp/commons-dbcp/20030825.184428/commons-dbcp-20030825.184428.jar;E:/maven/repository/commons-pool/commons-pool/20030825.183949/commons-pool-20030825.183949.jar;E:/maven/repository/taglibs/standard/1.1.2/standard-1.1.2.jar;E:/maven/repository/org/slf4j/slf4j-api/1.5.10/slf4j-api-1.5.10.jar;E:/maven/repository/org/slf4j/jcl-over-slf4j/1.5.10/jcl-over-slf4j-1.5.10.jar;E:/maven/repository/org/slf4j/slf4j-log4j12/1.5.10/slf4j-log4j12-1.5.10.jar;E:/maven/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar;E:/maven/repository/javax/jms/jms/1.1/jms-1.1.jar;E:/maven/repository/javax/servlet/jstl/1.1.2/jstl-1.1.2.jar;E:/maven/repository/org/apache/directory/studio/org.apache.commons.lang/2.6/org.apache.commons.lang-2.6.jar;E:/maven/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar;E:/maven/repository/net/sf/json-lib/json-lib/2.4/json-lib-2.4-jdk15.jar;E:/maven/repository/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar;E:/maven/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar;E:/maven/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar;E:/maven/repository/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar;E:/maven/repository/javax/mail/mail/1.4/mail-1.4.jar;E:/maven/repository/javax/activation/activation/1.1/activation-1.1.jar;E:/maven/repository/org/sitemesh/sitemesh/3.0.0/sitemesh-3.0.0.jar;E:/maven/repository/org/activiti/activiti-engine/5.17.0/activiti-engine-5.17.0.jar;E:/maven/repository/org/activiti/activiti-bpmn-converter/5.17.0/activiti-bpmn-converter-5.17.0.jar;E:/maven/repository/org/activiti/activiti-bpmn-model/5.17.0/activiti-bpmn-model-5.17.0.jar;E:/maven/repository/com/fasterxml/jackson/core/jackson-core/2.2.3/jackson-core-2.2.3.jar;E:/maven/repository/com/fasterxml/jackson/core/jackson-databind/2.2.3/jackson-databind-2.2.3.jar;E:/maven/repository/com/fasterxml/jackson/core/jackson-annotations/2.2.3/jackson-annotations-2.2.3.jar;E:/maven/repository/org/activiti/activiti-process-validation/5.17.0/activiti-process-validation-5.17.0.jar;E:/maven/repository/org/activiti/activiti-image-generator/5.17.0/activiti-image-generator-5.17.0.jar;E:/maven/repository/org/apache/commons/commons-email/1.2/commons-email-1.2.jar;E:/maven/repository/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar;E:/maven/repository/org/activiti/activiti-spring/5.17.0/activiti-spring-5.17.0.jar;E:/maven/repository/org/springframework/data/spring-data-jpa/1.1.0.RELEASE/spring-data-jpa-1.1.0.RELEASE.jar;E:/maven/repository/org/springframework/data/spring-data-commons-core/1.3.0.RELEASE/spring-data-commons-core-1.3.0.RELEASE.jar;E:/maven/repository/junit/junit-dep/4.8.2/junit-dep-4.8.2.jar;E:/maven/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar;E:/maven/repository/org/aspectj/aspectjrt/1.6.12/aspectjrt-1.6.12.jar;E:/maven/repository/mysql/mysql-connector-java/5.1.18/mysql-connector-java-5.1.18.jar;E:/maven/repository/net/sf/oval/oval/1.80/oval-1.80.jar;E:/maven/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.7/jackson-mapper-asl-1.9.7.jar;E:/maven/repository/org/codehaus/jackson/jackson-core-asl/1.9.7/jackson-core-asl-1.9.7.jar;E:/maven/repository/org/apache/httpcomponents/fluent-hc/4.3.5/fluent-hc-4.3.5.jar;E:/maven/repository/org/apache/httpcomponents/httpclient/4.3.5/httpclient-4.3.5.jar;E:/maven/repository/org/apache/httpcomponents/httpcore/4.3.2/httpcore-4.3.2.jar;E:/maven/repository/commons-codec/commons-codec/1.6/commons-codec-1.6.jar;E:/maven/repository/org/apache/httpcomponents/httpmime/4.3.5/httpmime-4.3.5.jar;E:/maven/repository/com/microsoft/sqlserver/sqljdbc4/4.0/sqljdbc4-4.0.jar;E:/maven/repository/joda-time/joda-time/2.1/joda-time-2.1.jar;E:/maven/repository/org/aspectj/aspectjweaver/1.6.12/aspectjweaver-1.6.12.jar;E:/maven/repository/cglib/cglib/2.2/cglib-2.2.jar;E:/maven/repository/asm/asm/3.1/asm-3.1.jar;E:/maven/repository/com/google/guava/guava/18.0/guava-18.0.jar
+			</Set>
+		</New>
+	</Set><!--Extra Options -->
+	<Set name="stopAtShutdown">true</Set>
+	<Set name="sendServerVersion">true</Set>
+	<Set name="sendDateHeader">true</Set>
+	<Set name="dumpAfterStart">false</Set>
+	<Set name="dumpBeforeStop">false</Set>
+</Configure>
