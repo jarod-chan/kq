@@ -15,6 +15,8 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -36,6 +38,7 @@ import cn.fyg.kq.domain.model.kaoqin.busi.PassState;
 import cn.fyg.kq.domain.model.opinion.OpResult;
 import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.user.User;
+import cn.fyg.kq.domain.shared.verify.CommonResult;
 import cn.fyg.kq.domain.shared.verify.Result;
 import cn.fyg.kq.interfaces.web.shared.constant.AppConstant;
 import cn.fyg.kq.interfaces.web.shared.message.Message;
@@ -45,6 +48,8 @@ import cn.fyg.kq.interfaces.web.shared.session.SessionUtil;
 @Controller
 @RequestMapping("kaoqin")
 public class KaoqinCtl {
+	
+	public static final Logger logger = LoggerFactory.getLogger(KaoqinCtl.class);
 	
 	private static final String PATH = "kaoqin/";
 	private interface Page {
@@ -173,12 +178,18 @@ public class KaoqinCtl {
 		
 		opinion.setUserKey(user.getFid());
 		opinion.setUserName(user.getFnumber());
-		opinionService.append(opinion);
+		try {
+			this.kaoqinFacade.completeCheck(opinion, taskId);
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME,
+					Message.info("任务完成！"));
+			return "redirect:/process/task";
+		} catch (Exception e) {
+			logger.error("提交失败", e);
+			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME,
+					Message.error("提交失败，请联系管理员！"));
+		}
 
-		taskService.complete(task.getId());
-		redirectAttributes
-			.addFlashAttribute(AppConstant.MESSAGE_NAME, Message.info("任务完成！"));
-		return "redirect:/process/task";
+		return String.format("redirect:/kaoqin/%s/check?taskId=%s",kaoqin.getId(),taskId);
 	}
 	
 	@RequestMapping(value="{businessId}/checkedit",method=RequestMethod.GET)
@@ -207,7 +218,16 @@ public class KaoqinCtl {
 		}
 		if(afteraction.equals("commit")){
 			User user = sessionUtil.getValue("user");
-			Result result =this.kaoqinFacade.commitCheck(kaoqin,user,taskId);
+			Result result;
+			try{
+				result =this.kaoqinFacade.commitCheck(kaoqin,user,taskId);
+			}catch(Exception e){
+				logger.error("提交失败", e);
+				CommonResult commonResult = new CommonResult();
+				commonResult.append("系统流程错误，请联系管理员");
+				result=commonResult;
+			}
+		
 			if(result.notPass()){
 				redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, error("提交失败！"+result.message()));
 				return String.format("redirect:/kaoqin/%s/checkedit?taskId=%s",kaoqin.getId(),taskId);

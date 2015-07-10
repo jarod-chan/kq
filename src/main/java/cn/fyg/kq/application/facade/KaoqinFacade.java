@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.fyg.kq.application.KaoqinService;
+import cn.fyg.kq.application.OpinionService;
 import cn.fyg.kq.domain.model.kaoqin.busi.Kaoqin;
 import cn.fyg.kq.domain.model.kaoqin.busi.KaoqinState;
+import cn.fyg.kq.domain.model.opinion.Opinion;
 import cn.fyg.kq.domain.model.user.User;
 import cn.fyg.kq.domain.shared.verify.Result;
 import cn.fyg.kq.infrastructure.tool.date.DateUtil;
@@ -33,6 +35,8 @@ public class KaoqinFacade {
 	TaskService taskService;
 	@Autowired
 	RuntimeService runtimeService;
+	@Autowired
+	OpinionService opinionService;
 	
 	@Transactional
 	public void startProcess(Kaoqin kaoqin, User user) {
@@ -94,10 +98,17 @@ public class KaoqinFacade {
 		try{
 			identityService.setAuthenticatedUserId(user.getFid());
 			taskService.complete(taskId);
-		} finally {
+		}finally{
 			identityService.setAuthenticatedUserId(null);
 		}
 		return result;
+	}
+	
+	@Transactional
+	public void completeCheck(Opinion opinion,String taskId){
+		
+		opinionService.append(opinion);
+		taskService.complete(taskId);
 	}
 
 }
