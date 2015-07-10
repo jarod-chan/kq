@@ -45,7 +45,7 @@ public class LoginCtl {
 	@Autowired
 	SessionUtil sessionUtil;
 	@Autowired
-	CheckuserService checkuserService;
+	CheckuserService checkuserService; 
 	@Autowired
 	RoleService roleService;
 	
@@ -84,7 +84,7 @@ public class LoginCtl {
 		
 		User user = this.userService.find(fid);*/
 		
-		User user = this.userService.findByFnumber(loginBean.getUsername());  //TODO  待修改
+		User user = this.userService.findByFnumber(loginBean.getUsername()); //TODO 待修改
 		if(user==null){
 			redirectAttributes.addFlashAttribute(AppConstant.MESSAGE_NAME, "用户没有在考勤系统初始化！");
 			return relogin(loginBean, redirectAttributes);

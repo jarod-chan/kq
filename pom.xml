@@ -380,9 +380,9 @@
 		</dependency> 
 	</dependencies>
 
-	<repositories>
+	<!-- <repositories>
 
-		<!-- activiti repository -->
+		activiti repository
 		<repository>
 			<id>Alfresco Maven Repository</id>
 			<url>https://maven.alfresco.com/nexus/content/groups/public/</url>
@@ -394,7 +394,7 @@
 			</snapshots>
 		</repository>
 
-	</repositories>
+	</repositories> -->
 	
 
 	<build>
