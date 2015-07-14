@@ -162,7 +162,7 @@
  			$(this).removeClass("span_btn_mouseon")
  		}
   	  )
-  	   $(".span_btn_def").hover(
+  	  $(".span_btn_def").hover(
 		function () {
 			$(this).addClass("span_btn_mouseon_red");
  		},
