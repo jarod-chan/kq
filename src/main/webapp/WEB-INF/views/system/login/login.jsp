@@ -7,8 +7,7 @@
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include.jsp" %>	
-	<%@ include file="/common/jqui.jsp" %>
-	<%@ include file="/common/jqui2.jsp" %>	
+	<%@ include file="/common/jqui-dialog.jsp" %>	
 	
 	<script src="${ctx}/plu/jshash-2.2/sha1-min.js" type="text/javascript"></script>
 	
@@ -32,6 +31,9 @@
 		.none{
 			display: none;
 		}
+		.loginDiv{
+			margin-top: 30px;
+		}
 	</style>
 
     <script type="text/javascript">
@@ -40,7 +42,7 @@
     	$( "#loginDiv" ).dialog({
     		dialogClass: "no-close",
 			autoOpen: true,
-			position: ["center", 100],
+			position: ["center", 100], 
 			width: 410
 		});
     	$("#btn_login").click(function(){
@@ -69,7 +71,7 @@
 </head>
 <body>
 
-	<div id="loginDiv" title="考勤系统用户登录" class="none">
+	<div id="loginDiv" title="考勤系统用户登录" >
 		<form action="${ctx}/login" method="post">
 		<c:if test="${not empty message}">
 		<div class="div_block">

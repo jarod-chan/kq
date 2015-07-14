@@ -6,9 +6,8 @@
 <head>
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
-	<%@ include file="/common/include.jsp" %>	
-	<%@ include file="/common/jqui.jsp" %>	
-	<%@ include file="/common/jqui2.jsp" %>	
+	<%@ include file="/common/include.jsp" %>		
+	<%@ include file="/common/jqui-dialog.jsp" %>	
 
     <script type="text/javascript">
     $(function() {
