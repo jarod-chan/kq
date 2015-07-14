@@ -7,7 +7,7 @@
 	<%@ include file="/common/setting.jsp" %>
 	<%@ include file="/common/meta.jsp" %>
 	<%@ include file="/common/include.jsp" %>	
-	<%@ include file="/common/jqui-dialog.jsp" %>	
+	<%@ include file="/common/jqui-datepicker.jsp" %>	
 	<script type="text/javascript">
 	$(function(){
 		
@@ -38,6 +38,7 @@
 
 <body>
 <%@ include file="/script/fmttable.jsp" %>
+<%@ include file="/common/message.jsp" %>
 
 <form action="${ctx}/qingjia" method="post" >
 <input type="hidden" name="qingjiaId" value="${qingjia.id}"/>
