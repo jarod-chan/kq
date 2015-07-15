@@ -14,7 +14,7 @@
  	<script type="text/javascript">
 	    $(function() {
 	    	$('.btn_execute').click(function(){
-	    		var param=$(this).data('param'); alert(param);console.log(param); console.log(param.formKey) ;return;
+	    		var param=$(this).data('param');
 	    		$('<form/>',{action:'${ctx}/'+param.formKey,method:'get'})
 	    			.append($('<input/>',{type:'hidden',name:'taskId',value:param.taskId}))
 					.appendTo($("body"))
@@ -33,7 +33,7 @@
 <body>
 <div class="container">
 
-<h1>任务中心</h1>
+<h3>任务中心</h3>
 <%@ include file="/common/message.jsp" %>
 <table class="table table-striped table-bordered">
 	<thead>
