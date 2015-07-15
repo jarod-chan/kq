@@ -6,15 +6,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="/common/setting.jsp" %>
-	<%@ include file="/common/meta.jsp" %>
-	<%@ include file="/common/include.jsp" %>
-	<%@ include file="/common/jqui-dialog.jsp" %>	
+	<%@ include file="/common/setting.jsp" %> 
+	<%-- <%@ include file="/common/meta.jsp" %> --%>
+<%-- 	<%@ include file="/common/include.jsp" %>
+	<%@ include file="/common/jqui-dialog.jsp" %>	 --%>
 	
  	<script type="text/javascript">
 	    $(function() {
 	    	$('.btn_execute').click(function(){
-	    		var param=$(this).metadata();
+	    		var param=$(this).data('param'); alert(param);console.log(param); console.log(param.formKey) ;return;
 	    		$('<form/>',{action:'${ctx}/'+param.formKey,method:'get'})
 	    			.append($('<input/>',{type:'hidden',name:'taskId',value:param.taskId}))
 					.appendTo($("body"))
@@ -31,9 +31,11 @@
 <c:set target="${pagefunc}" property="url" value="${ctx}/process/task" />
 
 <body>
-<%@ include file="/common/message.jsp" %>		
+<div class="container">
 
-<table  class="hctable deftable col-12" >
+<h1>任务中心</h1>
+<%@ include file="/common/message.jsp" %>
+<table class="table table-striped table-bordered">
 	<thead>
 		<tr>
 			<th>业务流程</th>
@@ -45,25 +47,23 @@
 	</thead>
 	<tbody>
 		<c:forEach var="processTask" items="${processTaskList}">
-		<tr>
-			<td>${processTask.processName}</td>
-			<td>${processTask.businessNo}</td>
-			<td>${processTask.taskName}</td>
-			<td>${processTask.businessTitle}</td>
-			<td>
-				<button class="btn_execute {taskId:'${processTask.taskId }',formKey:'${processTask.formKey}',businessId:'${processTask.businessId}'}" >处理</button>
-				<button class="btn_trace {executionId:'${processTask.executionId}'}" >流程跟踪</button>
-			</td>
-		</tr>
-	</c:forEach>
-</tbody>
+			<tr>
+				<td>${processTask.processName}</td>
+				<td>${processTask.businessNo}</td>
+				<td>${processTask.taskName}</td>
+				<td>${processTask.businessTitle}</td>
+				<td>
+					<button class="btn btn-sm btn-primary btn_execute" data-param='{"taskId":"${processTask.taskId }","formKey":"${processTask.formKey}","businessId":"${processTask.businessId}"}' >处理</button>
+					<button class="btn btn-sm btn-primary btn_trace {executionId:'${processTask.executionId}'}" >流程跟踪</button>
+				</td>
+			</tr>
+		</c:forEach>
+	</tbody>	
 </table>
-<c:if test="${empty processTaskList}">		
-<c:set var="nodate_cls" value="coemp-12"/>
-<%@ include file="/common/emp-context.jsp" %>
-</c:if>
 
-<%@ include file="/component/trace_process.jsp" %>
+</div>
+
+<%-- <%@ include file="/component/trace_process.jsp" %> --%>
 
 </body>
 </html>

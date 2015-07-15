@@ -1,97 +1,95 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
-<html>
-<head>
-	<%@ include file="/common/setting.jsp" %>
-	<%@ include file="/common/meta.jsp" %>
-	<%@ include file="/common/include.jsp" %>	
-	<%@ include file="/common/jqui-dialog.jsp" %>	
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
 	
-	<script src="${ctx}/plu/jshash-2.2/sha1-min.js" type="text/javascript"></script>
+	<!-- Bootstrap -->
+	<link href="${ctx}/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+	<link href="${ctx}/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">
 	
-	<style type="text/css">
-		.div_block{
-			text-align: center;
-			margin-top: 10px;
-		}	
-		
-		#message {
-			display:inline;
-			color: #FF0000;
-		}
-		
-		.no-close .ui-dialog-titlebar-close {
-		  display: none;
-		}
-		.span_btn{
-			margin-top: 5px;
-		}
-		.none{
-			display: none;
-		}
-		.loginDiv{
-			margin-top: 30px;
-		}
-	</style>
+	<script src="${ctx}/js/jquery.js" type="text/javascript"></script>
+	<script src="${ctx}/js/bootstrap.min.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-    $(function() {
-    	
-    	$( "#loginDiv" ).dialog({
-    		dialogClass: "no-close",
-			autoOpen: true,
-			position: ["center", 100], 
-			width: 410
-		});
-    	$("#btn_login").click(function(){
-			var actionFrom=$("form");
-			var p=$("#p").val();
-		 	$("#password").val(p); 
-			actionFrom.submit();
-		});
-    	
-    	$("#btn_forgetpwd").click(function(){
-			$.get("${ctx}/help/forgetpwd", function(data){
-			  $("#div_content").html(data);
-			});
-		});
+    <style type="text/css">
+	body { padding-top: 50px; }
+   </style>
 
-    	$("body").bind('keyup',function(event) {
-    		if(event.keyCode==13){
-    			var p=$("#p").val();
-    			$("#password").val(hex_sha1(hex_sha1(p)));
-    			$("form").submit();
-    		}   
-    	}); 
-    	
-    });
-    </script>
-</head>
-<body>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+   <!-- Static navbar -->
+    <div class="navbar navbar-default navbar-static-top navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">考勤系统</a>
+        </div>
 
-	<div id="loginDiv" title="考勤系统用户登录" class="none" >
-		<form action="${ctx}/login" method="post">
-		<c:if test="${not empty message}">
-		<div class="div_block">
-				<div id="message">${message}</div>
+      </div>
+    </div>
+
+	<div class="container" style="margin-top: 30px">
+		<div class="col-md-4 col-md-offset-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<strong>用户登录 </strong>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<form action="${ctx}/login" method="post">
+						<div class="form-group">
+							<label for="username">用户名</label> <input name="username"
+								class="form-control" placeholder="输入用户名">
+						</div>
+						<div class="form-group">
+							<label for="password">密码</label> <input name="password"
+								id="password" type="password" class="form-control"
+								placeholder="******">
+						</div>
+						<c:if test="${not empty message}">
+						<div class="alert alert-danger" role="alert">
+							<a class="close" data-dismiss="alert" href="#">×</a>${message}
+						</div>
+						</c:if>
+						<button type="submit" id="btn_login"class="btn btn-sm btn-primary">登录</button>
+						<button type="button" id="btn_forgetpwd" class="btn btn-sm btn-default">忘记密码</button>
+					</form>
+				</div>
+			</div>
 		</div>
-		</c:if>
-		<div class="div_block">
-			用&nbsp;&nbsp;&nbsp;&nbsp;户&nbsp;:&nbsp;<input type="text" id="username" name="username" value="${loginBean.username}" />
-		</div>
-		<div class="div_block">
-			密&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;:&nbsp;<input type="password" id="p"  value="" />
-			<input type="hidden" id="password" name="password" value="" />
-		</div>
-		<div class="div_block">
-			<button type="button" id="btn_login">登录系统</button>
-			<button type="button" id="btn_forgetpwd">忘记密码</button>
-		</div>
-		</form>
-		<div id="div_content"></div>
 	</div>
-		
-</body>
+	<script type="text/javascript">
+	 $(function() {    	
+	    	$("#btn_forgetpwd").click(function(){
+				$.get("${ctx}/help/forgetpwd", function(data){
+				  $("#btn_login").before(data);
+				});
+			});
+
+	    	$("body").bind('keyup',function(event) {
+	    		if(event.keyCode==13){
+	    			$("form").submit();
+	    		}   
+	    	}); 
+	    	
+	});
+	</script>
+  </body>
 </html>
