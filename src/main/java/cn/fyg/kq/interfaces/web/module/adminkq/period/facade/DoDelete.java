@@ -2,6 +2,7 @@ package cn.fyg.kq.interfaces.web.module.adminkq.period.facade;
 
 import java.util.List;
 
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -30,6 +31,8 @@ public class DoDelete {
 	RuntimeService runtimeService;
 	@Autowired
 	PdtaskService pdtaskService;
+	@Autowired
+	HistoryService historyService;
 	
 	
 	public void delete(Long periodId){
@@ -48,7 +51,11 @@ public class DoDelete {
 		for (Kaoqin kaoqin : kaoqinList) {
 			String processId = kaoqin.getProcessId();
 			if(processId!=null){
-				this.runtimeService.deleteProcessInstance(processId, "delete");
+				long count = this.runtimeService.createProcessInstanceQuery().processInstanceId(processId).count();
+				if(count>0){					
+					this.runtimeService.deleteProcessInstance(processId,null);
+				}
+				this.historyService.deleteHistoricProcessInstance(processId);
 			}
 			this.kaoqinService.delete(kaoqin.getId());
 		}
